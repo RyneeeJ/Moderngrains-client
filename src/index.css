@@ -7,3 +7,7 @@
     font-family: "Raleway", sans-serif;
   }
 }
+
+.active {
+  background-color: #e3ddc4;
+}
