@@ -5,6 +5,7 @@ function Homepage() {
   return (
     <div id="hero-section">
       <HeroImage />
+
       <RecommendedProducts />
     </div>
   );

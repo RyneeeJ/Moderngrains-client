@@ -4,14 +4,14 @@ import { useState } from "react";
 import QuantityCounter from "../../ui/QuantityCounter";
 
 function ProductListItem({ image, productName, price }) {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   function handleIncreaseQuantity() {
     setQuantity((count) => count + 1);
   }
 
   function handleDecreaseQuantity() {
-    if (!quantity) return;
+    if (quantity === 1) return;
     setQuantity((count) => count - 1);
   }
 

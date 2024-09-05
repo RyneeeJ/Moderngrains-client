@@ -6,14 +6,13 @@ import {
   PiUser,
 } from "react-icons/pi";
 
-import { scrollToTop } from "../utils/helpers";
 import NavLinkListItem from "./NavLinkListItem";
 
 function Navigation() {
   const iconClass = "size-5 xs:size-6 md:size-7";
   return (
     <ul className="flex h-full items-center sm:gap-2">
-      <NavLinkListItem to="/" onClick={scrollToTop}>
+      <NavLinkListItem to="/">
         <PiHouseLine className={iconClass} />
       </NavLinkListItem>
 
