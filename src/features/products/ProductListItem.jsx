@@ -19,19 +19,21 @@ function ProductListItem({ image, productName, price }) {
     <li>
       <div className="relative">
         <img
-          className="aspect-square rounded-md object-cover object-bottom"
+          className="xs:mb-2 aspect-square rounded-md object-cover object-bottom"
           src={image}
           alt={productName}
         />
-        <button className="absolute right-1 top-1 flex items-center justify-center rounded-full bg-zinc-800 p-1 hover:cursor-pointer">
-          <PiShoppingCartSimple className="text-amber-50" />
+        <button className="xs:p-1.5 absolute right-1 top-1 flex items-center justify-center rounded-full bg-zinc-800 p-1 hover:cursor-pointer">
+          <PiShoppingCartSimple className="xs:size-5 text-amber-50" />
         </button>
       </div>
 
-      <span className="text-sm">{productName}</span>
+      <span className="xs:text-base text-xs sm:text-lg">{productName}</span>
 
-      <div className="flex justify-between">
-        <span className="font-semibold">{formatCurrency(price)}</span>
+      <div className="flex items-center justify-between">
+        <span className="xs:text-lg text-sm font-semibold sm:text-xl">
+          {formatCurrency(price)}
+        </span>
         <QuantityCounter
           quantity={quantity}
           onIncrease={handleIncreaseQuantity}

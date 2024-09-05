@@ -1,16 +1,17 @@
 import { PiFacebookLogo, PiInstagramLogo, PiXLogo } from "react-icons/pi";
 
 function SocialMediaLinks() {
+  const iconClass = "xs:size-6 size-5 cursor-pointer sm:size-7";
   return (
     <ul className="flex gap-3">
       <li>
-        <PiFacebookLogo size={18} />
+        <PiFacebookLogo className={iconClass} />
       </li>
       <li>
-        <PiInstagramLogo size={18} />
+        <PiInstagramLogo className={iconClass} />
       </li>
       <li>
-        <PiXLogo size={18} />
+        <PiXLogo className={iconClass} />
       </li>
     </ul>
   );

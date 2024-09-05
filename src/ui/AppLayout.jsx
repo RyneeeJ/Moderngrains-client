@@ -8,7 +8,7 @@ function AppLayout() {
     <div>
       <Header />
 
-      <main className="mt-12">
+      <main className="xs:mt-14 mt-12 md:mt-16">
         <Outlet />
       </main>
 

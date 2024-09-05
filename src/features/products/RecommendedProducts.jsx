@@ -11,7 +11,7 @@ function RecommendedProducts() {
 
       <Link
         to="/products"
-        className="mb-4 mt-10 flex items-center justify-end gap-3 text-sm hover:underline"
+        className="xs:text-base mb-4 flex items-center justify-end gap-3 text-sm hover:underline md:mb-6 md:text-lg"
       >
         View all products{" "}
         <span className="inline-block">

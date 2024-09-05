@@ -5,26 +5,27 @@ import {
   PiStorefront,
   PiUser,
 } from "react-icons/pi";
-import { NavLink } from "react-router-dom";
+
 import { scrollToTop } from "../utils/helpers";
 import NavLinkListItem from "./NavLinkListItem";
 
 function Navigation() {
+  const iconClass = "size-5 xs:size-6 md:size-7";
   return (
-    <ul className="flex h-full items-center">
+    <ul className="flex h-full items-center sm:gap-2">
       <NavLinkListItem to="/" onClick={scrollToTop}>
-        <PiHouseLine size={18} />
+        <PiHouseLine className={iconClass} />
       </NavLinkListItem>
 
       <NavLinkListItem to="products">
-        <PiStorefront size={18} />
+        <PiStorefront className={iconClass} />
       </NavLinkListItem>
 
       <NavLinkListItem to="/account/cart">
-        <PiShoppingCartSimple size={18} />
+        <PiShoppingCartSimple className={iconClass} />
       </NavLinkListItem>
       <li>
-        <PiLineVertical />
+        <PiLineVertical className={iconClass} />
       </li>
 
       <NavLinkListItem to="/login">
@@ -32,7 +33,7 @@ function Navigation() {
       </NavLinkListItem>
 
       {/* <NavLinkListItem>
-        <PiUser size={18} />
+        <PiUser className={iconClass} />
       </NavLinkListItem> */}
     </ul>
   );

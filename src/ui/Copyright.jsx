@@ -2,7 +2,7 @@ import { PiCopyright } from "react-icons/pi";
 
 function Copyright() {
   return (
-    <div className="text-footerDark text-[8px] font-light">
+    <div className="xs:text-[10px] text-footerDarkFont text-[8px] font-light sm:text-[12px]">
       <p>
         Copyright{" "}
         <span>
