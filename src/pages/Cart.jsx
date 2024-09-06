@@ -1,5 +1,6 @@
 import CartList from "../features/cart/CartList";
 import DeleteCartButton from "../features/cart/DeleteCartButton";
+import TotalPrice from "../features/cart/TotalPrice";
 import Button from "../ui/Button";
 import OperationsContainer from "../ui/OperationsContainer";
 import Section from "../ui/Section";
@@ -15,6 +16,8 @@ function Cart() {
       </OperationsContainer>
 
       <CartList />
+
+      <TotalPrice />
     </Section>
   );
 }
