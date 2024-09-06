@@ -4,14 +4,14 @@ import SectionHeading from "../../ui/SectionHeading";
 import { PiArrowRight } from "react-icons/pi";
 import ProductList from "./ProductList";
 
-function RecommendedProducts() {
+function BestSellers() {
   return (
     <Section>
-      <SectionHeading>Recommended for you</SectionHeading>
+      <SectionHeading>Our Best Sellers</SectionHeading>
 
       <Link
         to="/products"
-        className="xs:text-base mb-4 flex items-center justify-end gap-3 text-sm hover:underline md:mb-6 md:text-lg"
+        className="mb-4 flex items-center justify-end gap-3 text-sm hover:underline xs:text-base md:mb-6 md:text-lg"
       >
         View all products{" "}
         <span className="inline-block">
@@ -24,4 +24,4 @@ function RecommendedProducts() {
   );
 }
 
-export default RecommendedProducts;
+export default BestSellers;
