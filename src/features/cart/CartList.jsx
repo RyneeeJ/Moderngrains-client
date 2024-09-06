@@ -1,5 +1,10 @@
+const fakeCart = [
+  {
+    productName: "Urban Sleek Sofa",
+  },
+];
 function CartList() {
-  return <div></div>;
+  return <ul>Cart List</ul>;
 }
 
 export default CartList;

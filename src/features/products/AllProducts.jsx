@@ -1,7 +1,3 @@
-import { Link } from "react-router-dom";
-import Section from "../../ui/Section";
-import SectionHeading from "../../ui/SectionHeading";
-import { PiArrowRight } from "react-icons/pi";
 import ProductList from "./ProductList";
 
 import sofa1 from "../../data/sofa1.jpg";
@@ -9,7 +5,7 @@ import wardrobe1 from "../../data/wardrobe1.jpg";
 import chair1 from "../../data/chair1.jpg";
 import table1 from "../../data/table1.jpg";
 
-const fakeBestSellers = [
+const fakeProducts = [
   {
     productName: "Urban Sleek Sofa",
     price: 20_999,
@@ -47,25 +43,8 @@ const fakeBestSellers = [
     id: 6,
   },
 ];
-
-function BestSellers() {
-  return (
-    <Section>
-      <SectionHeading>Our Best Sellers</SectionHeading>
-
-      <Link
-        to="/products"
-        className="mb-4 flex items-center justify-end gap-3 text-sm hover:underline xs:text-base md:mb-6 md:text-lg"
-      >
-        View all products{" "}
-        <span className="inline-block">
-          <PiArrowRight />
-        </span>
-      </Link>
-
-      <ProductList productsArr={fakeBestSellers} />
-    </Section>
-  );
+function AllProducts() {
+  return <ProductList productsArr={fakeProducts} />;
 }
 
-export default BestSellers;
+export default AllProducts;

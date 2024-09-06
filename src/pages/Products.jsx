@@ -1,5 +1,6 @@
+import AllProducts from "../features/products/AllProducts";
 import ProductFilter from "../features/products/ProductFilter";
-import ProductList from "../features/products/ProductList";
+
 import ProductSort from "../features/products/ProductSort";
 import OperationsContainer from "../ui/OperationsContainer";
 import Section from "../ui/Section";
@@ -14,7 +15,7 @@ function Products() {
         <ProductFilter />
         <ProductSort />
       </OperationsContainer>
-      <ProductList />
+      <AllProducts />
     </Section>
   );
 }
