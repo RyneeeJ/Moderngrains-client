@@ -23,17 +23,17 @@ function Navigation() {
       <NavLinkListItem to="/account/cart">
         <PiShoppingCartSimple className={iconClass} />
       </NavLinkListItem>
-      <li>
+      {/* <li>
         <PiLineVertical className={iconClass} />
       </li>
 
       <NavLinkListItem to="/login">
         <span className="text-xs">Log in</span>
-      </NavLinkListItem>
-
-      {/* <NavLinkListItem>
-        <PiUser className={iconClass} />
       </NavLinkListItem> */}
+
+      <NavLinkListItem to="/account/profile">
+        <PiUser className={iconClass} />
+      </NavLinkListItem>
     </ul>
   );
 }

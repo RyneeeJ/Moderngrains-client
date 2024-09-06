@@ -2,7 +2,9 @@ import CartList from "../features/cart/CartList";
 import CheckoutButton from "../features/cart/CheckoutButton";
 import DeleteCartButton from "../features/cart/DeleteCartButton";
 import TotalPrice from "../features/cart/TotalPrice";
-import PaymentMethod from "../features/payment/PaymentMethod";
+
+import PaymentMethodButton from "../features/payment/PaymentMethodButton";
+import ProfileDetailsContainer from "../features/profile/ProfileDetailsContainer";
 
 import OperationsContainer from "../ui/OperationsContainer";
 import Section from "../ui/Section";
@@ -19,7 +21,9 @@ function Cart() {
 
       <CartList />
 
-      <PaymentMethod />
+      <ProfileDetailsContainer label="Select Payment Method">
+        <PaymentMethodButton />
+      </ProfileDetailsContainer>
 
       <div className="flex items-center justify-between">
         <TotalPrice />
