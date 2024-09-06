@@ -1,5 +1,19 @@
+import DeleteCartButton from "../features/cart/DeleteCartButton";
+import Button from "../ui/Button";
+import OperationsContainer from "../ui/OperationsContainer";
+import Section from "../ui/Section";
+import SectionHeading from "../ui/SectionHeading";
+
 function Cart() {
-  return <div>CART</div>;
+  return (
+    <Section>
+      <SectionHeading>My Cart</SectionHeading>
+
+      <OperationsContainer>
+        <DeleteCartButton />
+      </OperationsContainer>
+    </Section>
+  );
 }
 
 export default Cart;
