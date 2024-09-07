@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import PaymentMethod from "./pages/PaymentMethod";
+import PurchaseHistory from "./pages/PurchaseHistory";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
           <Route path="/account/cart" element={<Cart />} />
           <Route path="/account/profile" element={<Profile />} />
           <Route path="/account/payment-method" element={<PaymentMethod />} />
+          <Route
+            path="/account/purchase-history"
+            element={<PurchaseHistory />}
+          />
           <Route path="/login" element={<Login />} />
         </Route>
       </Routes>

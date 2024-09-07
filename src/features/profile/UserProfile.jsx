@@ -34,6 +34,7 @@ function UserProfile() {
           <PaymentMethodButton />
         </ProfileDetailsContainer>
       </div>
+
       <Button type="purchase-history">View Purchase History</Button>
     </div>
   );
