@@ -18,9 +18,12 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/account/cart" element={<Cart />} />
           <Route path="/account/profile" element={<Profile />} />
-          <Route path="/account/payment-method" element={<PaymentMethod />} />
           <Route
-            path="/account/purchase-history"
+            path="/account/profile/payment-method"
+            element={<PaymentMethod />}
+          />
+          <Route
+            path="/account/profile/purchase-history"
             element={<PurchaseHistory />}
           />
           <Route path="/login" element={<Login />} />

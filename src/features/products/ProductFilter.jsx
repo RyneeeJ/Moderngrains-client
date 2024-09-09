@@ -1,4 +1,5 @@
 import Select from "../../ui/Select";
+import { useFilter } from "./useFilter";
 
 function ProductFilter() {
   const optionsArr = [
@@ -8,7 +9,9 @@ function ProductFilter() {
     { name: "Sofa", value: "sofa" },
     { name: "Wardrobe", value: "wardrobe" },
   ];
-  return <Select optionsArr={optionsArr} />;
+
+  const { handleClick: handleChange } = useFilter("category", optionsArr);
+  return <Select optionsArr={optionsArr} handleChange={handleChange} />;
 }
 
 export default ProductFilter;
