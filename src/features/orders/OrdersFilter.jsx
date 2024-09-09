@@ -1,5 +1,5 @@
+import { useFilterSort } from "../../hooks/useFilterSort";
 import OrdersFilterButton from "./OrdersFilterButton";
-import { useFilterSort } from "./useFilterSort";
 
 const options = [
   {

@@ -1,4 +1,5 @@
-import OrdersFilter from "../features/products/OrdersFilter";
+import OrdersFilter from "../features/orders/OrdersFilter";
+import OrdersList from "../features/orders/OrdersList";
 import OperationsContainer from "../ui/OperationsContainer";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
@@ -11,6 +12,8 @@ function PurchaseHistory() {
       <OperationsContainer>
         <OrdersFilter />
       </OperationsContainer>
+
+      <OrdersList />
     </Section>
   );
 }

@@ -1,5 +1,5 @@
 import Select from "../../ui/Select";
-import { useFilterSort } from "./useFilterSort";
+import { useFilterSort } from "../../hooks/useFilterSort";
 
 function ProductFilter() {
   const optionsArr = [

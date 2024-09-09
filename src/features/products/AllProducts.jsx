@@ -5,6 +5,7 @@ import wardrobe1 from "../../data/wardrobe1.jpg";
 import chair1 from "../../data/chair1.jpg";
 import table1 from "../../data/table1.jpg";
 
+// This component might not be needed later
 const fakeProducts = [
   {
     productName: "Urban Sleek Sofa",
