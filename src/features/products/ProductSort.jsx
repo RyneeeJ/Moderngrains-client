@@ -1,5 +1,5 @@
 import Select from "../../ui/Select";
-import { useFilter } from "./useFilter";
+import { useFilterSort } from "./useFilterSort";
 
 function ProductSort() {
   const optionsArr = [
@@ -7,7 +7,7 @@ function ProductSort() {
     { name: "High to low price", value: "price-desc" },
   ];
 
-  const { handleClick: handleChange } = useFilter("sortBy", optionsArr);
+  const { handleClick: handleChange } = useFilterSort("sortBy", optionsArr);
   return <Select optionsArr={optionsArr} handleChange={handleChange} />;
 }
 

@@ -1,5 +1,5 @@
 import OrdersFilterButton from "./OrdersFilterButton";
-import { useFilter } from "./useFilter";
+import { useFilterSort } from "./useFilterSort";
 
 const options = [
   {
@@ -17,7 +17,7 @@ const options = [
 ];
 
 function OrdersFilter() {
-  const { handleClick, currentFilter } = useFilter("orders", options);
+  const { handleClick, currentFilter } = useFilterSort("orders", options);
   return (
     <div className="rounded-md bg-yellow-600 bg-opacity-45 p-1 text-sm">
       {options.map((option) => (

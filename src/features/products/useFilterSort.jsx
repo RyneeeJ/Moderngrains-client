@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-export function useFilter(filterName, options) {
+export function useFilterSort(filterName, options) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterName) || options.at(0).value;
 

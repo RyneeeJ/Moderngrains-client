@@ -1,5 +1,5 @@
 import Select from "../../ui/Select";
-import { useFilter } from "./useFilter";
+import { useFilterSort } from "./useFilterSort";
 
 function ProductFilter() {
   const optionsArr = [
@@ -10,7 +10,7 @@ function ProductFilter() {
     { name: "Wardrobe", value: "wardrobe" },
   ];
 
-  const { handleClick: handleChange } = useFilter("category", optionsArr);
+  const { handleClick: handleChange } = useFilterSort("category", optionsArr);
   return <Select optionsArr={optionsArr} handleChange={handleChange} />;
 }
 
