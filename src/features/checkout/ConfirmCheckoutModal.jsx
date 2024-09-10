@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import ConfirmProductList from "./ConfirmProductList";
 import ConfirmCheckoutLabel from "./ConfirmCheckoutLabel";
 
@@ -19,53 +18,39 @@ const fakeCheckout = [
   },
 ];
 
-const ConfirmCheckoutModal = forwardRef(function ConfirmCheckoutModal(
-  { onCloseModal },
-  ref,
-) {
+function ConfirmCheckoutModal() {
   const totalPrice = fakeCheckout.reduce((acc, item) => acc + item.price, 0);
   return (
-    <dialog ref={ref} className="bg-transparent backdrop:backdrop-blur-md">
-      <div className="relative h-full w-full rounded-md bg-lime-950 px-10 py-5 text-center text-amber-50 sm:px-16 sm:py-8">
-        <h2 className="mb-2 font-semibold uppercase tracking-wide sm:text-lg">
-          Confirm Checkout
-        </h2>
+    <>
+      <h2 className="mb-2 font-semibold uppercase tracking-wide sm:text-lg">
+        Confirm Checkout
+      </h2>
 
-        <div className="mb-5 space-y-4 sm:mb-7 sm:space-y-5">
-          <div>
-            <ConfirmCheckoutLabel>Items:</ConfirmCheckoutLabel>
-            <ConfirmProductList fakeCheckout={fakeCheckout} />
-          </div>
-          <div>
-            <ConfirmCheckoutLabel>Total Price:</ConfirmCheckoutLabel>
-            <div className="text-lg font-semibold sm:text-xl">
-              {formatCurrency(totalPrice)}
-            </div>
-          </div>
-          <div>
-            <ConfirmCheckoutLabel>Payment Method:</ConfirmCheckoutLabel>
-            <div className="font-semibold sm:text-lg">
-              Cash on Delivery (COD)
-            </div>
+      <div className="mb-5 space-y-4 sm:mb-7 sm:space-y-5">
+        <div>
+          <ConfirmCheckoutLabel>Items:</ConfirmCheckoutLabel>
+          <ConfirmProductList fakeCheckout={fakeCheckout} />
+        </div>
+        <div>
+          <ConfirmCheckoutLabel>Total Price:</ConfirmCheckoutLabel>
+          <div className="text-lg font-semibold sm:text-xl">
+            {formatCurrency(totalPrice)}
           </div>
         </div>
-
-        <button
-          className="rounded-full bg-amber-50 px-6 py-2 font-bold text-lime-950 focus:ring focus:ring-lime-600 sm:px-10 sm:py-3 sm:text-lg"
-          autoFocus
-        >
-          Place Order
-        </button>
-
-        <button
-          className="rounded-ful absolute right-2 top-2 overflow-hidden"
-          onClick={onCloseModal}
-        >
-          <PiX className="size-5 sm:size-6" />
-        </button>
+        <div>
+          <ConfirmCheckoutLabel>Payment Method:</ConfirmCheckoutLabel>
+          <div className="font-semibold sm:text-lg">Cash on Delivery (COD)</div>
+        </div>
       </div>
-    </dialog>
+
+      <button
+        className="rounded-full bg-amber-50 px-6 py-2 font-bold text-lime-950 focus:ring focus:ring-lime-600 sm:px-10 sm:py-3 sm:text-lg"
+        autoFocus
+      >
+        Place Order
+      </button>
+    </>
   );
-});
+}
 
 export default ConfirmCheckoutModal;

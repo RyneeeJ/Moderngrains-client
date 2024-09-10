@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 
 import CheckoutButton from "./CheckoutButton";
 import ConfirmCheckoutModal from "./ConfirmCheckoutModal";
+import Modal from "../../ui/Modal";
 
 function Checkout() {
   const modalEl = useRef();
@@ -30,7 +31,9 @@ function Checkout() {
     <>
       <CheckoutButton onClick={handleOpenModal} />
       {createPortal(
-        <ConfirmCheckoutModal onCloseModal={handleCloseModal} ref={modalEl} />,
+        <Modal onCloseModal={handleCloseModal} ref={modalEl}>
+          <ConfirmCheckoutModal />
+        </Modal>,
         document.body,
       )}
     </>
