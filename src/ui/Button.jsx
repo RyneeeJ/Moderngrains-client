@@ -24,6 +24,7 @@ function Button({ type, children, className, ...props }) {
   if (type === "checkout")
     return (
       <button
+        {...props}
         className={
           "px-4 text-sm font-semibold xs:px-6 xs:py-3 xs:text-base sm:text-xl md:px-8 md:py-4 md:font-bold" +
           primaryBtnClass

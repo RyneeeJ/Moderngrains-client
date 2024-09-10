@@ -4,7 +4,7 @@ function OrdersFilterButton({ children, onClick, currentFilter, value }) {
   return (
     <button
       onClick={onClick}
-      className={`rounded-md px-2 py-0.5 text-xs transition-all duration-150 hover:bg-yellow-700 hover:text-amber-50 sm:text-sm ${currentFilter === value ? activeClass : ""}`}
+      className={`rounded-md px-2 py-0.5 text-xs transition-all duration-150 hover:bg-yellow-700 hover:text-amber-50 sm:text-sm md:text-base ${currentFilter === value ? activeClass : ""}`}
     >
       {children}
     </button>

@@ -19,18 +19,20 @@ function CartListItem({ product }) {
       </div>
 
       <div className="flex grow rounded-md bg-neutral-200">
-        <div className="basis-1/3">
+        <div className="basis-1/3 xs:max-w-56 md:max-w-32">
           <img
             src={image}
             className="aspect-square h-full rounded-md object-cover object-bottom"
           />
         </div>
-        <div className="flex grow flex-col gap-1 p-3 xs:gap-1.5 xs:p-5 sm:gap-3 sm:p-7">
-          <div className="text-sm xs:text-base sm:text-xl">{name}</div>
-          <div className="text-lg font-semibold text-zinc-800 xs:text-xl sm:text-2xl">
+        <div className="flex grow flex-col gap-1 p-3 xs:gap-1.5 xs:p-5 sm:gap-3 sm:p-7 md:grid md:grid-cols-2 md:px-10">
+          <div className="text-sm xs:text-base sm:text-xl md:text-2xl">
+            {name}
+          </div>
+          <div className="text-lg font-semibold text-zinc-800 xs:text-xl sm:text-2xl md:row-start-2 md:text-3xl">
             {formatCurrency(price)}
           </div>
-          <div className="mt-auto flex items-center gap-2">
+          <div className="mt-auto flex items-center gap-2 md:mt-0">
             <span className="text-sm sm:text-lg">Quantity: </span>
             <QuantityCounter quantity={quantity} />
           </div>
