@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import CheckoutButton from "./CheckoutButton";
 import ConfirmCheckoutModal from "./ConfirmCheckoutModal";
 import Modal from "../../ui/Modal";
+import OrderPlacedModal from "../orders/OrderPlacedModal";
 
 function Checkout() {
   const modalEl = useRef();
@@ -32,7 +33,8 @@ function Checkout() {
       <CheckoutButton onClick={handleOpenModal} />
       {createPortal(
         <Modal onCloseModal={handleCloseModal} ref={modalEl}>
-          <ConfirmCheckoutModal />
+          {/* <ConfirmCheckoutModal /> */}
+          <OrderPlacedModal />
         </Modal>,
         document.body,
       )}
