@@ -33,7 +33,9 @@ export default [
         "warn",
         { allowConstantExport: true },
       ],
-      "css.lint.unknownAtRules": "ignore",
+      "no-unused-vars": "warn",
+      "react/prop-types": "disabled",
+      // "css.lint.unknownAtRules": "ignore",
     },
   },
 ];

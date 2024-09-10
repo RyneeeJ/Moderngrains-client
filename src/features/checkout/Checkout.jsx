@@ -7,25 +7,24 @@ import ConfirmCheckoutModal from "./ConfirmCheckoutModal";
 function Checkout() {
   const modalEl = useRef();
 
-  function handleOutsideClick(e) {
-    if (modalEl?.current && modalEl.current === e.target)
-      modalEl.current.close();
-  }
-
   useEffect(function () {
+    function handleOutsideClick(e) {
+      if (modalEl?.current && modalEl.current === e.target)
+        modalEl.current.close();
+    }
+
     document.addEventListener("click", handleOutsideClick);
 
     return () => document.removeEventListener("click", handleOutsideClick);
   }, []);
+
+  function handleOpenModal() {
+    modalEl.current.showModal();
+  }
+
   return (
     <>
-      <CheckoutButton
-        onClick={(e) => {
-          e.stopPropagation();
-          modalEl.current.showModal();
-          console.log("clicked inside");
-        }}
-      />
+      <CheckoutButton onClick={handleOpenModal} />
       {createPortal(<ConfirmCheckoutModal ref={modalEl} />, document.body)}
     </>
   );
