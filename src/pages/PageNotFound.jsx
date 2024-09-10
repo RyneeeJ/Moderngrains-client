@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 function PageNotFound() {
   const navigate = useNavigate();
   return (
-    <div className="mx-auto flex h-screen max-w-96 flex-col items-center justify-center gap-14 px-10 text-center">
+    <div className="mx-auto flex h-screen flex-col items-center justify-center gap-14 px-10 text-center">
       <div className="text-3xl">The page you requested could not be found.</div>
       <button
         onClick={() => navigate(-1)}
