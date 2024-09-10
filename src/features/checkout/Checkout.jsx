@@ -18,6 +18,10 @@ function Checkout() {
     return () => document.removeEventListener("click", handleOutsideClick);
   }, []);
 
+  function handleCloseModal() {
+    modalEl.current.close();
+  }
+
   function handleOpenModal() {
     modalEl.current.showModal();
   }
@@ -25,7 +29,10 @@ function Checkout() {
   return (
     <>
       <CheckoutButton onClick={handleOpenModal} />
-      {createPortal(<ConfirmCheckoutModal ref={modalEl} />, document.body)}
+      {createPortal(
+        <ConfirmCheckoutModal onCloseModal={handleCloseModal} ref={modalEl} />,
+        document.body,
+      )}
     </>
   );
 }

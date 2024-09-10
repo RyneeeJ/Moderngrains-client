@@ -1,24 +1,15 @@
 import ConfirmProductListItem from "./ConfirmProductListItem";
 
-function ConfirmProductList() {
-  const fakeCheckout = [
-    {
-      productName: "Urban Sleek Sofa",
-      quantity: 2,
-      price: 20_999,
-      id: 1,
-    },
-    {
-      productName: "Modern Black Chair",
-      quantity: 4,
-      price: 16_999,
-      id: 2,
-    },
-  ];
+function ConfirmProductList({ fakeCheckout }) {
   return (
     <ul>
       {fakeCheckout.map((product) => (
-        <ConfirmProductListItem product={product} key={product.id} />
+        <ConfirmProductListItem
+          product={product}
+          key={product.id}
+          productName={product.productName}
+          quantity={product.quantity}
+        />
       ))}
     </ul>
   );
