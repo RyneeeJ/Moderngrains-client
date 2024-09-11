@@ -5,7 +5,7 @@ function ProductList({ productsArr }) {
     <ul className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 md:gap-y-8">
       {productsArr.map((item) => (
         <ProductListItem
-          productName={item.productName}
+          productName={item.name}
           price={item.price}
           image={item.image}
           key={item.id}
