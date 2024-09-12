@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getProducts } from "../../services/apiProducts";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export function useProducts() {
+  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
   // FILTER
@@ -17,22 +19,36 @@ export function useProducts() {
   // SORT
   // 1. Get initial sort value, if there is none, set to price-asc
   const initialSortBy = searchParams.get("sortBy") || "price-asc";
-  //
   const [field, direction] = initialSortBy.split("-");
   const sortBy = { field, direction };
 
   // PAGINATION
+  const page = Number(searchParams.get("page")) || 1;
 
   // QUERY
   const {
-    data: products,
+    data: { data: products, count } = {},
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products", filter, sortBy],
-    queryFn: () => getProducts({ filter, sortBy }),
+    queryKey: ["products", filter, sortBy, page],
+    queryFn: () => getProducts({ filter, sortBy, page }),
   });
 
   // PRE-FETCH to avoid loading screen
-  return { isLoading, products, error };
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+
+  // prefetch previous page when page count is less than
+  if (page < pageCount)
+    queryClient.prefetchQuery({
+      queryKey: ["products", filter, sortBy, page + 1],
+      queryFn: () => getProducts({ filter, sortBy, page: page + 1 }),
+    });
+
+  if (page > 1)
+    queryClient.prefetchQuery({
+      queryKey: ["products", filter, sortBy, page - 1],
+      queryFn: () => getProducts({ filter, sortBy, page: page - 1 }),
+    });
+  return { isLoading, products, error, count };
 }

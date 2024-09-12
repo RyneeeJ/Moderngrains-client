@@ -1,7 +1,10 @@
+import { PAGE_SIZE } from "../utils/constants";
 import supabase from "./supabase";
 
-export async function getProducts({ filter, sortBy }) {
-  let query = supabase.from("products").select("id, name, price, image");
+export async function getProducts({ filter, sortBy, page }) {
+  let query = supabase
+    .from("products")
+    .select("id, name, price, image", { count: "exact" });
   // 1. FILTER
 
   if (filter) query = query.eq("category", filter.value);
@@ -14,13 +17,19 @@ export async function getProducts({ filter, sortBy }) {
 
   // 3. PAGINATE
 
-  const { data, error } = await query;
+  if (page) {
+    const from = page * PAGE_SIZE - PAGE_SIZE;
+    const to = page * PAGE_SIZE - 1;
+
+    query = query.range(from, to);
+  }
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.error(error.message);
     throw new Error("There was a problem fetching the products");
   }
 
-  console.log(data);
-  return data;
+  return { data, count };
 }

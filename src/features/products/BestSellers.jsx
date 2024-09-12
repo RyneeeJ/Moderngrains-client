@@ -12,37 +12,37 @@ import { scrollToTop } from "../../utils/helpers";
 
 const fakeBestSellers = [
   {
-    productName: "Urban Sleek Sofa",
+    name: "Urban Sleek Sofa",
     price: 20_999,
     image: sofa1,
     id: 1,
   },
   {
-    productName: "Wooden Wardrobe",
+    name: "Wooden Wardrobe",
     price: 35_999,
     image: wardrobe1,
     id: 2,
   },
   {
-    productName: "Black Leather Chair",
+    name: "Black Leather Chair",
     price: 8_999,
     image: chair1,
     id: 3,
   },
   {
-    productName: "Modern Bedside Table",
+    name: "Modern Bedside Table",
     price: 10_999,
     image: table1,
     id: 4,
   },
   {
-    productName: "Urban Sleek Sofa",
+    name: "Urban Sleek Sofa",
     price: 20_999,
     image: sofa1,
     id: 5,
   },
   {
-    productName: "Wooden Wardrobe",
+    name: "Wooden Wardrobe",
     price: 35_999,
     image: wardrobe1,
     id: 6,

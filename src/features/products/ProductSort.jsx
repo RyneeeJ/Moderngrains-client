@@ -7,8 +7,15 @@ function ProductSort() {
     { name: "High to low price", value: "price-desc" },
   ];
 
-  const { handleClick: handleChange } = useFilterSort("sortBy", optionsArr);
-  return <Select optionsArr={optionsArr} handleChange={handleChange} />;
+  const { handleClick: handleChange, currentFilter: currentSort } =
+    useFilterSort("sortBy", optionsArr);
+  return (
+    <Select
+      optionsArr={optionsArr}
+      curValue={currentSort}
+      handleChange={handleChange}
+    />
+  );
 }
 
 export default ProductSort;
