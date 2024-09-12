@@ -8,6 +8,7 @@ import sofa1 from "../../data/sofa1.jpg";
 import wardrobe1 from "../../data/wardrobe1.jpg";
 import chair1 from "../../data/chair1.jpg";
 import table1 from "../../data/table1.jpg";
+import { scrollToTop } from "../../utils/helpers";
 
 const fakeBestSellers = [
   {
@@ -53,15 +54,17 @@ function BestSellers() {
     <Section>
       <SectionHeading>Our Best Sellers</SectionHeading>
 
-      <Link
-        to="/products"
-        className="mb-4 flex items-center justify-end gap-3 text-sm hover:underline xs:text-base md:mb-6 md:text-lg"
-      >
-        View all products{" "}
-        <span className="inline-block">
-          <PiArrowRight />
-        </span>
-      </Link>
+      <div onClick={scrollToTop}>
+        <Link
+          to="/products"
+          className="mb-4 flex items-center justify-end gap-3 text-sm hover:underline xs:text-base md:mb-6 md:text-lg"
+        >
+          View all products{" "}
+          <span className="inline-block">
+            <PiArrowRight />
+          </span>
+        </Link>
+      </div>
 
       <ProductList productsArr={fakeBestSellers} />
     </Section>
