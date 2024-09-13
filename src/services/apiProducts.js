@@ -5,8 +5,8 @@ export async function getProducts({ filter, sortBy, page }) {
   let query = supabase
     .from("products")
     .select("id, name, price, image", { count: "exact" });
-  // 1. FILTER
 
+  // 1. FILTER
   if (filter) query = query.eq("category", filter.value);
 
   // 2. SORT
@@ -16,11 +16,9 @@ export async function getProducts({ filter, sortBy, page }) {
     });
 
   // 3. PAGINATE
-
   if (page) {
     const from = page * PAGE_SIZE - PAGE_SIZE;
     const to = page * PAGE_SIZE - 1;
-
     query = query.range(from, to);
   }
 
@@ -32,4 +30,18 @@ export async function getProducts({ filter, sortBy, page }) {
   }
 
   return { data, count };
+}
+
+export async function getBestSellers() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("id, name, price, image")
+    .eq("isBestSeller", true);
+
+  if (error) {
+    console.error(error.message);
+    throw new Error("There was a problem fetching the products");
+  }
+
+  return data;
 }
