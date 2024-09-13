@@ -1,8 +1,9 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../utils/constants";
 
 function Pagination({ count }) {
   const [searchParams, setSearchParams] = useSearchParams();
+
   // Read current page first
   const currentPage = searchParams.get("page") || 1;
   const currentPageNum = Number(currentPage);
