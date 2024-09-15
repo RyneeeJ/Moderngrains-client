@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { updateCart } from "../../services/apiProducts";
+import { updateCart } from "../../services/apiCart";
 import toast from "react-hot-toast";
 
 export function useAddToCart() {
