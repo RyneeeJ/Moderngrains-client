@@ -1,9 +1,10 @@
-import { PiShoppingCartSimple } from "react-icons/pi";
 import { formatCurrency } from "../../utils/helpers";
 import { useState } from "react";
 import QuantityCounter from "../../ui/QuantityCounter";
+import AddToCartButton from "../../ui/AddToCartButton";
 
-function ProductListItem({ image, productName, price }) {
+function ProductListItem({ item }) {
+  const { name: productName, id, image, price } = item;
   const [quantity, setQuantity] = useState(1);
 
   function handleIncreaseQuantity() {
@@ -24,9 +25,12 @@ function ProductListItem({ image, productName, price }) {
           src={image}
           alt={`Photo of ${productName}`}
         />
-        <button className="absolute right-1 top-1 flex items-center justify-center rounded-full bg-zinc-800 p-1 hover:cursor-pointer xs:p-1.5">
-          <PiShoppingCartSimple className="text-amber-50 xs:size-5" />
-        </button>
+        <AddToCartButton
+          setQuantity={setQuantity}
+          quantity={quantity}
+          productId={id}
+          name={productName}
+        />
       </div>
 
       <span className="text-xs xs:text-base sm:text-lg">{productName}</span>
