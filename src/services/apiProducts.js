@@ -1,8 +1,9 @@
 import { PAGE_SIZE } from "../utils/constants";
+import { getCartItems } from "./apiCart";
 
 import supabase from "./supabase";
 
-export async function getProducts({ filter, sortBy, page }) {
+export async function getAllProducts({ filter, sortBy, page }) {
   let query = supabase
     .from("products")
     .select("id, name, price, image", { count: "exact" });

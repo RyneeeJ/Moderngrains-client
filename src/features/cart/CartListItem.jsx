@@ -5,7 +5,7 @@ import { PiX } from "react-icons/pi";
 function CartListItem({ product }) {
   const [itemConfirmed, setItemConfirmed] = useState(false);
 
-  const { productName: name, quantity, image, price } = product;
+  const { name, quantity, image, price } = product;
 
   return (
     <li className="relative flex">
@@ -18,11 +18,11 @@ function CartListItem({ product }) {
         />
       </div>
 
-      <div className="flex grow rounded-md bg-neutral-200">
+      <div className="flex grow rounded-lg border border-yellow-700 bg-lime-50">
         <div className="basis-1/3 xs:max-w-56 md:max-w-32">
           <img
             src={image}
-            className="aspect-square h-full rounded-md object-cover object-bottom"
+            className="aspect-square h-full rounded-md border-r border-yellow-700 object-cover object-bottom"
           />
         </div>
         <div className="flex grow flex-col gap-1 p-3 xs:gap-1.5 xs:p-5 sm:gap-3 sm:p-7 md:grid md:grid-cols-2 md:px-10">

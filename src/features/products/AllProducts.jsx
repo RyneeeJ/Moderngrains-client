@@ -1,11 +1,10 @@
 import Pagination from "../../ui/Pagination";
 import { useLogin } from "../authentication/useLogin";
 import ProductList from "./ProductList";
-
-import { useProducts } from "./useProducts";
+import { useAllProducts } from "./useAllProducts";
 
 function AllProducts() {
-  const { products, isLoading, count } = useProducts();
+  const { products, isLoading, count } = useAllProducts();
 
   const { login, isLoading: isLoggingIn } = useLogin();
   if (isLoading) return <div>LOADING...</div>;

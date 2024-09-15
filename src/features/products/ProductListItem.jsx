@@ -27,9 +27,8 @@ function ProductListItem({ item }) {
         />
         <AddToCartButton
           setQuantity={setQuantity}
+          item={item}
           quantity={quantity}
-          productId={id}
-          name={productName}
         />
       </div>
 

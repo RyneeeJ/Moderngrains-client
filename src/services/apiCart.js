@@ -1,63 +1,94 @@
 import { getCurrentUser } from "./apiAuth";
 import supabase from "./supabase";
 
-async function getCartItem(cartId) {
-  const { data: cart, error } = await supabase
+async function getCart() {
+  // Get user if there is an existing session
+  const user = await getCurrentUser();
+
+  if (!user) throw new Error("Please log in first");
+
+  // If there is a logged in user, get cartId
+  const {
+    data: { id: cartId },
+    error,
+  } = await supabase.from("cart").select("id").eq("userId", user.id).single();
+
+  if (error) throw new Error("There was a problem accessing your cart details");
+
+  return cartId;
+}
+
+export async function getCartItems() {
+  // Get cart id
+  const cartId = await getCart();
+
+  // Fetch cart items data - these cart items only include the quantity, name, and product Id
+  const { data: cartItems, error: cartItemsError } = await supabase
     .from("cart_items")
     .select("*")
     .eq("cartId", cartId);
 
-  return cart;
-}
+  if (cartItemsError)
+    throw new Error("There was a problem fetching your cart items data");
 
-async function getCart(userId) {
-  const { data: cart, error: cartError } = await supabase
-    .from("cart")
-    .select("id")
-    .eq("userId", userId)
-    .single();
+  // Create an array of product IDs of the items in the cart
+  const productIdArr = cartItems?.map((item) => item.productId);
 
-  return { cart, cartError };
-}
+  // Storage for the final list of items with complete details of the product such as image url and price
+  const referenceProductsArr = [];
 
-async function getCartItems(cartId) {
-  const { data: cartItems, error: cartItemsError } = await supabase
-    .from("cart_items")
-    .select("productId, quantity")
-    .eq("cartId", cartId);
+  // Loop the productIdArray:
+  for (const productId of productIdArr) {
+    // for each of the productID, fetch the entire row of product data
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", productId)
+      .single();
 
-  return { cartItems, cartItemsError };
+    if (error) {
+      console.error("ERROR:", error.message);
+      return null;
+    }
+    // If successful, push the product object (with complete details) into the reference product array
+    referenceProductsArr.push(data);
+  }
+
+  // For the final cart items array, map the initial cartItems array
+  const cartItemsFinal = cartItems.map((item) => {
+    // Compute for the reference product that matches the current item
+    const referenceProduct = referenceProductsArr.find(
+      (product) => product.id === item.productId,
+    );
+
+    // Add the necessary details such as price and image url from the reference product computed above
+    return {
+      ...item,
+      price: referenceProduct.price,
+      image: referenceProduct.image,
+    };
+  });
+
+  // return the final array of cart items with complete details needed to display in the cart page
+  return cartItemsFinal;
 }
 
 async function isItemInCart(productId) {
-  // Get user if there is an existing session
-  const user = await getCurrentUser();
-
-  if (!user) {
-    throw new Error("Please log in first before adding to cart");
-  }
-
-  // If there is an authenticated user, get cartId linked to the user
-  const {
-    cart: { id: cartId },
-    cartError,
-  } = await getCart(user.id);
-
-  if (cartError)
-    throw new Error("There was a problem fetching your cart data.");
-
   // Get list of all items in the user's cart
-  const { cartItems } = await getCartItems(cartId);
+  const cartItemsFinal = await getCartItems();
 
-  const itemAlreadyInCart = cartItems
+  const itemAlreadyInCart = cartItemsFinal
     .map((item) => item.productId)
     .includes(productId);
 
-  return { itemAlreadyInCart, cartItems, cartId };
+  return { itemAlreadyInCart, cartItemsFinal };
 }
 
-async function updateCartItemQuantity(cartItems, productId, quantity) {
-  const currentItem = cartItems.find((item) => item.productId === productId);
+async function updateCartItemQuantity(cartItemsFinal, productId, quantity) {
+  const currentItem = cartItemsFinal.find(
+    (item) => item.productId === productId,
+  );
+  // Update the quantity of the current selected item based on its existing quantity in the cart database
   const { error: updateQuantityError } = await supabase
     .from("cart_items")
     .update({ quantity: currentItem.quantity + quantity })
@@ -69,10 +100,10 @@ async function updateCartItemQuantity(cartItems, productId, quantity) {
   }
 }
 
-async function addNewItemToCart(productId, quantity, cartId, name) {
+async function addNewItemToCart(productId, cartId, name, quantity) {
   const { data, error } = await supabase
     .from("cart_items")
-    .insert([{ productId, cartId, quantity, name }])
+    .insert([{ productId, cartId, name, quantity }])
     .select();
 
   if (error) {
@@ -84,17 +115,18 @@ async function addNewItemToCart(productId, quantity, cartId, name) {
 }
 
 export async function updateCart({ productId, quantity, name }) {
-  const { itemAlreadyInCart, cartItems, cartId } =
-    await isItemInCart(productId);
+  const cartId = await getCart();
+
+  const { itemAlreadyInCart, cartItemsFinal } = await isItemInCart(productId);
 
   // If item is already in cart, just update the quantity
-  if (itemAlreadyInCart)
-    await updateCartItemQuantity(cartItems, productId, quantity);
+  if (itemAlreadyInCart) {
+    await updateCartItemQuantity(cartItemsFinal, productId, quantity);
+    return null;
+  }
   // If item is not yet in the cart, add new item to cart
-  else await addNewItemToCart(productId, quantity, cartId, name);
-
-  const cart = await getCartItem(cartId);
-  const item = cart.find((itemObj) => itemObj.productId === productId);
-
-  return item;
+  else {
+    const data = await addNewItemToCart(productId, cartId, name, quantity);
+    return data;
+  }
 }

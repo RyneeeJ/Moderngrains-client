@@ -1,9 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getProducts } from "../../services/apiProducts";
+import { getAllProducts } from "../../services/apiProducts";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../utils/constants";
 
-export function useProducts() {
+export function useAllProducts() {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -32,7 +32,7 @@ export function useProducts() {
     error,
   } = useQuery({
     queryKey: ["products", filter, sortBy, page],
-    queryFn: () => getProducts({ filter, sortBy, page }),
+    queryFn: () => getAllProducts({ filter, sortBy, page }),
   });
 
   // PRE-FETCH to avoid loading screen
@@ -42,13 +42,13 @@ export function useProducts() {
   if (page < pageCount)
     queryClient.prefetchQuery({
       queryKey: ["products", filter, sortBy, page + 1],
-      queryFn: () => getProducts({ filter, sortBy, page: page + 1 }),
+      queryFn: () => getAllProducts({ filter, sortBy, page: page + 1 }),
     });
 
   if (page > 1)
     queryClient.prefetchQuery({
       queryKey: ["products", filter, sortBy, page - 1],
-      queryFn: () => getProducts({ filter, sortBy, page: page - 1 }),
+      queryFn: () => getAllProducts({ filter, sortBy, page: page - 1 }),
     });
   return { isLoading, products, error, count };
 }
