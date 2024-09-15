@@ -28,9 +28,9 @@ function Pagination({ count }) {
   }
 
   return (
-    <div className="mt-6 flex justify-end space-x-4">
+    <div className="mt-8 flex justify-end space-x-4 xs:text-lg md:mt-12 md:text-xl">
       <button onClick={handlePreviousPage}>&larr; Previous </button>
-      <span>{currentPage}</span>
+      <span className="font-semibold">{currentPage}</span>
       <button onClick={handleNextPage}>Next &rarr;</button>
     </div>
   );
