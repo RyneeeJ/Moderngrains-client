@@ -1,7 +1,8 @@
 import CartList from "../features/cart/CartList";
 import DeleteCartButton from "../features/cart/DeleteCartButton";
-import TotalPrice from "../features/cart/TotalPrice";
-import CheckoutButton from "../features/checkout/CheckoutButton";
+import { useCartItems } from "../features/cart/useCartItems";
+import Checkout from "../features/checkout/Checkout";
+
 import PaymentMethodButton from "../features/payment/PaymentMethodButton";
 import ProfileDetailsContainer from "../features/profile/ProfileDetailsContainer";
 
@@ -24,10 +25,7 @@ function Cart() {
         <PaymentMethodButton />
       </ProfileDetailsContainer>
 
-      <div className="flex items-center justify-between">
-        <TotalPrice />
-        <CheckoutButton />
-      </div>
+      <Checkout />
     </Section>
   );
 }

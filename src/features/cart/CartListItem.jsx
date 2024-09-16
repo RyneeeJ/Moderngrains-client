@@ -1,26 +1,26 @@
-import { useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import QuantityCounter from "../../ui/QuantityCounter";
 import { PiX } from "react-icons/pi";
 import { useDeleteCartItem } from "./useDeleteCartItem";
+import { useConfirmItem } from "./useConfirmItem";
 function CartListItem({ product }) {
-  const [itemConfirmed, setItemConfirmed] = useState(false);
-
-  const { name, quantity, image, price, id } = product;
+  const { name, quantity, image, price, id, isConfirmed } = product;
 
   const { deleteItem, isDeleting } = useDeleteCartItem();
 
+  const { setIsConfirmed, isConfirming } = useConfirmItem();
   function handleDeleteItem(cartItemId) {
     deleteItem(cartItemId);
   }
 
   return (
     <li className="relative flex">
-      <div className="mr-2 self-center">
+      <div className="self-center px-2">
         <input
           type="checkbox"
-          checked={itemConfirmed}
-          onChange={() => setItemConfirmed((confirmed) => !confirmed)}
+          disabled={isConfirming}
+          checked={isConfirmed}
+          onChange={() => setIsConfirmed({ curStatus: isConfirmed, id })}
           className="relative size-5 appearance-none rounded-sm border border-yellow-700 bg-slate-100 transition-all duration-200 after:absolute after:h-full after:w-full after:bg-[url('/check.svg')] after:bg-center after:bg-no-repeat after:content-[''] checked:bg-yellow-700 hover:cursor-pointer hover:ring hover:ring-yellow-500"
         />
       </div>

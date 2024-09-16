@@ -5,16 +5,20 @@ import Modal from "../../ui/Modal";
 import OrderPlacedModal from "../orders/OrderPlacedModal";
 import ConfirmCheckoutModal from "./ConfirmCheckoutModal";
 
-function CheckoutButton() {
+function CheckoutButton({ confirmedItems, totalPrice }) {
   const { modalEl, handleCloseModal, handleOpenModal } = useModal();
   return (
     <>
       <Button onClick={handleOpenModal} type="checkout">
-        Checkout 4 items
+        Checkout {confirmedItems.length} item
+        {confirmedItems.length > 1 ? "s" : ""}
       </Button>
       {createPortal(
         <Modal onCloseModal={handleCloseModal} ref={modalEl}>
-          <ConfirmCheckoutModal />
+          <ConfirmCheckoutModal
+            confirmedItems={confirmedItems}
+            totalPrice={totalPrice}
+          />
           {/* <OrderPlacedModal /> */}
         </Modal>,
         document.body,

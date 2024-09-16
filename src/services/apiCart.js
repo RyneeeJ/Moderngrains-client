@@ -34,12 +34,7 @@ export async function getCartItems() {
   // Create an array of product IDs of the items in the cart
   const productIdArr = cartItems?.map((item) => item.productId);
 
-  // Storage for the final list of items with complete details of the product such as image url and price
-  const referenceProductsArr = [];
-
-  // Loop the productIdArray:
-  for (const productId of productIdArr) {
-    // for each of the productID, fetch the entire row of product data
+  const promises = productIdArr.map(async (productId) => {
     const { data, error } = await supabase
       .from("products")
       .select("*")
@@ -50,9 +45,11 @@ export async function getCartItems() {
       console.error("ERROR:", error.message);
       return null;
     }
-    // If successful, push the product object (with complete details) into the reference product array
-    referenceProductsArr.push(data);
-  }
+
+    return data;
+  });
+
+  const referenceProductsArr = await Promise.all(promises);
 
   // For the final cart items array, map the initial cartItems array
   const cartItemsFinal = cartItems.map((item) => {
@@ -69,8 +66,9 @@ export async function getCartItems() {
     };
   });
 
-  // return the final array of cart items with complete details needed to display in the cart page
-  return cartItemsFinal;
+  const cartItemsFinalSorted = cartItemsFinal.sort((a, b) => a.id - b.id);
+  // return the sorted final array of cart items with complete details needed to display in the cart page
+  return cartItemsFinalSorted;
 }
 
 async function isItemInCart(productId) {
@@ -165,5 +163,17 @@ export async function deleteAllItemsInCart() {
 
   if (error) {
     console.error("ERROR:", error.message);
+  }
+}
+
+export async function confirmItemInCart({ curStatus, id }) {
+  const { error } = await supabase
+    .from("cart_items")
+    .update({ isConfirmed: !curStatus })
+    .eq("id", id);
+
+  if (error) {
+    console.error("ERROR:", error.message);
+    throw new Error("There was a problem confirming your item in cart");
   }
 }

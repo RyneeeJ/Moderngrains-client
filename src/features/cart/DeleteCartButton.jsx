@@ -6,6 +6,7 @@ import ConfirmDeleteAll from "./ConfirmDeleteAll";
 
 function DeleteCartButton() {
   const { modalEl, handleOpenModal, handleCloseModal } = useModal();
+
   return (
     <>
       <Button onClick={handleOpenModal} type="cart-delete">

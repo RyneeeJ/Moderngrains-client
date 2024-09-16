@@ -2,7 +2,7 @@ import ConfirmProductList from "./ConfirmProductList";
 import ConfirmCheckoutLabel from "./ConfirmCheckoutLabel";
 
 import { formatCurrency } from "../../utils/helpers";
-import { PiX } from "react-icons/pi";
+
 import ModalConfirmButton from "../../ui/ModalConfirmButton";
 const fakeCheckout = [
   {
@@ -19,8 +19,7 @@ const fakeCheckout = [
   },
 ];
 
-function ConfirmCheckoutModal() {
-  const totalPrice = fakeCheckout.reduce((acc, item) => acc + item.price, 0);
+function ConfirmCheckoutModal({ confirmedItems, totalPrice }) {
   return (
     <>
       <h2 className="mb-2 font-semibold uppercase tracking-wide sm:text-lg">
@@ -30,7 +29,7 @@ function ConfirmCheckoutModal() {
       <div className="mb-5 space-y-4 sm:mb-7 sm:space-y-5">
         <div>
           <ConfirmCheckoutLabel>Items:</ConfirmCheckoutLabel>
-          <ConfirmProductList fakeCheckout={fakeCheckout} />
+          <ConfirmProductList checkoutItems={confirmedItems} />
         </div>
         <div>
           <ConfirmCheckoutLabel>Total Price:</ConfirmCheckoutLabel>

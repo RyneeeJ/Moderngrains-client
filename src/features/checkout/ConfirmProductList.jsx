@@ -1,13 +1,13 @@
 import ConfirmProductListItem from "./ConfirmProductListItem";
 
-function ConfirmProductList({ fakeCheckout }) {
+function ConfirmProductList({ checkoutItems }) {
   return (
     <ul>
-      {fakeCheckout.map((product) => (
+      {checkoutItems.map((product) => (
         <ConfirmProductListItem
           product={product}
           key={product.id}
-          productName={product.productName}
+          productName={product.name}
           quantity={product.quantity}
         />
       ))}
