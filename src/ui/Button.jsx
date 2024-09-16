@@ -35,7 +35,11 @@ function Button({ type, children, className, ...props }) {
     );
 
   if (type === "cart-delete")
-    return <button className={secondaryBtnClass}>{children}</button>;
+    return (
+      <button {...props} className={secondaryBtnClass}>
+        {children}
+      </button>
+    );
 
   if (type === "purchase-history")
     return (

@@ -154,3 +154,16 @@ export async function deleteItemInCart(cartItemId) {
 
   return data;
 }
+
+export async function deleteAllItemsInCart() {
+  const cartId = await getCart();
+
+  const { error } = await supabase
+    .from("cart_items")
+    .delete()
+    .eq("cartId", cartId);
+
+  if (error) {
+    console.error("ERROR:", error.message);
+  }
+}
