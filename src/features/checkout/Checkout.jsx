@@ -8,7 +8,10 @@ function Checkout() {
   if (isLoading) return <div>LOADING CART DETAILS...</div>;
 
   const confirmedItems = cartItems.filter((item) => item.isConfirmed === true);
-  const totalPrice = confirmedItems.reduce((acc, item) => acc + item.price, 0);
+  const totalPrice = confirmedItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0,
+  );
 
   if (confirmedItems.length === 0) return null;
   return (

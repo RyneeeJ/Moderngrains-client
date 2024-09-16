@@ -177,3 +177,22 @@ export async function confirmItemInCart({ curStatus, id }) {
     throw new Error("There was a problem confirming your item in cart");
   }
 }
+
+export async function updateQuantityFromCart({
+  currentQuantity,
+  id,
+  operation,
+}) {
+  const quantity =
+    operation === "increase" ? currentQuantity + 1 : currentQuantity - 1;
+
+  const { error } = await supabase
+    .from("cart_items")
+    .update({ quantity })
+    .eq("id", id);
+
+  if (error) {
+    console.error("ERROR:", error.message);
+    throw new Error("There was a problem updating item quantity in your cart");
+  }
+}
