@@ -1,5 +1,4 @@
 import Button from "./Button";
-import Section from "./Section";
 
 function HeroImage() {
   return (

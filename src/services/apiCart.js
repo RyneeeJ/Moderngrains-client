@@ -89,22 +89,27 @@ async function updateCartItemQuantity(cartItemsFinal, productId, quantity) {
     (item) => item.productId === productId,
   );
   // Update the quantity of the current selected item based on its existing quantity in the cart database
-  const { error: updateQuantityError } = await supabase
+  const { data, error: updateQuantityError } = await supabase
     .from("cart_items")
     .update({ quantity: currentItem.quantity + quantity })
-    .eq("productId", productId);
+    .eq("productId", productId)
+    .select()
+    .single();
 
   if (updateQuantityError) {
     console.error(updateQuantityError.message);
     throw new Error("There was a problem adding to your cart");
   }
+
+  return data;
 }
 
 async function addNewItemToCart(productId, cartId, name, quantity) {
   const { data, error } = await supabase
     .from("cart_items")
     .insert([{ productId, cartId, name, quantity }])
-    .select();
+    .select()
+    .single();
 
   if (error) {
     console.error(error.message);
@@ -121,12 +126,31 @@ export async function updateCart({ productId, quantity, name }) {
 
   // If item is already in cart, just update the quantity
   if (itemAlreadyInCart) {
-    await updateCartItemQuantity(cartItemsFinal, productId, quantity);
-    return null;
+    const data = await updateCartItemQuantity(
+      cartItemsFinal,
+      productId,
+      quantity,
+    );
+    return data;
   }
   // If item is not yet in the cart, add new item to cart
   else {
     const data = await addNewItemToCart(productId, cartId, name, quantity);
     return data;
   }
+}
+
+export async function deleteItemInCart(cartItemId) {
+  const { data, error } = await supabase
+    .from("cart_items")
+    .delete()
+    .eq("id", cartItemId)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("ERROR:", error.message);
+  }
+
+  return data;
 }

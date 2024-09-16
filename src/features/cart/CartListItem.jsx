@@ -2,10 +2,17 @@ import { useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import QuantityCounter from "../../ui/QuantityCounter";
 import { PiX } from "react-icons/pi";
+import { useDeleteCartItem } from "./useDeleteCartItem";
 function CartListItem({ product }) {
   const [itemConfirmed, setItemConfirmed] = useState(false);
 
-  const { name, quantity, image, price } = product;
+  const { name, quantity, image, price, id } = product;
+
+  const { deleteItem, isDeleting } = useDeleteCartItem();
+
+  function handleDeleteItem(cartItemId) {
+    deleteItem(cartItemId);
+  }
 
   return (
     <li className="relative flex">
@@ -39,7 +46,7 @@ function CartListItem({ product }) {
         </div>
       </div>
 
-      <button>
+      <button disabled={isDeleting} onClick={() => handleDeleteItem(id)}>
         <PiX className="absolute right-1 top-1 size-5 hover:cursor-pointer sm:right-2 sm:top-2 sm:size-6" />
       </button>
     </li>

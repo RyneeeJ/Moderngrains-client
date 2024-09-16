@@ -6,10 +6,8 @@ export function useAddToCart() {
   const { isLoading: isAddingToCart, mutate: addItem } = useMutation({
     mutationFn: updateCart,
 
-    onSuccess: () => {
-      toast.success(`Item succesfully added to cart`);
-      // toast.success(`${data.name} succesfully added to cart`);
-      // Invalidate queries if needed
+    onSuccess: (data) => {
+      toast.success(`${data?.name} succesfully added to cart`);
     },
     onError: (err) => {
       toast.error(err.message);
