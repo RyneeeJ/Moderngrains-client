@@ -9,7 +9,7 @@ import ProductList from "./ProductList";
 
 function BestSellers() {
   const { data: bestSellers, isLoading, error } = useBestSellers();
-  if (isLoading) return <div>LOADING...</div>;
+
   return (
     <Section>
       <SectionHeading>Our Best Sellers</SectionHeading>

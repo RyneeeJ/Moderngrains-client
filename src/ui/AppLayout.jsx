@@ -7,11 +7,9 @@ function AppLayout() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-
-      <main className="mt-12 grow xs:mt-14 md:mt-16">
+      <main className="mt-12 min-h-screen grow xs:mt-14 md:mt-16">
         <Outlet />
       </main>
-
       <Footer />
     </div>
   );

@@ -33,6 +33,7 @@ export function useAllProducts() {
   } = useQuery({
     queryKey: ["products", filter, sortBy, page],
     queryFn: () => getAllProducts({ filter, sortBy, page }),
+    suspense: true,
   });
 
   // PRE-FETCH to avoid loading screen

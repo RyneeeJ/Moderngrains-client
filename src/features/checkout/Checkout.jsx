@@ -2,13 +2,9 @@ import TotalPrice from "../cart/TotalPrice";
 import { useCartItems } from "../cart/useCartItems";
 import CheckoutButton from "./CheckoutButton";
 
-function Checkout() {
-  const { cartItems, isLoading } = useCartItems();
-
-  if (isLoading) return <div>LOADING CART DETAILS...</div>;
-
-  const confirmedItems = cartItems.filter((item) => item.isConfirmed === true);
-  const totalPrice = confirmedItems.reduce(
+function Checkout({ cartItems }) {
+  const confirmedItems = cartItems?.filter((item) => item.isConfirmed === true);
+  const totalPrice = confirmedItems?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );

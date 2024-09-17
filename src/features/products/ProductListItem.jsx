@@ -19,9 +19,9 @@ function ProductListItem({ item }) {
 
   return (
     <li>
-      <div className="relative">
+      <div className="relative aspect-square">
         <img
-          className="aspect-square rounded-md object-cover object-bottom xs:mb-2"
+          className="h-full w-full rounded-md object-cover object-bottom xs:mb-2"
           src={image}
           alt={`Photo of ${productName}`}
         />

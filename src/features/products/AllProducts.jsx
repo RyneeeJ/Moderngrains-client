@@ -7,7 +7,7 @@ function AllProducts() {
   const { products, isLoading, count } = useAllProducts();
 
   const { login, isLoading: isLoggingIn } = useLogin();
-  if (isLoading) return <div>LOADING...</div>;
+  // if (isLoading) return <div>LOADING...</div>;
 
   return (
     <>

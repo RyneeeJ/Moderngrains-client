@@ -11,6 +11,7 @@ export function useCartItems() {
   } = useQuery({
     queryKey: ["cartItems"],
     queryFn: getCartItems,
+    suspense: true,
   });
 
   return { cartItems, isLoading, error, isError };
