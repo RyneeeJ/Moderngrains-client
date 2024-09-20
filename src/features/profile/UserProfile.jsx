@@ -3,7 +3,7 @@ import Avatar from "./Avatar";
 
 import ProfileDetailsContainer from "./ProfileDetailsContainer";
 import UserDetailInput from "./UserDetailInput";
-import PaymentMethodButton from "../payment/PaymentMethodButton";
+
 import Button from "../../ui/Button";
 
 function UserProfile() {
@@ -12,9 +12,7 @@ function UserProfile() {
   return (
     <div className="flex flex-col items-center">
       <Avatar />
-
       <div className="mb-4 sm:text-lg md:text-xl">**********ia@gmail.com</div>
-
       <div className="mb-6 w-72 xs:w-3/4">
         <ProfileDetailsContainer label="Name">
           <UserDetailInput
@@ -30,11 +28,7 @@ function UserProfile() {
             setValue={setIsEditingAddress}
           />
         </ProfileDetailsContainer>
-        <ProfileDetailsContainer label="Select Payment Method">
-          <PaymentMethodButton />
-        </ProfileDetailsContainer>
       </div>
-
       <Button type="purchase-history">View Purchase History</Button>
     </div>
   );

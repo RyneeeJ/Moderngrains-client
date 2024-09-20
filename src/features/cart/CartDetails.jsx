@@ -1,8 +1,7 @@
 import OperationsContainer from "../../ui/OperationsContainer";
 import DeleteCartButton from "./DeleteCartButton";
 import CartList from "./CartList";
-import ProfileDetailsContainer from "../profile/ProfileDetailsContainer";
-import PaymentMethodButton from "../payment/PaymentMethodButton";
+
 import Checkout from "../checkout/Checkout";
 
 import { useCartItems } from "./useCartItems";
@@ -27,10 +26,6 @@ function CartDetails() {
           </OperationsContainer>
 
           <CartList cartItems={cartItems} />
-
-          <ProfileDetailsContainer label="Select Payment Method">
-            <PaymentMethodButton />
-          </ProfileDetailsContainer>
         </>
       )}
 
