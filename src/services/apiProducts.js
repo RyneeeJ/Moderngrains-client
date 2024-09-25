@@ -6,7 +6,7 @@ import supabase from "./supabase";
 export async function getAllProducts({ filter, sortBy, page }) {
   let query = supabase
     .from("products")
-    .select("id, name, price, image", { count: "exact" });
+    .select("id, name, price, image, stripeId", { count: "exact" });
 
   // 1. FILTER
   if (filter) query = query.eq("category", filter.value);
@@ -37,7 +37,7 @@ export async function getAllProducts({ filter, sortBy, page }) {
 export async function getBestSellers() {
   const { data, error } = await supabase
     .from("products")
-    .select("id, name, price, image")
+    .select("id, name, price, image, stripeId")
     .eq("isBestSeller", true);
 
   if (error) {

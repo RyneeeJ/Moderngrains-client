@@ -12,6 +12,8 @@ import PageNotFound from "./pages/PageNotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,6 +54,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/account/checkout/success",
+        element: <Success />,
+      },
+      {
+        path: "/account/checkout/cancel",
+        element: <Cancel />,
       },
     ],
   },

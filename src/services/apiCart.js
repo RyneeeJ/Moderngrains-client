@@ -22,7 +22,7 @@ export async function getCartItems() {
   // Get cart id
   const cartId = await getCart();
 
-  // Fetch cart items data - these cart items only include the quantity, name, and product Id
+  // Fetch cart items data
   const { data: cartItems, error: cartItemsError } = await supabase
     .from("cart_items")
     .select("*")
@@ -102,10 +102,10 @@ async function updateCartItemQuantity(cartItemsFinal, productId, quantity) {
   return data;
 }
 
-async function addNewItemToCart(productId, cartId, name, quantity) {
+async function addNewItemToCart(productId, cartId, name, quantity, stripeId) {
   const { data, error } = await supabase
     .from("cart_items")
-    .insert([{ productId, cartId, name, quantity }])
+    .insert([{ productId, cartId, name, quantity, stripeId }])
     .select()
     .single();
 
@@ -117,7 +117,7 @@ async function addNewItemToCart(productId, cartId, name, quantity) {
   return data;
 }
 
-export async function updateCart({ productId, quantity, name }) {
+export async function updateCart({ productId, quantity, name, stripeId }) {
   const cartId = await getCart();
 
   const { itemAlreadyInCart, cartItemsFinal } = await isItemInCart(productId);
@@ -133,7 +133,13 @@ export async function updateCart({ productId, quantity, name }) {
   }
   // If item is not yet in the cart, add new item to cart
   else {
-    const data = await addNewItemToCart(productId, cartId, name, quantity);
+    const data = await addNewItemToCart(
+      productId,
+      cartId,
+      name,
+      quantity,
+      stripeId,
+    );
     return data;
   }
 }
@@ -151,6 +157,24 @@ export async function deleteItemInCart(cartItemId) {
   }
 
   return data;
+}
+
+export async function deleteCheckedOutItems(priceIdArr) {
+  const cartId = await getCart();
+
+  const promises = priceIdArr.map(async (priceId) => {
+    const { error } = await supabase
+      .from("cart_items")
+      .delete()
+      .eq("cartId", cartId)
+      .eq("stripeId", priceId);
+
+    if (error) {
+      console.error("ERROR:", error.message);
+    }
+  });
+
+  await Promise.all(promises);
 }
 
 export async function deleteAllItemsInCart() {

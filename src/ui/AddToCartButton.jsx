@@ -4,9 +4,9 @@ import { useAddToCart } from "../features/cart/useAddToCart";
 function AddToCartButton({ item, setQuantity, quantity }) {
   const { isAddingToCart, addItem } = useAddToCart();
 
-  const { name, id: productId } = item;
+  const { name, id: productId, stripeId } = item;
   function handleAddToCart() {
-    addItem({ productId, name, quantity });
+    addItem({ productId, name, quantity, stripeId });
     setQuantity(1);
   }
   return (
