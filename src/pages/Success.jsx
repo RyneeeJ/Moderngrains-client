@@ -1,52 +1,55 @@
-import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
 import Section from "../ui/Section";
 import { HiArrowRight } from "react-icons/hi";
 import { useCartItems } from "../features/cart/useCartItems";
 import { useAddOrder } from "../features/orders/useAddOrder";
+import { useOrderId } from "../features/orders/useOrderId";
 
 function Success() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
+  const { placeOrder, isPlacingOrder } = useAddOrder();
   const { isDeleting, deleteCheckedOut } = useDeleteCheckedOut();
 
   const { cartItems } = useCartItems();
-
-  const { placeOrder, isPlacingOrder } = useAddOrder();
   const checkedOutItems = cartItems.filter((item) => item.isConfirmed === true);
   const priceIdArr = checkedOutItems.map((item) => item.stripeId);
 
-  useEffect(function () {
-    async function success() {
-      try {
-        const res = await fetch(
-          `http://localhost:4242/checkout-success?session_id=${sessionId}`,
-        );
+  const { data: { id: orderId } = {}, isLoadingOrderId } =
+    useOrderId(sessionId);
 
-        const data = await res.json();
-        const status = data.status;
+  // This loader is necessary to prevent placing order if the order has been placed and refreshed
+  if (isLoadingOrderId) return <div>Loading order Id</div>;
 
-        if (status === "paid") {
-          const ordersArr = checkedOutItems.map((item) => ({
-            name: item.name,
-            price: item.price,
-            image: item.image,
-            quantity: item.quantity,
-          }));
+  async function success() {
+    try {
+      const res = await fetch(
+        `http://localhost:4242/checkout-success?session_id=${sessionId}`,
+      );
 
-          placeOrder(ordersArr);
+      const data = await res.json();
+      const status = data.status;
 
-          deleteCheckedOut(priceIdArr);
-        }
-      } catch (e) {
-        console.log(e.message);
+      if (status === "paid") {
+        const ordersArr = checkedOutItems.map((item) => ({
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          quantity: item.quantity,
+        }));
+
+        placeOrder({ items: ordersArr, sessionId });
+        deleteCheckedOut(priceIdArr);
       }
+    } catch (e) {
+      console.log(e.message);
     }
+  }
 
-    success();
-  }, []);
+  // If loaded for the first time and there is no orderId yet, place order.
+  if (!orderId) success();
 
   return (
     <Section>
@@ -56,9 +59,12 @@ function Success() {
       </div>
 
       <div className="mb-8 text-xl xs:mb-10 xs:text-2xl sm:mb-12">
-        Your <span className="font-semibold">order #3219263</span> has been
-        successfully placed. You can check your order status by clicking the
-        link below
+        Your{" "}
+        <span className="cursor-pointer font-semibold hover:underline">
+          order #{String(orderId).padStart(6, "0")}
+        </span>{" "}
+        has been successfully placed. You can check your order status by
+        clicking the link below
       </div>
 
       <Link className="mb-12 flex items-center justify-end gap-2 text-sm opacity-85 hover:underline xs:mb-20 xs:text-base sm:mb-32">
