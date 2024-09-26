@@ -2,6 +2,7 @@ import OrdersListItem from "./OrdersListItem";
 
 import sofa1 from "../../data/sofa1.jpg";
 import chair1 from "../../data/chair1.jpg";
+import { useOrderHistory } from "./useOrderHistory";
 
 function OrdersList() {
   const fakeOrders = [
@@ -42,6 +43,9 @@ function OrdersList() {
       image: chair1,
     },
   ];
+
+  const { data, isLoadingOrders } = useOrderHistory();
+  console.log(data);
   return (
     <ul className="space-y-2">
       {fakeOrders.map((order) => (

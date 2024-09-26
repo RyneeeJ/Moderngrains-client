@@ -25,14 +25,15 @@ export async function placeOrder({ items, sessionId }) {
   return data;
 }
 
-export async function getOrderId({ queryKey }) {
-  const [_, sessionId] = queryKey;
+export async function getOrders() {
+  const user = await getCurrentUser();
+
+  if (!user) throw new Error("Couldn't find logged in user");
 
   const { data, error } = await supabase
     .from("orders")
-    .select("id")
-    .eq("sessionId", sessionId)
-    .single();
+    .select("*")
+    .eq("userId", user.id);
 
   if (error) {
     console.error("ERROR:", error.message);
