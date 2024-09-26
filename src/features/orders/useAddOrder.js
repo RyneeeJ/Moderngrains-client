@@ -4,13 +4,12 @@ import { useSearchParams } from "react-router-dom";
 
 export function useAddOrder() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const sessionId = searchParams.get("session_id");
 
-  const queryClient = useQueryClient();
   const { mutate: placeOrder, isLoading: isPlacingOrder } = useMutation({
     mutationFn: placeOrderApi,
 
     onSuccess: (data) => {
+      // This is where the orderId is reflected in the browser url to avoid persistent order placement by the api upon browser refresh
       searchParams.set("orderId", data.at(0).id);
       setSearchParams(searchParams);
     },

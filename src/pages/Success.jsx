@@ -10,6 +10,7 @@ import { useEffect } from "react";
 function Success() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+  // needed to check if there is already an order placed
   const orderId = searchParams.get("orderId") || null;
 
   const { placeOrder, isPlacingOrder } = useAddOrder();
@@ -50,10 +51,10 @@ function Success() {
           console.log(e.message);
         }
       }
-      // If loaded for the first time and there is no orderId yet, place order.
+      // If loaded for the first time and there is no orderId set in url searchparams yet, place order.
       if (!orderId) success();
     },
-    [sessionId, orderId],
+    [sessionId, orderId, cartItems],
   );
 
   return (
