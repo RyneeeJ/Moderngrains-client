@@ -31,7 +31,7 @@ function Checkout({ cartItems }) {
 
   if (confirmedItems.length === 0) return null;
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex w-full items-center justify-between">
       <TotalPrice totalPrice={totalPrice} />
       <Button type="checkout" onClick={checkout}>
         Checkout {numItems} item

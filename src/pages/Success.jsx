@@ -41,11 +41,10 @@ function Success() {
               price: item.price,
               image: item.image,
               quantity: item.quantity,
-              itemId: `${sessionId}_${item.name.toLowerCase().replaceAll(" ", "")}`,
+              // dateOrdered: Date.now(),
             }));
 
             placeOrder({ items: ordersArr, sessionId });
-
             deleteCheckedOut(priceIdArr);
           }
         } catch (e) {

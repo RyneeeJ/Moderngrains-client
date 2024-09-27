@@ -1,28 +1,38 @@
 import { getCurrentUser } from "./apiAuth";
 import supabase from "./supabase";
 
-import { add, format } from "date-fns";
-
 export async function placeOrder({ items, sessionId }) {
   const user = await getCurrentUser();
 
   if (!user) throw new Error("Couldn't find logged in user");
 
-  const deliveryDate = format(add(new Date(), { days: 3 }), "MM/dd/yyyy");
-
-  const { data, error } = await supabase
+  const { data: orderData, error } = await supabase
     .from("orders")
-    .insert([
-      { userId: user.id, items, status: "pending", deliveryDate, sessionId },
-    ])
-    .select();
+    .insert([{ userId: user.id, sessionId }])
+    .select()
+    .single();
 
   if (error) {
     console.error("ERROR:", error.message);
     return null;
   }
 
-  return data;
+  const orderedItemsArr = items.map((item) => ({
+    ...item,
+    orderId: orderData.id,
+  }));
+
+  const { data: orderedItemsData, error: orderedItemsError } = await supabase
+    .from("ordered_items")
+    .insert(orderedItemsArr)
+    .select();
+
+  if (orderedItemsError) {
+    console.error("ERROR:", orderedItemsError.message);
+    return null;
+  }
+
+  return { orderData };
 }
 
 export async function getOrders() {
@@ -32,7 +42,7 @@ export async function getOrders() {
 
   const { data, error } = await supabase
     .from("orders")
-    .select("*")
+    .select("id")
     .eq("userId", user.id);
 
   if (error) {
@@ -40,5 +50,24 @@ export async function getOrders() {
     return null;
   }
 
-  return data;
+  const ordersIdArr = data.map((obj) => obj.id);
+
+  const promisesArr = ordersIdArr.map(async (orderId) => {
+    const { data: orderedItems, error: orderedItemsError } = await supabase
+      .from("ordered_items")
+      .select("*")
+      .eq("orderId", orderId);
+
+    if (orderedItemsError) {
+      console.error("ERROR:", orderedItemsError.message);
+      return null;
+    }
+
+    return orderedItems;
+  });
+
+  const result = await Promise.all(promisesArr);
+
+  const resultFinal = result.flat();
+  return resultFinal;
 }

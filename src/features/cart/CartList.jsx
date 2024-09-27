@@ -2,7 +2,7 @@ import CartListItem from "./CartListItem";
 
 function CartList({ cartItems }) {
   return (
-    <ul className="md:max-h-[750px mb-6 flex max-h-[500px] flex-col gap-4 overflow-y-auto sm:max-h-[625px]">
+    <ul className="mb-8 flex max-h-[600px] flex-col gap-4 overflow-y-auto border-y border-stone-200 sm:max-h-[700px] md:mb-14">
       {cartItems.map((product) => (
         <CartListItem key={product.id} product={product} />
       ))}

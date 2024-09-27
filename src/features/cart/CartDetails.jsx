@@ -29,7 +29,9 @@ function CartDetails() {
         </>
       )}
 
-      <Checkout cartItems={cartItems} />
+      <div className="flex min-h-16 items-center">
+        <Checkout cartItems={cartItems} />
+      </div>
     </>
   );
 }
