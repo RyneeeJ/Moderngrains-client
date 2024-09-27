@@ -1,7 +1,7 @@
 import { formatCurrency, formatDate } from "../../utils/helpers";
 
-function OrdersListItem({ order }) {
-  const { image, productName, price, quantity, dateOrdered, status } = order;
+function OrdersListItem({ item }) {
+  const { image, productName, price, quantity, dateOrdered, status } = item;
   return (
     <li className="flex rounded-md bg-neutral-200">
       <div className="basis-1/4 xs:max-w-32 xs:basis-1/3 sm:max-w-40 md:max-w-48">

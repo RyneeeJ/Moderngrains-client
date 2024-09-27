@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { placeOrder as placeOrderApi } from "../../services/apiOrders";
 import { useSearchParams } from "react-router-dom";
 

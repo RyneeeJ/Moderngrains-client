@@ -41,6 +41,7 @@ function Success() {
               price: item.price,
               image: item.image,
               quantity: item.quantity,
+              itemId: `${sessionId}_${item.name.toLowerCase().replaceAll(" ", "")}`,
             }));
 
             placeOrder({ items: ordersArr, sessionId });
@@ -69,7 +70,10 @@ function Success() {
         by clicking the link below
       </div>
 
-      <Link className="mb-12 flex items-center justify-end gap-2 text-sm opacity-85 hover:underline xs:mb-20 xs:text-base sm:mb-32">
+      <Link
+        to="/account/profile/purchase-history"
+        className="mb-12 flex items-center justify-end gap-2 text-sm opacity-85 hover:underline xs:mb-20 xs:text-base sm:mb-32"
+      >
         <span>View purchase history </span>
         <span>
           <HiArrowRight />
@@ -78,7 +82,7 @@ function Success() {
 
       <div className="flex justify-center">
         <Link
-          to="/account/profile/purchase-history"
+          to="/"
           className="inline-block rounded-full bg-stone-800 px-8 py-3 font-bold text-amber-50 focus:ring focus:ring-lime-600 sm:px-10 sm:text-lg"
           autoFocus
         >

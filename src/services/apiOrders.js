@@ -8,12 +8,12 @@ export async function placeOrder({ items, sessionId }) {
 
   if (!user) throw new Error("Couldn't find logged in user");
 
-  const shippingDate = format(add(new Date(), { days: 3 }), "MM/dd/yyyy");
+  const deliveryDate = format(add(new Date(), { days: 3 }), "MM/dd/yyyy");
 
   const { data, error } = await supabase
     .from("orders")
     .insert([
-      { userId: user.id, items, status: "pending", shippingDate, sessionId },
+      { userId: user.id, items, status: "pending", deliveryDate, sessionId },
     ])
     .select();
 
