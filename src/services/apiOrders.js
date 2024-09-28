@@ -89,19 +89,15 @@ export async function getOrders({ filter, page }) {
     .map((res) => res.count)
     .reduce((acc, itemCount) => acc + itemCount, 0);
 
-  let resultFinal = ordersArr.flat();
-  /*
-  console.log(
-    "pending first",
-    resultFinal.sort((a, b) => {
-      if (a.status === "pending" && b.status === "completed") {
-        return -1;
-      } else if (a.status === "completed" && b.status === "pending") {
-        return 1;
-      } else return 0;
-    }),
-  );
-  */
+  // SORT THE ARRAY, PENDING ORDERS APPEAR FIRST BEFORE COMPLETED ONES
+  let resultFinal = ordersArr.flat().sort((a, b) => {
+    if (a.status === "pending" && b.status === "completed") {
+      return -1;
+    } else if (a.status === "completed" && b.status === "pending") {
+      return 1;
+    } else return 0;
+  });
+
   // CLIENT-SIDE PAGINATION
   if (page) {
     const from = page * ORDERS_PAGE_SIZE - ORDERS_PAGE_SIZE;
