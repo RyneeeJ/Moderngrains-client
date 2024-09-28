@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getOrders } from "../../services/apiOrders";
 import { useSearchParams } from "react-router-dom";
+import { ORDERS_PAGE_SIZE } from "../../utils/constants";
 
 export function useOrderHistory() {
   const [searchParams] = useSearchParams();
+  const queryClient = useQueryClient();
 
   // 1. get filter value
   const filterValue = searchParams.get("orders");
@@ -26,6 +28,21 @@ export function useOrderHistory() {
     queryKey: ["orders", filter, page],
     queryFn: () => getOrders({ filter, page }),
   });
+
+  // PRE-FETCH QUERIES
+  const pageCount = Math.ceil(count / ORDERS_PAGE_SIZE);
+
+  if (page < pageCount)
+    queryClient.prefetchQuery({
+      queryKey: ["orders", filter, page + 1],
+      queryFn: () => getOrders({ filter, page: page + 1 }),
+    });
+
+  if (page > 1)
+    queryClient.prefetchQuery({
+      queryKey: ["orders", filter, page - 1],
+      queryFn: () => getOrders({ filter, page: page - 1 }),
+    });
 
   return { data, isLoadingOrders, error, count };
 }

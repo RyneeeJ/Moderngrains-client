@@ -8,15 +8,10 @@ import { useOrderHistory } from "./useOrderHistory";
 function OrdersList() {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("orders");
-  const curPage = searchParams.get("page");
 
   const { data: ordersArr, isLoadingOrders, count } = useOrderHistory();
   if (isLoadingOrders) return <div className="text-center">Loading....</div>;
 
-  // if (!ordersArr.length && count > 0 && Number(curPage) > 1) {
-  //   searchParams.set("page", Number(curPage));
-  //   setSearchParams(searchParams);
-  // }
   if (!count)
     return (
       <p className="text-center">
