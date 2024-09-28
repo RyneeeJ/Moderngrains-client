@@ -3,7 +3,7 @@ import { PiArrowRight } from "react-icons/pi";
 
 import { scrollToTop } from "../../utils/helpers";
 import { useBestSellers } from "./useBestSellers";
-import Section from "../../ui/Section";
+
 import SectionHeading from "../../ui/SectionHeading";
 import ProductList from "./ProductList";
 
@@ -11,7 +11,7 @@ function BestSellers() {
   const { data: bestSellers, isLoading, error } = useBestSellers();
 
   return (
-    <Section>
+    <>
       <SectionHeading>Our Best Sellers</SectionHeading>
 
       <div onClick={scrollToTop}>
@@ -27,7 +27,7 @@ function BestSellers() {
       </div>
 
       <ProductList productsArr={bestSellers} />
-    </Section>
+    </>
   );
 }
 
