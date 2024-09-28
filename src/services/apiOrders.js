@@ -1,3 +1,4 @@
+import { ORDERS_PAGE_SIZE } from "../utils/constants";
 import { getCurrentUser } from "./apiAuth";
 import supabase from "./supabase";
 
@@ -35,7 +36,7 @@ export async function placeOrder({ items, sessionId }) {
   return { orderData };
 }
 
-export async function getOrders({ filter }) {
+export async function getOrders({ filter, page }) {
   const user = await getCurrentUser();
 
   if (!user) throw new Error("Couldn't find logged in user");
@@ -56,23 +57,45 @@ export async function getOrders({ filter }) {
     // FILTER
     let query = supabase
       .from("ordered_items")
-      .select("*")
+      .select("*", { count: "exact" })
       .eq("orderId", orderId);
 
     if (filter) query = query.eq("status", filter.value);
 
-    const { data: orderedItems, error: orderedItemsError } = await query;
+    /* 
+    THIS TIME, SERVER SIDE PAGINATION LIKE IN ALLPRODUCTS PAGE WILL NOT WORK BECAUSE IM LOOPING THRU INDIVIDUAL ORDERS
+    // PAGINATE
+    if (page) {
+      const from = page * ORDERS_PAGE_SIZE - ORDERS_PAGE_SIZE;
+      const to = page * ORDERS_PAGE_SIZE - 1;
+      query = query.range(0, 1);
+    }
+      */
+
+    const { data: orderedItems, error: orderedItemsError, count } = await query;
 
     if (orderedItemsError) {
       console.error("ERROR:", orderedItemsError.message);
       return null;
     }
 
-    return orderedItems;
+    return { orderedItems, count };
   });
 
   const result = await Promise.all(promisesArr);
+  const ordersArr = result.map((res) => res.orderedItems);
+  const count = result
+    .map((res) => res.count)
+    .reduce((acc, itemCount) => acc + itemCount, 0);
 
-  const resultFinal = result.flat();
-  return resultFinal;
+  let resultFinal = ordersArr.flat();
+
+  // CLIENT-SIDE PAGINATION
+  if (page) {
+    const from = page * ORDERS_PAGE_SIZE - ORDERS_PAGE_SIZE;
+    const to = page * ORDERS_PAGE_SIZE;
+    resultFinal = resultFinal.slice(from, to);
+  }
+
+  return { data: resultFinal, count };
 }

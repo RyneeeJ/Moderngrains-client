@@ -15,17 +15,17 @@ export function useOrderHistory() {
       : { field: "status", value: filterValue };
 
   // PAGINATION
-  const page = searchParams.get("page") || 1;
+  const page = Number(searchParams.get("page")) || 1;
 
   // QUERY
   const {
-    data,
+    data: { data, count } = {},
     isLoading: isLoadingOrders,
     error,
   } = useQuery({
-    queryKey: ["orders", filter],
-    queryFn: () => getOrders({ filter }),
+    queryKey: ["orders", filter, page],
+    queryFn: () => getOrders({ filter, page }),
   });
 
-  return { data, isLoadingOrders, error };
+  return { data, isLoadingOrders, error, count };
 }

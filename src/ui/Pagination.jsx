@@ -1,7 +1,6 @@
 import { useSearchParams } from "react-router-dom";
-import { PAGE_SIZE } from "../utils/constants";
 
-function Pagination({ count }) {
+function Pagination({ count, pageSize }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Read current page first
@@ -9,7 +8,7 @@ function Pagination({ count }) {
   const currentPageNum = Number(currentPage);
 
   // Compute max page size for the query
-  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const pageCount = Math.ceil(count / pageSize);
 
   function handleNextPage() {
     // If the current page is the last maximum page for the query, return.
@@ -27,11 +26,23 @@ function Pagination({ count }) {
     setSearchParams(searchParams);
   }
 
+  if (pageCount === 1) return null;
+
   return (
     <div className="mt-8 flex justify-end space-x-4 xs:text-lg md:mt-12 md:text-xl">
-      <button onClick={handlePreviousPage}>&larr; Previous </button>
+      <button
+        className={currentPageNum === 1 ? "cursor-not-allowed" : ""}
+        onClick={handlePreviousPage}
+      >
+        &larr; Previous{" "}
+      </button>
       <span className="font-semibold">{currentPage}</span>
-      <button onClick={handleNextPage}>Next &rarr;</button>
+      <button
+        className={currentPageNum === pageCount ? "cursor-not-allowed" : ""}
+        onClick={handleNextPage}
+      >
+        Next &rarr;
+      </button>
     </div>
   );
 }

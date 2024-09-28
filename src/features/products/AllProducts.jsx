@@ -1,4 +1,5 @@
 import Pagination from "../../ui/Pagination";
+import { PRODUCTS_PAGE_SIZE } from "../../utils/constants";
 import { useLogin } from "../authentication/useLogin";
 import ProductList from "./ProductList";
 import { useAllProducts } from "./useAllProducts";
@@ -12,7 +13,7 @@ function AllProducts() {
   return (
     <>
       <ProductList productsArr={products} />
-      <Pagination count={count} />
+      <Pagination count={count} pageSize={PRODUCTS_PAGE_SIZE} />
 
       {/* TEMPORARY EXPERIMENT */}
       <div className="mt-10 flex w-full justify-center">

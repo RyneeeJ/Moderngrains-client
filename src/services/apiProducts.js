@@ -1,4 +1,4 @@
-import { PAGE_SIZE } from "../utils/constants";
+import { PRODUCTS_PAGE_SIZE } from "../utils/constants";
 
 import supabase from "./supabase";
 
@@ -18,8 +18,8 @@ export async function getAllProducts({ filter, sortBy, page }) {
 
   // 3. PAGINATE
   if (page) {
-    const from = page * PAGE_SIZE - PAGE_SIZE;
-    const to = page * PAGE_SIZE - 1;
+    const from = page * PRODUCTS_PAGE_SIZE - PRODUCTS_PAGE_SIZE;
+    const to = page * PRODUCTS_PAGE_SIZE - 1;
     query = query.range(from, to);
   }
 

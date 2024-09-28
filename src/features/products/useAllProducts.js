@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllProducts } from "../../services/apiProducts";
 import { useSearchParams } from "react-router-dom";
-import { PAGE_SIZE } from "../../utils/constants";
+import { PRODUCTS_PAGE_SIZE } from "../../utils/constants";
 
 export function useAllProducts() {
   const queryClient = useQueryClient();
@@ -37,7 +37,7 @@ export function useAllProducts() {
   });
 
   // PRE-FETCH to avoid loading screen
-  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const pageCount = Math.ceil(count / PRODUCTS_PAGE_SIZE);
 
   // prefetch previous page when page count is less than
   if (page < pageCount)
