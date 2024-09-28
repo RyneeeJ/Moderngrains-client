@@ -32,12 +32,12 @@ function OrdersListItem({ item }) {
             </span>
           </div>
           {status === "pending" && (
-            <button className="cursor-pointer rounded-md bg-lime-700 px-3 py-1 text-amber-50 transition-all duration-200 hover:bg-lime-800">
+            <button className="cursor-pointer rounded-full bg-red-700 px-3 py-1 uppercase text-amber-50 transition-all duration-200 hover:bg-red-600">
               Mark as Received
             </button>
           )}
           {status === "completed" && (
-            <div className="font-semibold uppercase text-lime-700">
+            <div className="rounded-full bg-lime-700 px-3 py-1 uppercase text-amber-50">
               {status}
             </div>
           )}
