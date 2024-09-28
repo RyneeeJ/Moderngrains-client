@@ -83,13 +83,25 @@ export async function getOrders({ filter, page }) {
   });
 
   const result = await Promise.all(promisesArr);
+
   const ordersArr = result.map((res) => res.orderedItems);
   const count = result
     .map((res) => res.count)
     .reduce((acc, itemCount) => acc + itemCount, 0);
 
   let resultFinal = ordersArr.flat();
-
+  /*
+  console.log(
+    "pending first",
+    resultFinal.sort((a, b) => {
+      if (a.status === "pending" && b.status === "completed") {
+        return -1;
+      } else if (a.status === "completed" && b.status === "pending") {
+        return 1;
+      } else return 0;
+    }),
+  );
+  */
   // CLIENT-SIDE PAGINATION
   if (page) {
     const from = page * ORDERS_PAGE_SIZE - ORDERS_PAGE_SIZE;
@@ -98,4 +110,18 @@ export async function getOrders({ filter, page }) {
   }
 
   return { data: resultFinal, count };
+}
+export async function updateOrderStatus(id) {
+  const { data, error } = await supabase
+    .from("ordered_items")
+    .update({ status: "completed" })
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error("ERROR:", error.message);
+    return null;
+  }
+
+  return data;
 }

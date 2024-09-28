@@ -25,7 +25,6 @@ function Pagination({ count, pageSize }) {
     searchParams.set("page", currentPageNum - 1);
     setSearchParams(searchParams);
   }
-
   if (pageCount === 1) return null;
 
   return (

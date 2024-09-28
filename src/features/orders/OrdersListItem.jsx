@@ -1,9 +1,15 @@
 import { formatCurrency } from "../../utils/helpers";
 import { format } from "date-fns";
+import { useReceiveOrder } from "./useReceiveOrder";
 
 function OrdersListItem({ item }) {
-  const { image, name, price, quantity, dateOrdered, status } = item;
+  const { image, name, price, quantity, dateOrdered, status, id } = item;
 
+  const { updateOrder, isUpdatingOrder } = useReceiveOrder();
+
+  function handleReceiveOrder() {
+    updateOrder(id);
+  }
   return (
     <li className="flex rounded-md bg-neutral-200">
       <div className="basis-1/4 xs:max-w-32 xs:basis-1/3 sm:max-w-40 md:max-w-48">
@@ -32,8 +38,11 @@ function OrdersListItem({ item }) {
             </span>
           </div>
           {status === "pending" && (
-            <button className="cursor-pointer rounded-full bg-red-700 px-3 py-1 uppercase text-amber-50 transition-all duration-200 hover:bg-red-600">
-              Mark as Received
+            <button
+              onClick={handleReceiveOrder}
+              className="cursor-pointer rounded-full bg-red-700 px-3 py-1 uppercase text-amber-50 transition-all duration-200 hover:bg-red-600"
+            >
+              {isUpdatingOrder ? "Updating..." : "Mark as Received"}
             </button>
           )}
           {status === "completed" && (
