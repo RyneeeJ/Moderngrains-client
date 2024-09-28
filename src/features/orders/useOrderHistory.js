@@ -8,18 +8,23 @@ export function useOrderHistory() {
 
   // 1. get filter value
   const filterValue = searchParams.get("orders");
-  // 2. if there is none, assign filter.value to null
+
   const filter =
     !filterValue || filterValue === "all"
       ? null
-      : { field: "order", value: filterValue };
+      : { field: "status", value: filterValue };
+
+  // PAGINATION
+  const page = searchParams.get("page") || 1;
+
+  // QUERY
   const {
     data,
     isLoading: isLoadingOrders,
     error,
   } = useQuery({
-    queryKey: ["orders"],
-    queryFn: getOrders,
+    queryKey: ["orders", filter],
+    queryFn: () => getOrders({ filter }),
   });
 
   return { data, isLoadingOrders, error };

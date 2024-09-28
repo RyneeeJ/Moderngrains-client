@@ -1,5 +1,4 @@
 import { PAGE_SIZE } from "../utils/constants";
-import { getCartItems } from "./apiCart";
 
 import supabase from "./supabase";
 

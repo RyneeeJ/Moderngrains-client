@@ -35,7 +35,7 @@ export async function placeOrder({ items, sessionId }) {
   return { orderData };
 }
 
-export async function getOrders() {
+export async function getOrders({ filter }) {
   const user = await getCurrentUser();
 
   if (!user) throw new Error("Couldn't find logged in user");
@@ -53,10 +53,15 @@ export async function getOrders() {
   const ordersIdArr = data.map((obj) => obj.id);
 
   const promisesArr = ordersIdArr.map(async (orderId) => {
-    const { data: orderedItems, error: orderedItemsError } = await supabase
+    // FILTER
+    let query = supabase
       .from("ordered_items")
       .select("*")
       .eq("orderId", orderId);
+
+    if (filter) query = query.eq("status", filter.value);
+
+    const { data: orderedItems, error: orderedItemsError } = await query;
 
     if (orderedItemsError) {
       console.error("ERROR:", orderedItemsError.message);
