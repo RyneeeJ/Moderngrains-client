@@ -5,10 +5,14 @@ import ProfileDetailsContainer from "./ProfileDetailsContainer";
 import UserDetailInput from "./UserDetailInput";
 
 import Button from "../../ui/Button";
+import { useGetProfile } from "./useGetProfile";
 
 function UserProfile() {
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
+
+  const { data, isLoading, error } = useGetProfile();
+  console.log(data);
   return (
     <div className="flex flex-col items-center">
       <Avatar />
