@@ -12,24 +12,29 @@ function UserProfile() {
   const [isEditingAddress, setIsEditingAddress] = useState(false);
 
   const { data, isLoading, error } = useGetProfile();
-  console.log(data);
+
+  const { address, avatar, email, name, id } = data;
   return (
     <div className="flex flex-col items-center">
-      <Avatar />
-      <div className="mb-4 sm:text-lg md:text-xl">**********ia@gmail.com</div>
+      <Avatar avatar={avatar} />
+      <div className="mb-4 sm:text-lg md:text-xl">{email}</div>
       <div className="mb-6 w-72 xs:w-3/4">
         <ProfileDetailsContainer label="Name">
           <UserDetailInput
             disabled={!isEditingName}
-            defaultValue="Ryne Gandia"
-            setValue={setIsEditingName}
+            defaultValue={name}
+            setIsEditing={setIsEditingName}
+            userId={id}
+            field="name"
           />
         </ProfileDetailsContainer>
-        <ProfileDetailsContainer label="Address">
+        <ProfileDetailsContainer isEditing={isEditingAddress} label="Address">
           <UserDetailInput
             disabled={!isEditingAddress}
-            defaultValue="San Leonardo, Nueva Ecija"
-            setValue={setIsEditingAddress}
+            defaultValue={address}
+            setIsEditing={setIsEditingAddress}
+            userId={id}
+            field="address"
           />
         </ProfileDetailsContainer>
       </div>

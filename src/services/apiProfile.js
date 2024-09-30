@@ -24,3 +24,18 @@ export async function getProfileDetails() {
 
   return data;
 }
+
+export async function updateProfileDetails({ userId, updatedObj }) {
+  const { data, error } = await supabase
+    .from("profiles")
+    .update(updatedObj)
+    .eq("id", userId)
+    .select();
+
+  if (error) {
+    console.log(error.message);
+    throw new Error("There was an error fetching your profile details");
+  }
+
+  return data;
+}
