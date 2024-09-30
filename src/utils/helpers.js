@@ -1,3 +1,6 @@
+import toast from "react-hot-toast";
+import { reverseGeocodeLocation } from "../services/apiGeocoding";
+
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "PHP" }).format(
     value,
@@ -13,4 +16,34 @@ export const formatDate = (dateStr) => {
     month: "2-digit",
     day: "2-digit",
   }).format(date);
+};
+
+function getPosition() {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+export const fetchAddress = async () => {
+  try {
+    const positionObj = await getPosition();
+
+    const {
+      coords: { latitude: lat, longitude: lng },
+    } = positionObj;
+
+    const data = await reverseGeocodeLocation({
+      lat,
+      lng,
+    });
+
+    console.log(data);
+    return {
+      locality: data?.locality,
+      city: data?.city,
+      country: data?.countryName,
+    };
+  } catch (e) {
+    console.log(e.message);
+    toast.error("Please enable location access on your browser");
+  }
 };
