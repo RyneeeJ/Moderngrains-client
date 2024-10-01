@@ -7,8 +7,11 @@ import {
 } from "react-icons/pi";
 
 import NavLinkListItem from "./NavLinkListItem";
+import { useUser } from "../features/authentication/useUser";
 
 function Navigation() {
+  const { data: user, isLoading } = useUser();
+  if (isLoading) return null;
   const iconClass = "size-5 xs:size-6 md:size-7";
   return (
     <ul className="flex h-full items-center sm:gap-2">
@@ -20,20 +23,29 @@ function Navigation() {
         <PiStorefront className={iconClass} />
       </NavLinkListItem>
 
-      <NavLinkListItem to="/account/cart">
-        <PiShoppingCartSimple className={iconClass} />
-      </NavLinkListItem>
-      {/* <li>
-        <PiLineVertical className={iconClass} />
-      </li>
+      {user && (
+        <>
+          <NavLinkListItem to="/account/cart">
+            <PiShoppingCartSimple className={iconClass} />
+          </NavLinkListItem>
+          <NavLinkListItem to="/account/profile">
+            <PiUser className={iconClass} />
+          </NavLinkListItem>
+        </>
+      )}
+      {!user && (
+        <>
+          <li>
+            <PiLineVertical className={iconClass} />
+          </li>
 
-      <NavLinkListItem to="/login">
-        <span className="text-xs">Log in</span>
-      </NavLinkListItem> */}
-
-      <NavLinkListItem to="/account/profile">
-        <PiUser className={iconClass} />
-      </NavLinkListItem>
+          <NavLinkListItem to="/login">
+            <span className="text-xs font-semibold xs:text-sm md:text-base">
+              Log in
+            </span>
+          </NavLinkListItem>
+        </>
+      )}
     </ul>
   );
 }
