@@ -1,8 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import Section from "../ui/Section";
 
 function Cancel() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+  if (!sessionId) return <Navigate to="/" replace />;
+
   return (
     <Section additionalClass="h-screen flex justify-center items-center">
       <div className="translate-y-[-50%] text-center text-xl sm:text-2xl">

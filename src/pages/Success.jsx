@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
 import Section from "../ui/Section";
 import { HiArrowRight } from "react-icons/hi";
@@ -12,6 +12,8 @@ function Success() {
   const sessionId = searchParams.get("session_id");
   // needed to check if there is already an order placed
   const orderId = searchParams.get("orderId") || null;
+
+  if (!sessionId) return <Navigate to="/" replace />;
 
   const { placeOrder, isPlacingOrder } = useAddOrder();
   const { deleteCheckedOut, isDeleting } = useDeleteCheckedOut();
@@ -41,7 +43,6 @@ function Success() {
               price: item.price,
               image: item.image,
               quantity: item.quantity,
-              // dateOrdered: Date.now(),
             }));
 
             placeOrder({ items: ordersArr, sessionId });
