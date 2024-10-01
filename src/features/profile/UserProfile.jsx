@@ -11,8 +11,8 @@ function UserProfile() {
 
   return (
     <div className="flex flex-col items-center">
-      <Avatar avatar={avatar} />
-      <div className="mb-4 sm:text-lg md:text-xl">{email}</div>
+      <Avatar avatar={avatar} userId={id} />
+      <div className="mb-6 sm:text-lg md:text-xl">{email}</div>
       <div className="mb-6 w-72 xs:w-3/4">
         <UserDetailInput defaultValue={name} userId={id} field="name" />
         <UserDetailInput defaultValue={address} userId={id} field="address" />

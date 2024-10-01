@@ -1,5 +1,5 @@
 import { getCurrentUser } from "./apiAuth";
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function getProfileDetails() {
   // get user id of logged in user
@@ -26,6 +26,31 @@ export async function getProfileDetails() {
 }
 
 export async function updateProfileDetails({ userId, updatedObj }) {
+  if (updatedObj.avatar) {
+    // if updated object the avatar property
+    // construct unique image name
+    const imageName = `${Math.random()}-${updatedObj.avatar.name}`.replaceAll(
+      "/",
+      "",
+    );
+
+    // construct image path to be uploaded to supabase bucket
+    const imagePath = `${supabaseUrl}/storage/v1/object/public/avatars/${imageName}`;
+
+    // upload image to supabase bucket
+    const { error } = await supabase.storage
+      .from("avatars")
+      .upload(imageName, updatedObj.avatar);
+
+    if (error) {
+      console.error("There was a problem uploading your avatar photo");
+    }
+
+    // change avatar property to image path created earlier (this is the new updatedObj that will be used to update profiles data table)
+    updatedObj.avatar = imagePath;
+  }
+
+  // update profiles data table using updatedObj
   const { data, error } = await supabase
     .from("profiles")
     .update(updatedObj)

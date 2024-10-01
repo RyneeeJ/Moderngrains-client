@@ -36,7 +36,6 @@ export const fetchAddress = async () => {
       lng,
     });
 
-    console.log(data);
     return {
       locality: data?.locality,
       city: data?.city,

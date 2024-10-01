@@ -11,10 +11,12 @@ function UserDetailInput({ defaultValue, userId, field }) {
   const { updateProfile, isUpdating } = useUpdateProfile();
 
   function handleSaveInput() {
+    // construct the updated object:
     const updatedObj = {
       [field]: inputValue,
     };
 
+    // If isEditing, and there is a valid inputValue, and the new inputValue is different from the last saved one, then update Profile
     if (isEditing && inputValue && defaultValue !== inputValue) {
       updateProfile({ userId, updatedObj });
     } else if (!inputValue) {
@@ -34,9 +36,12 @@ function UserDetailInput({ defaultValue, userId, field }) {
   return (
     <div className="mb-6 flex flex-col gap-1 sm:mb-8 md:mb-10">
       <div className="flex justify-between">
-        <span className="text-xs xs:text-sm sm:text-base md:text-lg">
+        <label
+          htmlFor={field}
+          className="text-xs xs:text-sm sm:text-base md:text-lg"
+        >
           {field.replace(field.at(0), field.at(0).toUpperCase())}
-        </span>
+        </label>
 
         {field === "address" && isEditing && (
           <button
@@ -51,6 +56,7 @@ function UserDetailInput({ defaultValue, userId, field }) {
 
       <div className="flex items-center sm:space-x-2">
         <input
+          id={field}
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -60,7 +66,7 @@ function UserDetailInput({ defaultValue, userId, field }) {
 
         <button
           onClick={handleSaveInput}
-          disabled={isFetchingLocation}
+          disabled={isFetchingLocation || isUpdating}
           className="flex w-10 cursor-pointer justify-center text-xs text-stone-500 hover:underline xs:text-sm sm:text-base md:text-lg"
         >
           {!isEditing ? "Edit" : "Save"}
