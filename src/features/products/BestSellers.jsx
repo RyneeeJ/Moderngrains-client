@@ -8,7 +8,9 @@ import SectionHeading from "../../ui/SectionHeading";
 import ProductList from "./ProductList";
 
 function BestSellers() {
-  const { data: bestSellers, isLoading, error } = useBestSellers();
+  const { data: bestSellers, error } = useBestSellers();
+
+  if (error) console.log("ERROR:", error.message);
 
   return (
     <>

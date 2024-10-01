@@ -5,10 +5,9 @@ import ProductList from "./ProductList";
 import { useAllProducts } from "./useAllProducts";
 
 function AllProducts() {
-  const { products, isLoading, count } = useAllProducts();
+  const { products, count } = useAllProducts();
 
   const { login, isLoading: isLoggingIn } = useLogin();
-  // if (isLoading) return <div>LOADING...</div>;
 
   return (
     <>

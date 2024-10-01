@@ -9,7 +9,9 @@ function OrdersList() {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("orders");
 
-  const { data: ordersArr, isLoadingOrders, count } = useOrderHistory();
+  const { data: ordersArr, count, error } = useOrderHistory();
+
+  if (error) console.log("ERROR", error.message);
 
   if (!count)
     return (

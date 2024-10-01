@@ -3,7 +3,10 @@ import { useGetProfile } from "./useGetProfile";
 import UserProfile from "./UserProfile";
 
 function ProfileContainer() {
-  const { data } = useGetProfile();
+  const { data, error } = useGetProfile();
+
+  if (error) console.log("ERROR", error.message);
+
   const { address, avatar, email, name, id } = data;
   return (
     <>

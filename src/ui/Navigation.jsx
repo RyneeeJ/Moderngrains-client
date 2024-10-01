@@ -11,7 +11,10 @@ import { useUser } from "../features/authentication/useUser";
 
 function Navigation() {
   const { data: user, isLoading } = useUser();
+
+  // I didnt use suspense loader here to avoid loading spinner in the header navigation
   if (isLoading) return null;
+
   const iconClass = "size-5 xs:size-6 md:size-7";
   return (
     <ul className="flex h-full items-center sm:gap-2">
