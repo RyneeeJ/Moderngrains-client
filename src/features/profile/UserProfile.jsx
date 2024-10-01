@@ -3,12 +3,8 @@ import Avatar from "./Avatar";
 import UserDetailInput from "./UserDetailInput";
 
 import Button from "../../ui/Button";
-import { useGetProfile } from "./useGetProfile";
 
-function UserProfile() {
-  const { data, isLoading, error } = useGetProfile();
-  const { address, avatar, email, name, id } = data;
-
+function UserProfile({ address, avatar, email, name, id }) {
   return (
     <div className="flex flex-col items-center">
       <Avatar avatar={avatar} userId={id} />

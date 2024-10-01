@@ -1,5 +1,11 @@
+import Section from "./Section";
+
 function Loader() {
-  return <div className="text-3xl">LOADINGGGGGGGGG!!!!!</div>;
+  return (
+    <Section>
+      <div className="text-3xl">LOADINGGGGGGGGG!!!!!</div>;
+    </Section>
+  );
 }
 
 export default Loader;

@@ -27,6 +27,7 @@ export function useOrderHistory() {
   } = useQuery({
     queryKey: ["orders", filter, page],
     queryFn: () => getOrders({ filter, page }),
+    suspense: true,
   });
 
   // PRE-FETCH QUERIES

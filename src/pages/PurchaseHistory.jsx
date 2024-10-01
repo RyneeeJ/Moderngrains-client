@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import OrdersFilter from "../features/orders/OrdersFilter";
 import OrdersList from "../features/orders/OrdersList";
 import OperationsContainer from "../ui/OperationsContainer";
 
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
+import Loader from "../ui/Loader";
 
 function PurchaseHistory() {
   return (
@@ -14,7 +16,9 @@ function PurchaseHistory() {
         <OrdersFilter />
       </OperationsContainer>
 
-      <OrdersList />
+      <Suspense fallback={<Loader />}>
+        <OrdersList />
+      </Suspense>
     </Section>
   );
 }

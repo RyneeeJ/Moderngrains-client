@@ -6,7 +6,6 @@ import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import PaymentMethod from "./pages/PaymentMethod";
 import PurchaseHistory from "./pages/PurchaseHistory";
 import PageNotFound from "./pages/PageNotFound";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -42,10 +41,6 @@ const router = createBrowserRouter([
       {
         path: "/account/profile",
         element: <Profile />,
-      },
-      {
-        path: "/account/profile/payment-method",
-        element: <PaymentMethod />,
       },
       {
         path: "/account/profile/purchase-history",

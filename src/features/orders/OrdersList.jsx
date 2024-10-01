@@ -10,7 +10,6 @@ function OrdersList() {
   const status = searchParams.get("orders");
 
   const { data: ordersArr, isLoadingOrders, count } = useOrderHistory();
-  if (isLoadingOrders) return <div className="text-center">Loading....</div>;
 
   if (!count)
     return (
