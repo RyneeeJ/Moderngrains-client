@@ -8,6 +8,7 @@ export function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: fakeLogin,
     onSuccess: (data) => {
+      console.log(data);
       // Manually cache the user data right after successful login
       queryClient.setQueryData(["user"], data?.user);
       navigate("/", { replace: true });

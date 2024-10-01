@@ -10,7 +10,7 @@ import NavLinkListItem from "./NavLinkListItem";
 import { useUser } from "../features/authentication/useUser";
 
 function Navigation() {
-  const { data: user, isLoading } = useUser();
+  const { user, isLoading, isAuthenticated } = useUser();
 
   // I didnt use suspense loader here to avoid loading spinner in the header navigation
   if (isLoading) return null;
@@ -26,7 +26,7 @@ function Navigation() {
         <PiStorefront className={iconClass} />
       </NavLinkListItem>
 
-      {user && (
+      {user && isAuthenticated && (
         <>
           <NavLinkListItem to="/account/cart">
             <PiShoppingCartSimple className={iconClass} />

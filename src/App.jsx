@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,15 +37,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/account/profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />,
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/account/profile/purchase-history",
-        element: <PurchaseHistory />,
+        element: (
+          <ProtectedRoute>
+            <PurchaseHistory />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
@@ -52,11 +65,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/account/checkout/success",
-        element: <Success />,
+        element: (
+          <ProtectedRoute>
+            <Success />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/account/checkout/cancel",
-        element: <Cancel />,
+        element: (
+          <ProtectedRoute>
+            <Cancel />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
