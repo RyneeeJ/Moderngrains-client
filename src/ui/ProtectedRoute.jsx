@@ -1,15 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useUser } from "../features/authentication/useUser";
-import toast from "react-hot-toast";
 
 function ProtectedRoute({ children }) {
   const { isLoading, isAuthenticated } = useUser();
+  if (isLoading) return <div>Loading.........</div>;
+  if (!isLoading && !isAuthenticated) return <Navigate to="/" replace />;
 
-  if (!isLoading && !isAuthenticated) {
-    toast.error("Please login first");
-    return <Navigate to="/" replace />;
-  }
-  return children;
+  if (isAuthenticated) return children;
 }
 
 export default ProtectedRoute;

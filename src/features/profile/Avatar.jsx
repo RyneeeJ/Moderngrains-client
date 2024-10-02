@@ -13,6 +13,7 @@ function Avatar({ avatar, userId }) {
     // if current state is not uploading (default), toggle click the hidden file input element
     if (!isUploading) fileInputEl.current.click();
     else {
+      if (!selectedImage) return;
       // If current state is uploading, upload the avatar
       updateProfile({ userId, updatedObj: { avatar: selectedImage } });
       // reset selected image state

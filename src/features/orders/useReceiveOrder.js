@@ -39,7 +39,7 @@ export function useReceiveOrder() {
 
       // invalidate orders queries
       queryClient.invalidateQueries({
-        queryKey: ["orders", filter, page],
+        queryKey: ["orders"],
       });
     },
   });
