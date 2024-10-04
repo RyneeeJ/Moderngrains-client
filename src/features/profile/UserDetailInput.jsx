@@ -58,9 +58,9 @@ function UserDetailInput({ defaultValue, userId, field }) {
         <input
           id={field}
           type="text"
-          value={inputValue}
+          value={isFetchingLocation ? "Fetching location..." : inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          disabled={!isEditing}
+          disabled={!isEditing || isFetchingLocation}
           className="grow rounded-md bg-neutral-50 px-3 py-1 text-sm text-lime-800 ring-1 disabled:bg-neutral-200 disabled:ring-0 xs:text-base sm:px-4 sm:py-2 sm:text-lg md:text-xl"
         />
 

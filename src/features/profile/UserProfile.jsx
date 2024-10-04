@@ -3,6 +3,7 @@ import Avatar from "./Avatar";
 import UserDetailInput from "./UserDetailInput";
 
 import Button from "../../ui/Button";
+import LogoutButton from "../../ui/LogoutButton";
 
 function UserProfile({ address, avatar, email, name, id }) {
   return (
@@ -13,7 +14,10 @@ function UserProfile({ address, avatar, email, name, id }) {
         <UserDetailInput defaultValue={name} userId={id} field="name" />
         <UserDetailInput defaultValue={address} userId={id} field="address" />
       </div>
-      <Button type="purchase-history">View Purchase History</Button>
+      <div className="space-y-3 sm:space-y-5">
+        <Button type="purchase-history">View Purchase History</Button>
+        <LogoutButton />
+      </div>
     </div>
   );
 }
