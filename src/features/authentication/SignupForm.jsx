@@ -6,16 +6,21 @@ import Form from "../../ui/Form";
 
 function SignupForm() {
   const navigate = useNavigate();
+
   return (
     <Form>
       <FormInputContainer>
         <div className="flex gap-5">
-          <FormInput label="First Name" type="text" />
-          <FormInput label="Last Name" type="text" />
+          <FormInput label="First Name" id="firstName" type="text" />
+          <FormInput label="Last Name" id="lastName" type="text" />
         </div>
-        <FormInput label="Email" type="email" />
-        <FormInput label="Password" type="password" />
-        <FormInput label="Confirm password" type="password" />
+        <FormInput label="Email" id="email" type="email" />
+        <FormInput label="Password" id="password" type="password" />
+        <FormInput
+          label="Confirm password"
+          id="confirmPassword"
+          type="password"
+        />
       </FormInputContainer>
 
       <FormButton>Sign up</FormButton>

@@ -1,15 +1,12 @@
 import supabase from "./supabase";
 
-export async function fakeLogin() {
+export async function login({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
-    email: "test@test.com",
-    password: "pass1221",
+    email,
+    password,
   });
 
-  if (error) {
-    console.error(error.message);
-    throw new Error("There was a problem logging in");
-  }
+  if (error) throw new Error("Email or password are incorrect");
 
   // This data is an object that contains the session and user property
   return data;

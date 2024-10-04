@@ -1,13 +1,18 @@
-function FormInput({ label, type }) {
+import { forwardRef } from "react";
+
+const FormInput = forwardRef(function FormInput(
+  { label, type, id, ...rest },
+  ref,
+) {
   return (
-    <div className="flex flex-col items-start">
-      <label className="mb-2 text-xs sm:text-sm">{label}</label>
-      <input
-        className="w-full rounded-sm bg-amber-50 px-2 py-1 text-lime-800 sm:text-lg"
-        type={type}
-      />
-    </div>
+    <input
+      ref={ref}
+      id={id}
+      {...rest}
+      className="w-full rounded-sm bg-amber-50 px-2 py-1 text-lime-800 sm:text-lg"
+      type={type}
+    />
   );
-}
+});
 
 export default FormInput;

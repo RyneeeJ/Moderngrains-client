@@ -1,16 +1,45 @@
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import Form from "../../ui/Form";
 import FormButton from "../../ui/FormButton";
 import FormInput from "../../ui/FormInput";
 import FormInputContainer from "../../ui/FormInputContainer";
+import FormRow from "../../ui/FormRow";
+import { useLogin } from "./useLogin";
 
 function LoginForm() {
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { login, isLoading } = useLogin();
+
+  function submitLogin(data) {
+    login(data);
+  }
+
+  console.log(errors);
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(submitLogin)}>
       <FormInputContainer>
-        <FormInput label="Email" type="email" />
-        <FormInput label="Password" type="password" />
+        <FormRow label="Email" id="email">
+          <FormInput
+            {...register("email", { required: "This field is required" })}
+            id="email"
+            type="email"
+          />
+        </FormRow>
+        <FormRow label="Password" id="password">
+          <FormInput
+            {...register("password", { required: "This field is required" })}
+            id="password"
+            type="password"
+          />
+        </FormRow>
       </FormInputContainer>
 
       <span className="block cursor-pointer text-right text-xs text-amber-100 hover:underline sm:text-sm">

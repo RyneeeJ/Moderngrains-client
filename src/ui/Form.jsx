@@ -1,4 +1,4 @@
-function Form({ children, type }) {
+function Form({ children, type, onSubmit }) {
   return (
     <div className="mx-auto w-full max-w-lg rounded-md bg-yellow-700 px-8 py-10 text-center text-amber-100">
       <div className="flex flex-col">
@@ -8,7 +8,9 @@ function Form({ children, type }) {
         <span className="mb-5 text-sm sm:mb-8 sm:text-base">
           {type === "login" ? "Log in your account" : "Create an account"}
         </span>
-        <form className="w-full max-w-sm self-center">{children}</form>
+        <form onSubmit={onSubmit} className="w-full max-w-sm self-center">
+          {children}
+        </form>
       </div>
     </div>
   );

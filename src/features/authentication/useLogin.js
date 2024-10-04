@@ -1,20 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { fakeLogin } from "../../services/apiAuth";
+import { login as loginApi } from "../../services/apiAuth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { mutate: login, isLoading } = useMutation({
-    mutationFn: fakeLogin,
+    mutationFn: loginApi,
     onSuccess: (data) => {
-      console.log(data);
       // Manually cache the user data right after successful login
       queryClient.setQueryData(["user"], data?.user);
       navigate("/", { replace: true });
     },
     onError: (err) => {
-      console.log("ERROR:", err.message);
+      toast.error(err.message);
     },
   });
 
