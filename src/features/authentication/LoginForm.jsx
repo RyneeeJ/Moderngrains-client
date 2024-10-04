@@ -2,15 +2,17 @@ import { useNavigate } from "react-router-dom";
 import Form from "../../ui/Form";
 import FormButton from "../../ui/FormButton";
 import FormInput from "../../ui/FormInput";
+import FormInputContainer from "../../ui/FormInputContainer";
 
 function LoginForm() {
   const navigate = useNavigate();
   return (
     <Form>
-      <div className="mb-2 space-y-5 sm:space-y-7">
+      <FormInputContainer>
         <FormInput label="Email" type="email" />
         <FormInput label="Password" type="password" />
-      </div>
+      </FormInputContainer>
+
       <span className="block cursor-pointer text-right text-xs text-amber-100 hover:underline sm:text-sm">
         Forgot password?
       </span>
