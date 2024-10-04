@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import Form from "../../ui/Form";
 import FormButton from "../../ui/FormButton";
 import FormInput from "../../ui/FormInput";
 
 function LoginForm() {
+  const navigate = useNavigate();
   return (
     <Form>
       <div className="mb-2 space-y-5 sm:space-y-7">
@@ -15,7 +17,13 @@ function LoginForm() {
       <FormButton>Log in</FormButton>
 
       <p className="text-sm sm:text-base">
-        No account yet? Sign up <span className="underline">here</span>
+        No account yet? Sign up{" "}
+        <span
+          onClick={() => navigate("/signup")}
+          className="underline hover:cursor-pointer"
+        >
+          here
+        </span>
       </p>
     </Form>
   );

@@ -14,6 +14,7 @@ import { Toaster } from "react-hot-toast";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Signup from "./pages/Signup";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      { path: "/signup", element: <Signup /> },
       {
         path: "/account/checkout/success",
         element: (
