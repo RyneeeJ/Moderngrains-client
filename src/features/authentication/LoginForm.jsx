@@ -14,6 +14,7 @@ function LoginForm() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const { login, isLoading } = useLogin();
@@ -22,13 +23,13 @@ function LoginForm() {
     login(data);
   }
 
-  console.log(errors);
   return (
     <Form onSubmit={handleSubmit(submitLogin)}>
       <FormInputContainer>
         <FormRow label="Email" id="email">
           <FormInput
             {...register("email", { required: "This field is required" })}
+            errorMessage={errors?.email?.message}
             id="email"
             type="email"
           />
@@ -36,6 +37,7 @@ function LoginForm() {
         <FormRow label="Password" id="password">
           <FormInput
             {...register("password", { required: "This field is required" })}
+            errorMessage={errors?.password?.message}
             id="password"
             type="password"
           />
@@ -45,7 +47,7 @@ function LoginForm() {
       <span className="block cursor-pointer text-right text-xs text-amber-100 hover:underline sm:text-sm">
         Forgot password?
       </span>
-      <FormButton>Log in</FormButton>
+      <FormButton>{isLoading ? "Logging in..." : "Log in"}</FormButton>
 
       <p className="text-sm sm:text-base">
         No account yet? Sign up{" "}

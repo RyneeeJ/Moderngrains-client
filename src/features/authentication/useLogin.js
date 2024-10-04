@@ -13,6 +13,7 @@ export function useLogin() {
       queryClient.setQueryData(["user"], data?.user);
       navigate("/", { replace: true });
     },
+
     onError: (err) => {
       toast.error(err.message);
     },

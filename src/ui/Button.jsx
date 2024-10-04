@@ -53,6 +53,7 @@ function Button({ type, children, className, ...props }) {
   if (type === "logout")
     return (
       <button
+        {...props}
         className={
           secondaryBtnClass + " block w-full bg-red-600 hover:bg-red-700"
         }

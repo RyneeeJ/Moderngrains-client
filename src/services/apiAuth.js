@@ -6,10 +6,16 @@ export async function login({ email, password }) {
     password,
   });
 
-  if (error) throw new Error("Email or password are incorrect");
+  if (error) {
+    throw new Error("Email or password are incorrect. Please try again");
+  }
 
   // This data is an object that contains the session and user property
   return data;
+}
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  return error;
 }
 
 export async function getCurrentUser() {
