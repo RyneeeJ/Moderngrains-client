@@ -3,7 +3,7 @@ import { useUpdateProfile } from "./useUpdateProfile";
 import { toast } from "react-hot-toast";
 import { fetchAddress } from "../../utils/helpers";
 
-function UserDetailInput({ defaultValue, userId, field }) {
+function UserDetailInput({ defaultValue, userId, field, placeholder }) {
   const [inputValue, setInputValue] = useState(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
   const [isFetchingLocation, setIsFetchingLocation] = useState(false);
@@ -11,6 +11,7 @@ function UserDetailInput({ defaultValue, userId, field }) {
   const { updateProfile, isUpdating } = useUpdateProfile();
 
   function handleSaveInput() {
+    setIsEditing((isEditing) => !isEditing);
     // construct the updated object:
     const updatedObj = {
       [field]: inputValue,
@@ -19,11 +20,10 @@ function UserDetailInput({ defaultValue, userId, field }) {
     // If isEditing, and there is a valid inputValue, and the new inputValue is different from the last saved one, then update Profile
     if (isEditing && inputValue && defaultValue !== inputValue) {
       updateProfile({ userId, updatedObj });
-    } else if (!inputValue) {
-      toast.error("Save failed: Invalid input details");
+    } else if (isEditing && !inputValue) {
+      toast.error("Invalid input: No address saved");
       return;
     }
-    setIsEditing((isEditing) => !isEditing);
   }
 
   async function handleGeolocation() {
@@ -58,10 +58,11 @@ function UserDetailInput({ defaultValue, userId, field }) {
         <input
           id={field}
           type="text"
+          placeholder={placeholder}
           value={isFetchingLocation ? "Fetching location..." : inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           disabled={!isEditing || isFetchingLocation}
-          className="grow rounded-md bg-neutral-50 px-3 py-1 text-sm text-lime-800 ring-1 disabled:bg-neutral-200 disabled:ring-0 xs:text-base sm:px-4 sm:py-2 sm:text-lg md:text-xl"
+          className="grow rounded-md bg-neutral-50 px-3 py-1 text-sm text-lime-800 ring-1 placeholder:text-neutral-400 disabled:bg-neutral-200 disabled:ring-0 xs:text-base sm:px-4 sm:py-2 sm:text-lg md:text-xl"
         />
 
         <button

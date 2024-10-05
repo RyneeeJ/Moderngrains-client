@@ -18,6 +18,36 @@ export async function logout() {
   return error;
 }
 
+export async function signup({ email, password, name }) {
+  console.log(email, password, name);
+  // Sign up the user
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) throw new Error(error.message);
+
+  // Add profile for the user
+
+  const { data: profileData, error: profileError } = await supabase
+    .from("profiles")
+    .insert([{ id: data?.user?.id, email: data?.user?.email, name }])
+    .select()
+    .single();
+
+  // Add the cart of the user
+  const { data: cartData, error: cartError } = await supabase
+    .from("cart")
+    .insert([{ userId: data?.user?.id }])
+    .select();
+
+  if (profileError || cartError)
+    throw new Error(profileError?.message || cartError?.message);
+
+  return profileData;
+}
+
 export async function getCurrentUser() {
   // Check whether there is an active session
   const { data: session } = await supabase.auth.getSession();

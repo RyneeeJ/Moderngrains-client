@@ -94,7 +94,11 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            className: "bg-yellow-700 text-amber-50 max-w-full",
+          }}
+        />
       </QueryClientProvider>
     </>
   );

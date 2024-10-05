@@ -1,5 +1,7 @@
+import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import TotalPrice from "../cart/TotalPrice";
+import { useGetProfile } from "../profile/useGetProfile";
 
 function Checkout({ cartItems }) {
   const confirmedItems = cartItems?.filter((item) => item.isConfirmed === true);
@@ -9,7 +11,15 @@ function Checkout({ cartItems }) {
     0,
   );
 
+  const {
+    data: { address },
+  } = useGetProfile();
+
   async function checkout() {
+    if (!address) {
+      toast.error("Set up your address first in your profile");
+      return;
+    }
     await fetch("http://localhost:4242/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
