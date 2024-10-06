@@ -11,7 +11,10 @@ function OrdersList() {
 
   const { data: ordersArr, count, error } = useOrderHistory();
 
-  if (error) console.log("ERROR", error.message);
+  if (error) {
+    console.log("ERRORRR", error.message);
+    throw new Error(error.message);
+  }
 
   if (!count)
     return (

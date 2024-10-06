@@ -25,7 +25,8 @@ export async function getCartItems({ queryKey }) {
     .select("*")
     .eq("cartId", cartId);
 
-  if (cartItemsError) return [];
+  if (cartItemsError)
+    throw new Error("Something went wrong while accessing your cart items");
 
   // Create an array of product IDs of the items in the cart
   const productIdArr = cartItems?.map((item) => item.productId);

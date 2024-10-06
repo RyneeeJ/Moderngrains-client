@@ -20,7 +20,6 @@ function SignupForm() {
   const { signup, isSigningUp } = useSignup();
   function submitSignup(data) {
     signup({ email: data.email, password: data.password, name: data.name });
-    console.log("form submitted");
   }
 
   return (

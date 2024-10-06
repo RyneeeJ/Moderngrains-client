@@ -10,7 +10,10 @@ import ProductList from "./ProductList";
 function BestSellers() {
   const { data: bestSellers, error } = useBestSellers();
 
-  if (error) console.log("ERROR:", error.message);
+  if (error) {
+    console.log("ERROR:", error.message);
+    throw new Error(error.message);
+  }
 
   return (
     <>

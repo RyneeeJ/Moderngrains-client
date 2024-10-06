@@ -17,8 +17,6 @@ function LoginForm() {
   } = useForm();
 
   const { login, isLoading, status } = useLogin();
-  if (isLoading) console.log("logging in...");
-  console.log("login status:", status);
 
   function submitLogin(data) {
     login(data);

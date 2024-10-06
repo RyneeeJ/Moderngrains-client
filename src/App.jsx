@@ -16,6 +16,7 @@ import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Signup from "./pages/Signup";
+import ErrorFallback from "./ui/ErrorFallback";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +29,7 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     element: (
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
         <AppLayout />
       </ErrorBoundary>
     ),

@@ -9,7 +9,6 @@ export function useSignup() {
   const { mutate: signup, isLoading: isSigningUp } = useMutation({
     mutationFn: signupApi,
     onSuccess: (data) => {
-      console.log(data);
       navigate("/products", { replace: true });
       toast.success(`Welcome, ${data.name}! 😊`);
     },

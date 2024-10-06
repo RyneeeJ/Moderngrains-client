@@ -9,10 +9,10 @@ function CartDetails() {
   const { cartItems, error } = useCartItems();
 
   if (error) {
-    console.log("ERROR:", error.message);
+    throw new Error(error.message);
   }
-
   const isCartEmpty = cartItems.length === 0;
+
   return (
     <>
       {isCartEmpty && <EmptyCart />}

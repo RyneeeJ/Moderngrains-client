@@ -6,7 +6,10 @@ import UserProfile from "./UserProfile";
 function ProfileContainer() {
   const { data, error } = useGetProfile();
 
-  if (error) console.log("ERROR", error.message);
+  if (error) {
+    console.log("ERROR", error.message);
+    throw new Error("There was a problem accessing your profile details");
+  }
 
   const { address, avatar, email, name, id } = data;
   return (
