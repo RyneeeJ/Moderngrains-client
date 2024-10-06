@@ -125,7 +125,6 @@ export async function updateCart({
     cartItemsFinal,
   });
 
-  console.log("alreadyInCart:", itemAlreadyInCart);
   // If item is already in cart, just update the quantity
   if (itemAlreadyInCart) {
     const data = await updateCartItemQuantity(

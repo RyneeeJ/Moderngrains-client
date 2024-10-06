@@ -1,4 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
+import { ErrorBoundary } from "react-error-boundary";
 
 import AppLayout from "./ui/AppLayout";
 import Homepage from "./pages/Homepage";
@@ -8,9 +12,6 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import PurchaseHistory from "./pages/PurchaseHistory";
 import PageNotFound from "./pages/PageNotFound";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import ProtectedRoute from "./ui/ProtectedRoute";
@@ -26,7 +27,11 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: (
+      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <AppLayout />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: "/",
