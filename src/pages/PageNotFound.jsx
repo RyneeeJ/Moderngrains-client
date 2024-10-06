@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function PageNotFound() {
+  useDocumentTitle("MGrains | Page not found");
   const navigate = useNavigate();
   return (
     <div className="mx-auto flex h-screen flex-col items-center justify-center gap-14 px-10 text-center">

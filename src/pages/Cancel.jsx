@@ -1,10 +1,14 @@
 import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import Section from "../ui/Section";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function Cancel() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+
+  useDocumentTitle("MGrains | Payment Cancelled");
+
   if (!sessionId) return <Navigate to="/" replace />;
 
   return (

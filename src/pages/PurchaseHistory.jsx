@@ -6,8 +6,10 @@ import OperationsContainer from "../ui/OperationsContainer";
 import Section from "../ui/Section";
 import SectionHeading from "../ui/SectionHeading";
 import Loader from "../ui/Loader";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function PurchaseHistory() {
+  useDocumentTitle("MGrains | Orders");
   return (
     <Section>
       <SectionHeading>Purchase History</SectionHeading>

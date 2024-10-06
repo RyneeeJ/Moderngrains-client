@@ -6,12 +6,15 @@ import Section from "../ui/Section";
 import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
 import { useCartItems } from "../features/cart/useCartItems";
 import { useAddOrder } from "../features/orders/useAddOrder";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function Success() {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
   // needed to check if there is already an order placed
   const orderId = searchParams.get("orderId") || null;
+
+  useDocumentTitle("MGrains | Payment Success");
 
   if (!sessionId) return <Navigate to="/" replace />;
 
