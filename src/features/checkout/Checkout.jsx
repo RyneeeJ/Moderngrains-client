@@ -2,18 +2,19 @@ import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import TotalPrice from "../cart/TotalPrice";
 import { useGetProfile } from "../profile/useGetProfile";
+import { useUser } from "../authentication/useUser";
 
 function Checkout({ cartItems }) {
+  const {
+    data: { address },
+  } = useGetProfile();
+
   const confirmedItems = cartItems?.filter((item) => item.isConfirmed === true);
   const numItems = confirmedItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = confirmedItems?.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
-
-  const {
-    data: { address },
-  } = useGetProfile();
 
   async function checkout() {
     if (!address) {

@@ -1,11 +1,11 @@
+import { useEffect } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
-import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
-import Section from "../ui/Section";
 import { HiArrowRight } from "react-icons/hi";
+
+import Section from "../ui/Section";
+import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
 import { useCartItems } from "../features/cart/useCartItems";
 import { useAddOrder } from "../features/orders/useAddOrder";
-
-import { useEffect } from "react";
 
 function Success() {
   const [searchParams] = useSearchParams();
@@ -18,7 +18,7 @@ function Success() {
   const { placeOrder, isPlacingOrder } = useAddOrder();
   const { deleteCheckedOut, isDeleting } = useDeleteCheckedOut();
 
-  const { cartItems } = useCartItems();
+  const { cartItems, cartId } = useCartItems();
 
   useEffect(
     function () {
@@ -46,7 +46,7 @@ function Success() {
             }));
 
             placeOrder({ items: ordersArr, sessionId });
-            deleteCheckedOut(priceIdArr);
+            deleteCheckedOut({ priceIdArr, cartId });
           }
         } catch (e) {
           console.log(e.message);
@@ -55,7 +55,7 @@ function Success() {
       // If loaded for the first time and there is no orderId set in url searchparams yet, place order.
       if (!orderId) success();
     },
-    [sessionId, orderId, cartItems],
+    [sessionId, orderId, cartItems, cartId],
   );
 
   return (

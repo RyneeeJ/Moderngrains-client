@@ -1,35 +1,31 @@
-import { getCurrentUser } from "./apiAuth";
 import supabase from "./supabase";
 
-async function getCart() {
-  // Get user if there is an existing session
-  const user = await getCurrentUser();
+export async function getCart({ queryKey }) {
+  // check if there is an existing session and user
+  const [_, userId] = queryKey;
 
-  if (!user) throw new Error("Please log in first");
-
+  if (!userId) return null;
   // If there is a logged in user, get cartId
   const {
     data: { id: cartId },
     error,
-  } = await supabase.from("cart").select("id").eq("userId", user.id).single();
+  } = await supabase.from("cart").select("id").eq("userId", userId).single();
 
   if (error) throw new Error("There was a problem accessing your cart details");
 
   return cartId;
 }
 
-export async function getCartItems() {
-  // Get cart id
-  const cartId = await getCart();
-
+export async function getCartItems({ queryKey }) {
+  const [_, cartId] = queryKey;
+  if (!cartId) return null;
   // Fetch cart items data
   const { data: cartItems, error: cartItemsError } = await supabase
     .from("cart_items")
     .select("*")
     .eq("cartId", cartId);
 
-  if (cartItemsError)
-    throw new Error("There was a problem fetching your cart items data");
+  if (cartItemsError) return [];
 
   // Create an array of product IDs of the items in the cart
   const productIdArr = cartItems?.map((item) => item.productId);
@@ -71,15 +67,12 @@ export async function getCartItems() {
   return cartItemsFinalSorted;
 }
 
-async function isItemInCart(productId) {
-  // Get list of all items in the user's cart
-  const cartItemsFinal = await getCartItems();
-
+async function isItemInCart({ productId, cartItemsFinal }) {
   const itemAlreadyInCart = cartItemsFinal
     .map((item) => item.productId)
     .includes(productId);
 
-  return { itemAlreadyInCart, cartItemsFinal };
+  return itemAlreadyInCart;
 }
 
 async function updateCartItemQuantity(cartItemsFinal, productId, quantity) {
@@ -117,10 +110,20 @@ async function addNewItemToCart(productId, cartId, name, quantity, stripeId) {
   return data;
 }
 
-export async function updateCart({ productId, quantity, name, stripeId }) {
-  const cartId = await getCart();
+export async function updateCart({
+  productId,
+  quantity,
+  name,
+  stripeId,
+  cartId,
+  cartItemsFinal,
+}) {
+  if (!cartId) throw new Error("Please login first");
 
-  const { itemAlreadyInCart, cartItemsFinal } = await isItemInCart(productId);
+  const itemAlreadyInCart = await isItemInCart({
+    productId,
+    cartItemsFinal,
+  });
 
   // If item is already in cart, just update the quantity
   if (itemAlreadyInCart) {
@@ -159,9 +162,7 @@ export async function deleteItemInCart(cartItemId) {
   return data;
 }
 
-export async function deleteCheckedOutItems(priceIdArr) {
-  const cartId = await getCart();
-
+export async function deleteCheckedOutItems({ priceIdArr, cartId }) {
   const promises = priceIdArr.map(async (priceId) => {
     const { error } = await supabase
       .from("cart_items")
@@ -177,8 +178,8 @@ export async function deleteCheckedOutItems(priceIdArr) {
   await Promise.all(promises);
 }
 
-export async function deleteAllItemsInCart() {
-  const cartId = await getCart();
+export async function deleteAllItemsInCart(cartId) {
+  // const cartId = await getCart();
 
   const { error } = await supabase
     .from("cart_items")

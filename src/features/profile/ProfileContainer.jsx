@@ -1,4 +1,5 @@
 import SectionHeading from "../../ui/SectionHeading";
+import { useUser } from "../authentication/useUser";
 import { useGetProfile } from "./useGetProfile";
 import UserProfile from "./UserProfile";
 

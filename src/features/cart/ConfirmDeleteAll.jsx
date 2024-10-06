@@ -1,11 +1,13 @@
-import ModalConfirmButton from "../../ui/ModalConfirmButton";
+import { useCartId } from "./useCartId";
 import { useDeleteAllItemsInCart } from "./useDeleteAllItemsInCart";
+import ModalConfirmButton from "../../ui/ModalConfirmButton";
 
 function ConfirmDeleteAll({ closeModal }) {
+  const { cartId } = useCartId();
   const { deleteAllItems, isDeletingAll } = useDeleteAllItemsInCart();
 
   function handleDeleteAll() {
-    deleteAllItems();
+    deleteAllItems(cartId);
     closeModal();
   }
   return (

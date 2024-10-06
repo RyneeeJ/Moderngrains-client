@@ -1,12 +1,22 @@
 import { PiShoppingCartSimple } from "react-icons/pi";
+
 import { useAddToCart } from "../features/cart/useAddToCart";
+import { useCartItems } from "../features/cart/useCartItems";
 
 function AddToCartButton({ item, setQuantity, quantity }) {
+  const { cartItems, cartId } = useCartItems();
   const { isAddingToCart, addItem } = useAddToCart();
 
   const { name, id: productId, stripeId } = item;
   function handleAddToCart() {
-    addItem({ productId, name, quantity, stripeId });
+    addItem({
+      productId,
+      name,
+      quantity,
+      stripeId,
+      cartId,
+      cartItemsFinal: cartItems,
+    });
     setQuantity(1);
   }
   return (

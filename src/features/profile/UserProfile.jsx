@@ -1,7 +1,5 @@
 import Avatar from "./Avatar";
-
 import UserDetailInput from "./UserDetailInput";
-
 import Button from "../../ui/Button";
 import LogoutButton from "../../ui/LogoutButton";
 

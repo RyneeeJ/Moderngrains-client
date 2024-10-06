@@ -1,11 +1,10 @@
 import { getCurrentUser } from "./apiAuth";
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function getProfileDetails() {
+export async function getProfileDetails({ queryKey }) {
   // get user id of logged in user
-  const user = await getCurrentUser();
-
-  if (!user) {
+  const [_, userId] = queryKey;
+  if (!userId) {
     throw new Error("No logged in user");
   }
 
@@ -13,7 +12,7 @@ export async function getProfileDetails() {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("id", user.id)
+    .eq("id", userId)
     .single();
 
   if (error) {

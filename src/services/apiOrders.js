@@ -1,15 +1,12 @@
 import { ORDERS_PAGE_SIZE } from "../utils/constants";
-import { getCurrentUser } from "./apiAuth";
 import supabase from "./supabase";
 
-export async function placeOrder({ items, sessionId }) {
-  const user = await getCurrentUser();
-
-  if (!user) throw new Error("Couldn't find logged in user");
+export async function placeOrder({ items, sessionId, userId }) {
+  if (!userId) throw new Error("Couldn't find logged in user");
 
   const { data: orderData, error } = await supabase
     .from("orders")
-    .insert([{ userId: user.id, sessionId }])
+    .insert([{ userId, sessionId }])
     .select()
     .single();
 
@@ -36,15 +33,13 @@ export async function placeOrder({ items, sessionId }) {
   return { orderData };
 }
 
-export async function getOrders({ filter, page }) {
-  const user = await getCurrentUser();
-
-  if (!user) throw new Error("Couldn't find logged in user");
+export async function getOrders({ filter, page, userId }) {
+  if (!userId) throw new Error("Couldn't find logged in user");
 
   const { data, error } = await supabase
     .from("orders")
     .select("id")
-    .eq("userId", user.id);
+    .eq("userId", userId);
 
   if (error) {
     console.error("ERROR:", error.message);

@@ -1,10 +1,8 @@
+import { useCartItems } from "./useCartItems";
 import OperationsContainer from "../../ui/OperationsContainer";
 import DeleteCartButton from "./DeleteCartButton";
 import CartList from "./CartList";
-
 import Checkout from "../checkout/Checkout";
-
-import { useCartItems } from "./useCartItems";
 import EmptyCart from "./EmptyCart";
 
 function CartDetails() {

@@ -1,6 +1,5 @@
 import Select from "../../ui/Select";
 import { useFilterSort } from "../../hooks/useFilterSort";
-// import { useSearchParams } from "react-router-dom";
 
 function ProductFilter() {
   const optionsArr = [

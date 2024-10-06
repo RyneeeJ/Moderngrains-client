@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { updateCart } from "../../services/apiCart";
 import toast from "react-hot-toast";
+import { useCartItems } from "./useCartItems";
 
 export function useAddToCart() {
   const { isLoading: isAddingToCart, mutate: addItem } = useMutation({

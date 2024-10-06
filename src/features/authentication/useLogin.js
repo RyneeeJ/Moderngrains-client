@@ -12,6 +12,7 @@ export function useLogin() {
       // Manually cache the user data right after successful login
       queryClient.setQueryData(["user"], data?.user);
       navigate("/", { replace: true });
+      toast.success("Login successful! 😊");
     },
 
     onError: (err) => {
