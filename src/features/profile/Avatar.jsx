@@ -37,9 +37,12 @@ function Avatar({ avatar, userId }) {
           <button
             onClick={handleCancelSelection}
             disabled={isUpdating}
-            className="inline-block rounded-full bg-red-600 px-3 py-1 text-sm text-amber-50 transition-all duration-200 hover:bg-red-700"
+            className="inline-block rounded-full bg-red-600 px-3 py-1 text-sm font-light text-amber-50 transition-all duration-200 hover:bg-red-700"
           >
-            Cancel image selection
+            Cancel image selection:{" "}
+            <span className="font-semibold tracking-wide">
+              {selectedImage?.name}
+            </span>
           </button>
         )}
       </div>

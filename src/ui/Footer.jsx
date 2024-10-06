@@ -5,7 +5,7 @@ import SocialMediaLinks from "./SocialMediaLinks";
 
 function Footer() {
   return (
-    <footer className="flex justify-center gap-8 bg-yellow-700 py-5 text-amber-50 xs:py-7 sm:gap-20 sm:py-10">
+    <footer className="flex justify-center gap-8 bg-yellow-700 pt-5 text-amber-50 xs:pt-7 sm:gap-20">
       <div className="space-y-3">
         <div className="text-xl font-light">
           <Logo />

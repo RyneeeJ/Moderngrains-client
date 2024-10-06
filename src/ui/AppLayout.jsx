@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 function AppLayout() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-amber-50">
       <Header />
       <main className="mt-12 min-h-screen grow xs:mt-14 md:mt-16">
         <Outlet />

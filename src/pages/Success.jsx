@@ -70,15 +70,17 @@ function Success() {
         by clicking the link below
       </div>
 
-      <Link
-        to="/account/profile/purchase-history"
-        className="mb-12 flex items-center justify-end gap-2 text-sm opacity-85 hover:underline xs:mb-20 xs:text-base sm:mb-32"
-      >
-        <span>View purchase history </span>
-        <span>
-          <HiArrowRight />
-        </span>
-      </Link>
+      <div className="mb-12 flex justify-end xs:mb-20 sm:mb-32">
+        <Link
+          to="/account/profile/purchase-history"
+          className="flex items-center justify-end gap-2 text-sm opacity-85 hover:underline xs:text-base"
+        >
+          <span>View purchase history </span>
+          <span>
+            <HiArrowRight />
+          </span>
+        </Link>
+      </div>
 
       <div className="flex justify-center">
         <Link

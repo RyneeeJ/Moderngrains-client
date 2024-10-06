@@ -6,7 +6,11 @@ import { toast } from "react-hot-toast";
 export function useLogin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { mutate: login, isLoading } = useMutation({
+  const {
+    mutate: login,
+    isLoading,
+    status,
+  } = useMutation({
     mutationFn: loginApi,
     onSuccess: (data) => {
       // Manually cache the user data right after successful login
@@ -20,5 +24,5 @@ export function useLogin() {
     },
   });
 
-  return { login, isLoading };
+  return { login, isLoading, status };
 }
