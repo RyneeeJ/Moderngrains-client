@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useUpdateProfile } from "./useUpdateProfile";
 import { toast } from "react-hot-toast";
 import { fetchAddress } from "../../utils/helpers";
+import Loader from "../../ui/Loader";
+import LoaderMini from "../../ui/LoaderMini";
 
 function UserDetailInput({ defaultValue, userId, field, placeholder }) {
   const [inputValue, setInputValue] = useState(defaultValue);
@@ -70,7 +72,9 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
           disabled={isFetchingLocation || isUpdating}
           className="flex w-10 cursor-pointer justify-center text-xs text-stone-500 hover:underline xs:text-sm sm:text-base md:text-lg"
         >
-          {!isEditing ? "Edit" : "Save"}
+          {isEditing && isFetchingLocation && <LoaderMini />}
+          {isEditing && !isFetchingLocation && "Save"}
+          {!isEditing && "Edit"}
         </button>
       </div>
     </div>
