@@ -47,11 +47,6 @@ function LoginForm() {
         </FormRow>
       </FormInputContainer>
 
-      <div className="flex w-full justify-end">
-        <span className="block cursor-pointer text-xs text-amber-100 hover:underline sm:text-sm">
-          Forgot password?
-        </span>
-      </div>
       <FormButton>{isLoading ? "Logging in..." : "Log in"}</FormButton>
 
       <p className="text-sm sm:text-base">
