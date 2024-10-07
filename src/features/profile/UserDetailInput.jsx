@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useUpdateProfile } from "./useUpdateProfile";
 import { toast } from "react-hot-toast";
 import { fetchAddress } from "../../utils/helpers";
-import Loader from "../../ui/Loader";
 import LoaderMini from "../../ui/LoaderMini";
 
 function UserDetailInput({ defaultValue, userId, field, placeholder }) {
@@ -18,7 +17,6 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
     const updatedObj = {
       [field]: inputAddressValue,
     };
-
     // If isEditing, and there is a valid inputValue, and the new inputValue is different from the last saved one, then update Profile
     if (isEditing && inputAddressValue && defaultValue !== inputAddressValue) {
       updateProfile({ userId, updatedObj });

@@ -21,7 +21,7 @@ function Checkout({ cartItems }) {
       toast.error("Set up your address first in your profile");
       return;
     }
-    fetch("http://localhost:4242/checkout", {
+    fetch(`${import.meta.env.VITE_API_URL}/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
