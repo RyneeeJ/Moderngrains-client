@@ -6,7 +6,7 @@ import Loader from "../../ui/Loader";
 import LoaderMini from "../../ui/LoaderMini";
 
 function UserDetailInput({ defaultValue, userId, field, placeholder }) {
-  const [inputValue, setInputValue] = useState(defaultValue);
+  const [inputAddressValue, setInputAddressValue] = useState(defaultValue);
   const [isEditing, setIsEditing] = useState(false);
   const [isFetchingLocation, setIsFetchingLocation] = useState(false);
 
@@ -16,13 +16,13 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
     setIsEditing((isEditing) => !isEditing);
     // construct the updated object:
     const updatedObj = {
-      [field]: inputValue,
+      [field]: inputAddressValue,
     };
 
     // If isEditing, and there is a valid inputValue, and the new inputValue is different from the last saved one, then update Profile
-    if (isEditing && inputValue && defaultValue !== inputValue) {
+    if (isEditing && inputAddressValue && defaultValue !== inputAddressValue) {
       updateProfile({ userId, updatedObj });
-    } else if (isEditing && !inputValue) {
+    } else if (isEditing && !inputAddressValue) {
       toast.error("Invalid input: No address saved");
       return;
     }
@@ -30,9 +30,15 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
 
   async function handleGeolocation() {
     setIsFetchingLocation(true);
-    const { locality, city, country } = await fetchAddress();
-    setInputValue(`${locality}, ${city}, ${country}`);
-    setIsFetchingLocation(false);
+    try {
+      const { locality, city, country } = await fetchAddress();
+      setInputAddressValue(`${locality}, ${city}, ${country}`);
+      toast.success("Current location fetched");
+    } catch (e) {
+      toast.error(e.message);
+    } finally {
+      setIsFetchingLocation(false);
+    }
   }
 
   return (
@@ -61,8 +67,10 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
           id={field}
           type="text"
           placeholder={placeholder}
-          value={isFetchingLocation ? "Fetching location..." : inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          value={
+            isFetchingLocation ? "Fetching location..." : inputAddressValue
+          }
+          onChange={(e) => setInputAddressValue(e.target.value)}
           disabled={!isEditing || isFetchingLocation}
           className="grow rounded-md bg-neutral-50 px-3 py-1 text-sm text-lime-800 ring-1 placeholder:text-neutral-400 disabled:bg-neutral-200 disabled:ring-0 xs:text-base sm:px-4 sm:py-2 sm:text-lg md:text-xl"
         />

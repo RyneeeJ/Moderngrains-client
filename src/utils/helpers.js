@@ -1,6 +1,3 @@
-import toast from "react-hot-toast";
-import { reverseGeocodeLocation } from "../services/apiGeocoding";
-
 export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "PHP" }).format(
     value,
@@ -20,7 +17,9 @@ export const formatDate = (dateStr) => {
 
 function getPosition() {
   return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
+    navigator.geolocation.getCurrentPosition(resolve, (e) =>
+      reject(new Error("Please enable location access in your browser")),
+    );
   });
 }
 export const fetchAddress = async () => {
@@ -31,10 +30,15 @@ export const fetchAddress = async () => {
       coords: { latitude: lat, longitude: lng },
     } = positionObj;
 
-    const data = await reverseGeocodeLocation({
-      lat,
-      lng,
-    });
+    const res = await fetch(
+      `http://localhost:4242/api/reverse-geolocation?lat=${lat}&lng=${lng}`,
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch location data.");
+    }
+
+    const data = await res.json();
 
     return {
       locality: data?.locality,
@@ -42,7 +46,6 @@ export const fetchAddress = async () => {
       country: data?.countryName,
     };
   } catch (e) {
-    console.log(e.message);
-    toast.error("Please enable location access on your browser");
+    throw new Error(e.message);
   }
 };

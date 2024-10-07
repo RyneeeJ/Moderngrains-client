@@ -16,12 +16,12 @@ function Checkout({ cartItems }) {
     0,
   );
 
-  async function checkout() {
+  function checkout() {
     if (!address) {
       toast.error("Set up your address first in your profile");
       return;
     }
-    await fetch("http://localhost:4242/checkout", {
+    fetch("http://localhost:4242/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
