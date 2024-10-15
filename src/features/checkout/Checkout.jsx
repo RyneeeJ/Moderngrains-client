@@ -20,7 +20,7 @@ function Checkout({ cartItems }) {
       toast.error("Set up your address first in your profile");
       return;
     }
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/checkout`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

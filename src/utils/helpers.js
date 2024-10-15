@@ -31,7 +31,7 @@ export const fetchAddress = async () => {
     } = positionObj;
 
     const res = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/v1/geolocation?lat=${lat}&lng=${lng}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/geolocation?lat=${lat}&lng=${lng}`,
     );
 
     if (!res.ok) {
