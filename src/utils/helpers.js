@@ -31,7 +31,7 @@ export const fetchAddress = async () => {
     } = positionObj;
 
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/reverse-geolocation?lat=${lat}&lng=${lng}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/geolocation?lat=${lat}&lng=${lng}`,
     );
 
     if (!res.ok) {
@@ -43,7 +43,7 @@ export const fetchAddress = async () => {
     return {
       locality: data?.locality,
       city: data?.city,
-      country: data?.countryName,
+      country: data?.country,
     };
   } catch (e) {
     throw new Error(e.message);

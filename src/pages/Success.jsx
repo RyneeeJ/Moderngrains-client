@@ -33,7 +33,7 @@ function Success() {
       async function success() {
         try {
           const res = await fetch(
-            `${import.meta.env.VITE_API_URL}/checkout-success?session_id=${sessionId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/checkout/success?session_id=${sessionId}`,
           );
 
           const data = await res.json();

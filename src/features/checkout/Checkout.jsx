@@ -2,7 +2,6 @@ import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import TotalPrice from "../cart/TotalPrice";
 import { useGetProfile } from "../profile/useGetProfile";
-import { useUser } from "../authentication/useUser";
 
 function Checkout({ cartItems }) {
   const {
@@ -21,7 +20,7 @@ function Checkout({ cartItems }) {
       toast.error("Set up your address first in your profile");
       return;
     }
-    fetch(`${import.meta.env.VITE_API_URL}/checkout`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/checkout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -30,6 +29,7 @@ function Checkout({ cartItems }) {
     })
       .then((res) => {
         if (!res.ok) return res.json().then((json) => Promise.reject(json));
+
         return res.json();
       })
       .then((data) => {
