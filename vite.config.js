@@ -10,7 +10,7 @@ export default defineConfig({
     sourcemap: true, // Optional: Enable sourcemaps for easier debugging
   },
   server: {
-    port: 3000, // Port for local development (default is 3000)
+    port: 5173, // Port for local development (default is 3000)
     open: true, // Open the browser on server start
   },
 });
