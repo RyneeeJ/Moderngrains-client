@@ -2,8 +2,11 @@ import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import TotalPrice from "../cart/TotalPrice";
 import { useGetProfile } from "../profile/useGetProfile";
+import { useState } from "react";
+import LoaderMini from "../../ui/LoaderMini";
 
 function Checkout({ cartItems }) {
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
   const {
     data: { address },
   } = useGetProfile();
@@ -16,6 +19,7 @@ function Checkout({ cartItems }) {
   );
 
   function checkout() {
+    setIsCheckingOut(true);
     if (!address) {
       toast.error("Set up your address first in your profile");
       return;
@@ -38,6 +42,8 @@ function Checkout({ cartItems }) {
         window.location.assign(data?.url);
       })
       .catch((e) => console.error(e.message));
+
+    setIsCheckingOut(false);
   }
 
   if (confirmedItems.length === 0) return null;
@@ -45,8 +51,11 @@ function Checkout({ cartItems }) {
     <div className="flex w-full items-center justify-between">
       <TotalPrice totalPrice={totalPrice} />
       <Button type="checkout" onClick={checkout}>
-        Checkout {numItems} item
-        {numItems > 1 ? "s" : ""}
+        {isCheckingOut ? (
+          <LoaderMini />
+        ) : (
+          `Checkout ${numItems} item${numItems > 1 ? "s" : ""}`
+        )}
       </Button>
     </div>
   );

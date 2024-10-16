@@ -12,9 +12,9 @@ function OrdersListItem({ item }) {
   }
   return (
     <li className="flex rounded-md bg-neutral-200">
-      <div className="basis-1/4 xs:max-w-32 xs:basis-1/3 sm:max-w-40 md:max-w-48">
+      <div className="aspect-square max-w-28 basis-1/4 xs:max-w-32 xs:basis-1/3 sm:max-w-40 md:max-w-48">
         <img
-          className="aspect-square h-full rounded-md object-cover object-bottom"
+          className="h-full w-full rounded-md object-cover object-bottom"
           src={image}
         />
       </div>
