@@ -7,6 +7,7 @@ import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
 import { useCartItems } from "../features/cart/useCartItems";
 import { useAddOrder } from "../features/orders/useAddOrder";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { useAccessToken } from "../features/authentication/useAccessToken";
 
 function Success() {
   const [searchParams] = useSearchParams();
@@ -15,6 +16,7 @@ function Success() {
   const orderId = searchParams.get("orderId") || null;
 
   useDocumentTitle("MGrains | Payment Success");
+  const { token } = useAccessToken();
 
   if (!sessionId) return <Navigate to="/" replace />;
 
@@ -34,6 +36,13 @@ function Success() {
         try {
           const res = await fetch(
             `${import.meta.env.VITE_BACKEND_URL}/api/paymentSuccess?session_id=${sessionId}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            },
           );
 
           const data = await res.json();
