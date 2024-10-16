@@ -41,9 +41,8 @@ function Checkout({ cartItems }) {
 
         window.location.assign(data?.url);
       })
-      .catch((e) => console.error(e.message));
-
-    setIsCheckingOut(false);
+      .catch((e) => console.error(e.message))
+      .finally(() => setIsCheckingOut(false));
   }
 
   if (confirmedItems.length === 0) return null;
@@ -51,11 +50,9 @@ function Checkout({ cartItems }) {
     <div className="flex w-full items-center justify-between">
       <TotalPrice totalPrice={totalPrice} />
       <Button type="checkout" disabled={isCheckingOut} onClick={checkout}>
-        {isCheckingOut ? (
-          <LoaderMini />
-        ) : (
-          `Checkout ${numItems} item${numItems > 1 ? "s" : ""}`
-        )}
+        {isCheckingOut && <LoaderMini />}
+        {!isCheckingOut &&
+          `Checkout ${numItems} item${numItems > 1 ? "s" : ""}`}
       </Button>
     </div>
   );
