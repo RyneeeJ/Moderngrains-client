@@ -103,6 +103,11 @@ function App() {
         <Toaster
           toastOptions={{
             className: "bg-yellow-700 text-amber-50 max-w-full",
+            style: {
+              background: "#a16207",
+              color: "#fffbeb",
+              maxWidth: "100%",
+            },
           }}
         />
       </QueryClientProvider>
