@@ -39,10 +39,13 @@ function Checkout({ cartItems }) {
       .then((data) => {
         if (!data?.url) return;
 
+        setIsCheckingOut(false);
         window.location.assign(data?.url);
       })
-      .catch((e) => console.error(e.message))
-      .finally(() => setIsCheckingOut(false));
+      .catch((e) => {
+        console.error(e.message);
+        setIsCheckingOut(false);
+      });
   }
 
   if (confirmedItems.length === 0) return null;
