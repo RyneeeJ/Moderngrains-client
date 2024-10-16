@@ -22,6 +22,7 @@ function Checkout({ cartItems }) {
     setIsCheckingOut(true);
     if (!address) {
       toast.error("Set up your address first in your profile");
+      setIsCheckingOut(false);
       return;
     }
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/checkout`, {

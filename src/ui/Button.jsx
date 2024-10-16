@@ -25,7 +25,7 @@ function Button({ type, children, className, ...props }) {
       <button
         {...props}
         className={
-          "min-w-44 px-4 text-sm font-semibold xs:px-6 xs:py-3 xs:text-base sm:text-xl md:min-w-60 md:px-8 md:py-4 md:font-bold" +
+          "flex min-w-44 justify-center px-4 text-sm font-semibold xs:px-6 xs:py-3 xs:text-base sm:text-xl md:min-w-60 md:px-8 md:py-4 md:font-bold" +
           primaryBtnClass
         }
       >

@@ -6,9 +6,8 @@ export async function login({ email, password }) {
     password,
   });
 
-  if (error) {
+  if (error)
     throw new Error("Email or password are incorrect. Please try again");
-  }
 
   // This data is an object that contains the session and user property
   return data;
@@ -56,10 +55,7 @@ export async function getCurrentUser() {
   // If there is a session, get the user from supabase (redownload) because it is more secure than reading the user from the data above
   const { data, error } = await supabase.auth.getUser();
 
-  if (error) {
-    console.log(error.message);
-    throw new Error(error.message);
-  }
+  if (error) throw new Error(error.message);
 
   return data?.user;
 }
