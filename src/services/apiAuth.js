@@ -63,11 +63,3 @@ export async function getCurrentUser() {
 
   return data?.user;
 }
-
-export async function getAccessToken() {
-  const { data: session } = await supabase.auth.getSession();
-
-  if (!session?.session) throw new Error("User not authenticated");
-
-  return session.session.access_token;
-}

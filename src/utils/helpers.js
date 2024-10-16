@@ -22,7 +22,7 @@ function getPosition() {
     );
   });
 }
-export const fetchAddress = async (token) => {
+export const fetchAddress = async () => {
   try {
     const positionObj = await getPosition();
 
@@ -32,13 +32,6 @@ export const fetchAddress = async (token) => {
 
     const res = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/geolocation?lat=${lat}&lng=${lng}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      },
     );
 
     if (!res.ok) {

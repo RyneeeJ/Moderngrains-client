@@ -2,13 +2,11 @@ import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 import TotalPrice from "../cart/TotalPrice";
 import { useGetProfile } from "../profile/useGetProfile";
-import { useAccessToken } from "../authentication/useAccessToken";
 
 function Checkout({ cartItems }) {
   const {
     data: { address },
   } = useGetProfile();
-  const { token } = useAccessToken();
 
   const confirmedItems = cartItems?.filter((item) => item.isConfirmed === true);
   const numItems = confirmedItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -24,10 +22,7 @@ function Checkout({ cartItems }) {
     }
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/checkout`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: confirmedItems,
       }),

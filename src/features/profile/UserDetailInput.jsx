@@ -3,7 +3,6 @@ import { useUpdateProfile } from "./useUpdateProfile";
 import { toast } from "react-hot-toast";
 import { fetchAddress } from "../../utils/helpers";
 import LoaderMini from "../../ui/LoaderMini";
-import { useAccessToken } from "../authentication/useAccessToken";
 
 function UserDetailInput({ defaultValue, userId, field, placeholder }) {
   const [inputAddressValue, setInputAddressValue] = useState(defaultValue);
@@ -11,7 +10,6 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
   const [isFetchingLocation, setIsFetchingLocation] = useState(false);
   const { updateProfile, isUpdating } = useUpdateProfile();
 
-  const { token } = useAccessToken();
   function handleSaveInput() {
     setIsEditing((isEditing) => !isEditing);
     // construct the updated object:
@@ -30,7 +28,7 @@ function UserDetailInput({ defaultValue, userId, field, placeholder }) {
   async function handleGeolocation() {
     setIsFetchingLocation(true);
     try {
-      const { locality, city, country } = await fetchAddress(token);
+      const { locality, city, country } = await fetchAddress();
       setInputAddressValue(`${locality}, ${city}, ${country}`);
       toast.success("Current location fetched");
     } catch (e) {
