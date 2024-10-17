@@ -1,15 +1,15 @@
 import Select from "../../ui/Select";
 import { useFilterSort } from "../../hooks/useFilterSort";
 
-function ProductFilter() {
-  const optionsArr = [
-    { name: "All products", value: "all" },
-    { name: "Chairs", value: "chairs" },
-    { name: "Tables", value: "tables" },
-    { name: "Sofa", value: "sofas" },
-    { name: "Wardrobe", value: "wardrobes" },
-  ];
+const optionsArr = [
+  { name: "All products", value: "all" },
+  { name: "Chairs", value: "chairs" },
+  { name: "Tables", value: "tables" },
+  { name: "Sofa", value: "sofas" },
+  { name: "Wardrobe", value: "wardrobes" },
+];
 
+function ProductFilter() {
   const { handleClick: handleChange, currentFilter } = useFilterSort(
     "category",
     optionsArr,

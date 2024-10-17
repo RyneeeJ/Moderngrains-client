@@ -19,7 +19,7 @@ const options = [
 function OrdersFilter() {
   const { handleClick, currentFilter } = useFilterSort("orders", options);
   return (
-    <div className="rounded-md bg-yellow-600 bg-opacity-45 p-1 text-sm">
+    <div className="ml-auto rounded-md bg-yellow-600 bg-opacity-45 p-1 text-sm">
       {options.map((option) => (
         <OrdersFilterButton
           key={option.value}

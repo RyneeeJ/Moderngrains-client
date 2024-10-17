@@ -7,6 +7,7 @@ import { useDeleteCheckedOut } from "../features/cart/useDeleteCheckedOut";
 import { useCartItems } from "../features/cart/useCartItems";
 import { useAddOrder } from "../features/orders/useAddOrder";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import BackToHomeButton from "../ui/BackToHomeButton";
 
 function Success() {
   const [searchParams] = useSearchParams();
@@ -64,7 +65,7 @@ function Success() {
   return (
     <Section>
       <div className="mb-10 mt-4 leading-relaxed xs:mb-12 xs:mt-5 xs:text-lg sm:mb-16 sm:mt-5 md:mt-10">
-        Payment successfull! <br /> Thank you for trusting{" "}
+        Payment successful! <br /> Thank you for trusting{" "}
         <strong>ModernGrains</strong>
       </div>
 
@@ -86,13 +87,7 @@ function Success() {
       </div>
 
       <div className="flex justify-center">
-        <Link
-          to="/"
-          className="inline-block rounded-full bg-stone-800 px-8 py-3 font-bold text-amber-50 focus:ring focus:ring-lime-600 sm:px-10 sm:text-lg"
-          autoFocus
-        >
-          Back to Home
-        </Link>
+        <BackToHomeButton />
       </div>
     </Section>
   );

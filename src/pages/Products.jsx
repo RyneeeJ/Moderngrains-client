@@ -16,8 +16,10 @@ function Products() {
       <SectionHeading>Shop</SectionHeading>
 
       <OperationsContainer>
-        <ProductFilter />
-        <ProductSort />
+        <div className="ml-auto space-x-4">
+          <ProductFilter />
+          <ProductSort />
+        </div>
       </OperationsContainer>
       <Suspense fallback={<Loader />}>
         <AllProducts />

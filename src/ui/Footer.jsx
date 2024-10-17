@@ -16,7 +16,7 @@ function Footer() {
 
       <FooterList
         title="Products"
-        linksArr={["Tables", "Chairs", "Sofa", "Wardrobe"]}
+        linksArr={["Tables", "Chairs", "Sofas", "Wardrobes"]}
       />
       <FooterList
         title="Company"

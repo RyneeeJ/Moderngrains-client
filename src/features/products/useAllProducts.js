@@ -26,18 +26,15 @@ export function useAllProducts() {
   const page = Number(searchParams.get("page")) || 1;
 
   // QUERY
-  const {
-    data: { data: products, count } = {},
-    isLoading,
-    error,
-  } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["products", filter, sortBy, page],
     queryFn: () => getAllProducts({ filter, sortBy, page }),
     suspense: true,
+    retry: false,
   });
 
   // PRE-FETCH to avoid loading screen
-  const pageCount = Math.ceil(count / PRODUCTS_PAGE_SIZE);
+  const pageCount = Math.ceil(data?.data?.count / PRODUCTS_PAGE_SIZE);
 
   // prefetch previous page when page count is less than
   if (page < pageCount)
@@ -51,5 +48,12 @@ export function useAllProducts() {
       queryKey: ["products", filter, sortBy, page - 1],
       queryFn: () => getAllProducts({ filter, sortBy, page: page - 1 }),
     });
-  return { isLoading, products, error, count };
+
+  return {
+    isLoading,
+    products: data?.data,
+    error,
+    dataError: data?.error,
+    count: data?.count,
+  };
 }

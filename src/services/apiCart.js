@@ -204,6 +204,18 @@ export async function confirmItemInCart({ curStatus, id }) {
   }
 }
 
+export async function confirmAllItemsInCart(curStatus) {
+  let query = supabase.from("cart_items").update({ isConfirmed: !curStatus });
+
+  if (curStatus) query = query.eq("isConfirmed", true);
+
+  if (!curStatus) query = query.eq("isConfirmed", false);
+
+  const { error } = await query;
+
+  if (error) throw new Error("There was an error confirming your items");
+}
+
 export async function updateQuantityFromCart({
   currentQuantity,
   id,

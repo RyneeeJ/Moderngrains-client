@@ -54,7 +54,7 @@ function Checkout({ cartItems }) {
     <div className="flex w-full items-center justify-between">
       <TotalPrice totalPrice={totalPrice} />
       <Button type="checkout" disabled={isCheckingOut} onClick={checkout}>
-        {isCheckingOut && <LoaderMini />}
+        {isCheckingOut && <LoaderMini type="checkout" />}
         {!isCheckingOut &&
           `Checkout ${numItems} item${numItems > 1 ? "s" : ""}`}
       </Button>

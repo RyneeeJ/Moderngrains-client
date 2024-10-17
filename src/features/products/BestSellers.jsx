@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { PiArrowRight } from "react-icons/pi";
 
-import { scrollToTop } from "../../utils/helpers";
-import { useBestSellers } from "./useBestSellers";
-
 import SectionHeading from "../../ui/SectionHeading";
 import ProductList from "./ProductList";
+import { scrollToTop } from "../../utils/helpers";
+import { useBestSellers } from "./useBestSellers";
 
 function BestSellers() {
   const { data: bestSellers, error } = useBestSellers();
