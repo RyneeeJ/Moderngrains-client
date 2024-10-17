@@ -14,6 +14,7 @@ function ProductFilter() {
     "category",
     optionsArr,
   );
+
   return (
     <Select
       optionsArr={optionsArr}

@@ -8,7 +8,6 @@ function FooterList({ title, linksArr }) {
     if (title !== "Products") return;
     navigate(`/products?category=${link.toLowerCase()}`);
     scrollToTop();
-    window.location.reload();
   }
   return (
     <div className="space-y-3 font-light">
