@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { scrollToTop } from "../utils/helpers";
 
 function FooterList({ title, linksArr }) {
   const navigate = useNavigate();
@@ -6,6 +7,7 @@ function FooterList({ title, linksArr }) {
   function handleClick(link) {
     if (title !== "Products") return;
     navigate(`/products?category=${link.toLowerCase()}`);
+    scrollToTop();
     window.location.reload();
   }
   return (
