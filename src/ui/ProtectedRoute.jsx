@@ -3,8 +3,8 @@ import { useUser } from "../features/authentication/useUser";
 
 function ProtectedRoute({ children }) {
   const { isLoading, isAuthenticated } = useUser();
-  if (isLoading) return <div>Loading.........</div>;
-  if (!isLoading && !isAuthenticated) return <Navigate to="/" replace />;
+
+  if (!isLoading && !isAuthenticated) return <Navigate to="/login" replace />;
 
   if (isAuthenticated) return children;
 }

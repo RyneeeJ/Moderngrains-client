@@ -9,7 +9,7 @@ export function useSignup() {
   const { mutate: signup, isLoading: isSigningUp } = useMutation({
     mutationFn: signupApi,
     onSuccess: (data) => {
-      navigate("/products", { replace: true });
+      navigate("/account/profile", { replace: true });
       toast.success(`Welcome, ${data.name}! 😊`);
     },
 
