@@ -17,6 +17,7 @@ import Cancel from "./pages/Cancel";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Signup from "./pages/Signup";
 import ErrorFallback from "./ui/ErrorFallback";
+import PublicRoute from "./ui/PublicRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,9 +69,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
-      { path: "/signup", element: <Signup /> },
+      {
+        path: "/signup",
+        element: (
+          <PublicRoute>
+            <Signup />
+          </PublicRoute>
+        ),
+      },
       {
         path: "/account/checkout/success",
         element: (
