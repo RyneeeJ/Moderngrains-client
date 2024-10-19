@@ -4,7 +4,7 @@ import QuantityCounter from "../../ui/QuantityCounter";
 import AddToCartButton from "../../ui/AddToCartButton";
 import ProductTag from "../../ui/ProductTag";
 
-function ProductListItem({ item, type }) {
+function ProductListItem({ item }) {
   const { name: productName, image, price, isBestSeller, stocks } = item;
 
   const [quantity, setQuantity] = useState(1);

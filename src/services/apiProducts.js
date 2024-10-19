@@ -42,7 +42,7 @@ export async function getAllProducts({ filter, sortBy, page }) {
 export async function getBestSellers() {
   const { data, error } = await supabase
     .from("products")
-    .select("id, name, price, image, stripeId")
+    .select("id, name, price, image, stripeId, isBestSeller, stocks")
     .eq("isBestSeller", true);
 
   if (error) {
