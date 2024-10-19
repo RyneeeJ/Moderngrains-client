@@ -2,6 +2,7 @@ import {
   PiHouseLine,
   PiLineVertical,
   PiShoppingCartSimple,
+  PiSignIn,
   PiStorefront,
   PiUser,
 } from "react-icons/pi";
@@ -42,17 +43,10 @@ function Navigation() {
         </>
       )}
       {!user && (
-        <>
-          <li>
-            <PiLineVertical className={iconClass} />
-          </li>
-
-          <NavLinkListItem to="/login">
-            <span className="text-xs font-semibold xs:text-sm md:text-base">
-              Log in
-            </span>
-          </NavLinkListItem>
-        </>
+        <NavLinkListItem to="/login">
+          <PiSignIn className={iconClass} />
+          <NavLinkLabel>Log in</NavLinkLabel>
+        </NavLinkListItem>
       )}
     </ul>
   );
