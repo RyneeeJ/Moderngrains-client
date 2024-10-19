@@ -80,16 +80,17 @@ async function updateCartItemQuantity(cartItemsFinal, productId, quantity) {
   const currentItem = cartItemsFinal.find(
     (item) => item.productId === productId,
   );
+
   // Update the quantity of the current selected item based on its existing quantity in the cart database
   const { data, error: updateQuantityError } = await supabase
     .from("cart_items")
     .update({ quantity: currentItem.quantity + quantity })
-    .eq("productId", productId)
+    .eq("id", currentItem.id)
     .select()
     .single();
 
   if (updateQuantityError) {
-    console.error(updateQuantityError.message);
+    console.error(updateQuantityError.message, "jksjkajsk");
     throw new Error("There was a problem adding to your cart");
   }
 
@@ -180,8 +181,6 @@ export async function deleteCheckedOutItems({ priceIdArr, cartId }) {
 }
 
 export async function deleteAllItemsInCart(cartId) {
-  // const cartId = await getCart();
-
   const { error } = await supabase
     .from("cart_items")
     .delete()

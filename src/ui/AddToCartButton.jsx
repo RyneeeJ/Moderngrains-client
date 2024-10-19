@@ -12,29 +12,6 @@ function AddToCartButton({ item, setQuantity, quantity }) {
 
   const { name, id: productId, stripeId } = item;
 
-  /*
-  const debounce = (func, delay) => {
-    let debounceTimeout;
-    return (...args) => {
-      clearTimeout(debounceTimeout);
-      debounceTimeout = setTimeout(() => func(...args), delay);
-    };
-  };
-
-  const handleAddToCart = debounce(async (item) => {
-    addItem({
-      productId,
-      name,
-      quantity,
-      stripeId,
-      cartId,
-      cartItemsFinal: cartItems,
-    });
-
-    setQuantity(1);
-  }, 800);
-  */
-
   function handleAddToCart() {
     if (!isProcessing) {
       setIsProcessing(true);

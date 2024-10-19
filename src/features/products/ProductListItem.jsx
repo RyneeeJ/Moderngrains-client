@@ -20,10 +20,14 @@ function ProductListItem({ item, type }) {
   }
 
   return (
-    <li>
-      <div className="relative aspect-square overflow-hidden">
+    <li
+      onClick={(e) => {
+        // console.log("clicked");
+      }}
+    >
+      <div className="relative aspect-square cursor-pointer overflow-hidden">
         <img
-          className="h-full w-full rounded-md object-cover object-bottom xs:mb-2"
+          className="h-full w-full rounded-md object-cover object-bottom transition-all duration-300 hover:scale-110 xs:mb-2"
           src={image}
           alt={`Photo of ${productName}`}
         />

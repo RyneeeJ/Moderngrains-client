@@ -10,6 +10,7 @@ function CartListItem({ product }) {
   const { deleteItem, isDeleting } = useDeleteCartItem();
 
   const { setIsConfirmed, isConfirming } = useConfirmItem();
+
   function handleDeleteItem(cartItemId) {
     deleteItem(cartItemId);
   }
