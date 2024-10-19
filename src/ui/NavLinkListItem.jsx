@@ -5,7 +5,10 @@ function NavLinkListItem({ to, children }) {
   const occupySpaceAndCenter = "flex h-full items-center";
   return (
     <li onClick={scrollToTop} className={occupySpaceAndCenter}>
-      <NavLink to={to} className={`${occupySpaceAndCenter} px-2`}>
+      <NavLink
+        to={to}
+        className={`${occupySpaceAndCenter} flex items-center px-2 sm:gap-2 md:gap-3`}
+      >
         {children}
       </NavLink>
     </li>

@@ -8,6 +8,7 @@ import {
 
 import NavLinkListItem from "./NavLinkListItem";
 import { useUser } from "../features/authentication/useUser";
+import NavLinkLabel from "./NavLinkLabel";
 
 function Navigation() {
   const { user, isLoading, isAuthenticated } = useUser();
@@ -20,19 +21,23 @@ function Navigation() {
     <ul className="flex h-full items-center sm:gap-2">
       <NavLinkListItem to="/">
         <PiHouseLine className={iconClass} />
+        <NavLinkLabel>Home</NavLinkLabel>
       </NavLinkListItem>
 
       <NavLinkListItem to="products">
         <PiStorefront className={iconClass} />
+        <NavLinkLabel>Shop</NavLinkLabel>
       </NavLinkListItem>
 
       {user && isAuthenticated && (
         <>
           <NavLinkListItem to="/account/cart">
             <PiShoppingCartSimple className={iconClass} />
+            <NavLinkLabel>Cart</NavLinkLabel>
           </NavLinkListItem>
           <NavLinkListItem to="/account/profile">
             <PiUser className={iconClass} />
+            <NavLinkLabel>Profile</NavLinkLabel>
           </NavLinkListItem>
         </>
       )}
