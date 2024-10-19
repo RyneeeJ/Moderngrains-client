@@ -55,7 +55,8 @@ function Button({ type, children, className, ...props }) {
       <button
         {...props}
         className={
-          secondaryBtnClass + " block w-full bg-red-600 hover:bg-red-700"
+          secondaryBtnClass +
+          " flex w-full justify-center gap-2 bg-red-600 hover:bg-red-700"
         }
       >
         {children}
