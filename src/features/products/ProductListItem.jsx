@@ -5,8 +5,8 @@ import AddToCartButton from "../../ui/AddToCartButton";
 import ProductTag from "../../ui/ProductTag";
 
 function ProductListItem({ item, type }) {
-  const { name: productName, image, price, isBestSeller } = item;
-  console.log(isBestSeller);
+  const { name: productName, image, price, isBestSeller, stocks } = item;
+
   const [quantity, setQuantity] = useState(1);
 
   function handleIncreaseQuantity() {
@@ -33,8 +33,8 @@ function ProductListItem({ item, type }) {
           quantity={quantity}
         />
 
-        {isBestSeller && <ProductTag type="best" />}
-        {/* <ProductTag type="unavailable" /> */}
+        {isBestSeller && stocks && <ProductTag type="best" />}
+        {!stocks && <ProductTag type="unavailable" />}
       </div>
 
       <span className="text-xs xs:text-base sm:text-lg">{productName}</span>

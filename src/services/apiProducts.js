@@ -6,7 +6,7 @@ export async function getAllProducts({ filter, sortBy, page }) {
   try {
     let query = supabase
       .from("products")
-      .select("id, name, price, image, stripeId, isBestSeller", {
+      .select("id, name, price, image, stripeId, isBestSeller, stocks", {
         count: "exact",
       });
 
