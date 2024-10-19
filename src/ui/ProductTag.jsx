@@ -1,0 +1,12 @@
+function ProductTag({ type }) {
+  return (
+    <div
+      className={`absolute -left-10 top-5 flex w-36 -rotate-45 justify-center text-xs text-amber-50 ${type === "best" ? "bg-lime-800" : "bg-red-600"}`}
+    >
+      {type === "best" && "Bestseller"}
+      {type === "unavailable" && "Out of stock"}
+    </div>
+  );
+}
+
+export default ProductTag;

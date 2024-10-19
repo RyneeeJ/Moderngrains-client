@@ -10,7 +10,7 @@ function AllProducts() {
   if (!products) return <NoProductsError dataError={dataError} />;
   return (
     <>
-      <ProductList productsArr={products} />
+      <ProductList type="all" productsArr={products} />
       <Pagination count={count} pageSize={PRODUCTS_PAGE_SIZE} />
     </>
   );

@@ -6,7 +6,9 @@ export async function getAllProducts({ filter, sortBy, page }) {
   try {
     let query = supabase
       .from("products")
-      .select("id, name, price, image, stripeId", { count: "exact" });
+      .select("id, name, price, image, stripeId, isBestSeller", {
+        count: "exact",
+      });
 
     // 1. FILTER
     if (filter) query = query.eq("category", filter.value);
