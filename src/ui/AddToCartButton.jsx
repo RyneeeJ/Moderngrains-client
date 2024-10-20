@@ -3,8 +3,9 @@ import { PiShoppingCartSimple } from "react-icons/pi";
 import { useAddToCart } from "../features/cart/useAddToCart";
 import { useCartItems } from "../features/cart/useCartItems";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-function AddToCartButton({ item, setQuantity, quantity }) {
+function AddToCartButton({ item, setQuantity, quantity, isOutOfStock }) {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { cartItems, cartId } = useCartItems();
@@ -13,6 +14,10 @@ function AddToCartButton({ item, setQuantity, quantity }) {
   const { name, id: productId, stripeId } = item;
 
   function handleAddToCart() {
+    if (isOutOfStock) {
+      toast.error(`${name} is currently out of stock`);
+      return;
+    }
     if (!isProcessing) {
       setIsProcessing(true);
       addItem({

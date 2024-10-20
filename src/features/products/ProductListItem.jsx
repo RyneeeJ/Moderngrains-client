@@ -3,11 +3,12 @@ import { useState } from "react";
 import QuantityCounter from "../../ui/QuantityCounter";
 import AddToCartButton from "../../ui/AddToCartButton";
 import ProductTag from "../../ui/ProductTag";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
 
 function ProductListItem({ item }) {
-  const { name: productName, image, price, isBestSeller, stocks } = item;
-
   const [quantity, setQuantity] = useState(1);
+
+  const { name: productName, image, price, isBestSeller, stocks } = item;
 
   function handleIncreaseQuantity() {
     if (quantity === 99) return;
@@ -31,11 +32,12 @@ function ProductListItem({ item }) {
           src={image}
           alt={`Photo of ${productName}`}
         />
-        <AddToCartButton
+        {/* <AddToCartButton
+          isOutOfStock={!stocks}
           setQuantity={setQuantity}
           item={item}
           quantity={quantity}
-        />
+        /> */}
 
         {isBestSeller && stocks && <ProductTag type="best" />}
         {!stocks && <ProductTag type="unavailable" />}
@@ -47,11 +49,18 @@ function ProductListItem({ item }) {
         <span className="text-sm font-semibold xs:text-lg sm:text-xl">
           {formatCurrency(price)}
         </span>
-        <QuantityCounter
-          quantity={quantity}
-          onIncrease={handleIncreaseQuantity}
-          onDecrease={handleDecreaseQuantity}
-        />
+        {/* {stocks ? (
+          <QuantityCounter
+            quantity={quantity}
+            onIncrease={handleIncreaseQuantity}
+            onDecrease={handleDecreaseQuantity}
+          />
+        ) : (
+          <span>Coming Soon</span>
+        )} */}
+        <button className="w-1/3 rounded-md bg-stone-800 py-1 transition-all duration-200 hover:bg-stone-700 sm:rounded-lg">
+          <PiShoppingCartSimpleBold className="mx-auto size-3.5 text-amber-50 xs:size-5 md:size-6" />
+        </button>
       </div>
     </li>
   );
