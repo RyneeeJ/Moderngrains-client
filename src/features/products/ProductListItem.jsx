@@ -39,14 +39,11 @@ function ProductListItem({ item }) {
         <span className="text-sm font-semibold xs:text-lg sm:text-xl">
           {formatCurrency(price)}
         </span>
-        {/* 
-          <QuantityCounter
-            quantity={quantity}
-            onIncrease={handleIncreaseQuantity}
-            onDecrease={handleDecreaseQuantity}
-          />
-       */}
         <AddToCartButtonSmall item={item} isOutOfStock={!stocks} />
+      </div>
+      <div>
+        Stocks: {stocks} {stocks === 1 && "unit"} {stocks > 1 && "units"}{" "}
+        {!stocks && null} left
       </div>
     </li>
   );

@@ -11,7 +11,7 @@ export async function placeOrder({ items, sessionId, userId }) {
     .single();
 
   if (error) {
-    console.error("ERROR:", error.message);
+    console.error("💥 ERROR:", error.message);
     return null;
   }
 
@@ -26,11 +26,47 @@ export async function placeOrder({ items, sessionId, userId }) {
     .select();
 
   if (orderedItemsError) {
-    console.error("ERROR:", orderedItemsError.message);
+    console.error("💥 ERROR:", orderedItemsError.message);
     return null;
   }
 
-  return { orderData };
+  // adjust number of stocks remaining in products table
+  // Im gonna use the name of the product from orderedItemsData to match product in the products table database
+  // Ideally, productId should be used...
+
+  const promisesArr = orderedItemsData.map(async (item) => {
+    const { data: initial, error } = await supabase
+      .from("products")
+      .select("stocks")
+      .eq("name", item.name)
+      .single();
+
+    const stocksLeft = initial.stocks - item.quantity;
+
+    if (error) {
+      console.log(`${error.message} 💥💥💥`);
+      return;
+    }
+
+    const { data: updatedData, error: updateStocksError } = await supabase
+      .from("products")
+      .update({ stocks: stocksLeft })
+      .eq("name", item.name)
+      .select()
+      .single();
+
+    if (updateStocksError) {
+      console.log(`${updateStocksError.message} 💥💥💥`);
+      throw new Error(
+        "There was an error updating the stock database. Please try again later",
+      );
+    }
+    return { message: "Product inventory successfully updated! :)" };
+  });
+
+  await Promise.all(promisesArr);
+
+  return { data: orderData, message: "Your order has been placed! Thank you!" };
 }
 
 export async function getOrders({ filter, page, userId }) {

@@ -39,6 +39,27 @@ export async function getAllProducts({ filter, sortBy, page }) {
   }
 }
 
+export async function getStocks(cartItemsArray) {
+  const promisesArr = cartItemsArray.map(async (itemObj) => {
+    const { data: stocks, error } = await supabase
+      .from("products")
+      .select("stocks")
+      .eq("id", itemObj.productId)
+      .single();
+
+    if (error) {
+      console.log(error.message);
+      return new Error("There was a problem fetching products' stocks");
+    }
+
+    return { ...itemObj, stocksLeft: stocks.stocks };
+  });
+
+  const result = await Promise.all(promisesArr);
+
+  return result;
+}
+
 export async function getBestSellers() {
   const { data, error } = await supabase
     .from("products")

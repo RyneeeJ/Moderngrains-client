@@ -8,18 +8,29 @@ import { useCartItems } from "../features/cart/useCartItems";
 import { useAddToCart } from "../features/cart/useAddToCart";
 import toast from "react-hot-toast";
 
+const iconClass = "mx-auto size-3.5 xs:size-5 md:size-6 ";
+
 function AddToCartButtonSmall({ item, isOutOfStock }) {
   const [isProcessing, setIsProcessing] = useState(false);
-
   const { cartItems, cartId } = useCartItems();
   const { addItem } = useAddToCart();
 
   const { name, id: productId, stripeId } = item;
 
-  const iconClass = "mx-auto size-3.5 xs:size-5 md:size-6 ";
+  const itemInCart = cartItems?.find(
+    (cartItem) => cartItem.productId === item.id,
+  );
+
   function handleAddToCart() {
     if (isOutOfStock) {
       toast.error(`${name} is currently out of stock`);
+      return;
+    }
+
+    if (itemInCart?.quantity === item?.stocks) {
+      toast.error(
+        `You already have ${itemInCart.quantity} of this in your cart. Maximum number of stocks reached`,
+      );
       return;
     }
     if (!isProcessing) {

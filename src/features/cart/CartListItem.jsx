@@ -4,26 +4,43 @@ import { PiX } from "react-icons/pi";
 import { useDeleteCartItem } from "./useDeleteCartItem";
 import { useConfirmItem } from "./useConfirmItem";
 import { useUpdateQuantityFromCart } from "./useUpdateQuantityFromCart";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
+
 function CartListItem({ product }) {
-  const { name, quantity, image, price, id, isConfirmed } = product;
-
+  const { name, quantity, image, price, id, isConfirmed, stocksLeft } = product;
   const { deleteItem, isDeleting } = useDeleteCartItem();
-
   const { setIsConfirmed, isConfirming } = useConfirmItem();
-
-  function handleDeleteItem(cartItemId) {
-    deleteItem(cartItemId);
-  }
-
   const { isUpdating, updateQuantity } = useUpdateQuantityFromCart();
 
+  console.log(stocksLeft);
+  // This effect makes sure that the quantity of the product in the cart is always less than or equal to the stocks left
+  // This can be improved using WEBSOCKETS in order to utilize real-time query invalidation among all users
+  // This will suffice for now
+  useEffect(() => {
+    if (quantity > stocksLeft && quantity !== 0)
+      updateQuantity({
+        currentQuantity: quantity,
+        id,
+        newQuantity: stocksLeft,
+      });
+
+    if (!quantity) handleDeleteItem(id);
+  }, [quantity, stocksLeft, id]);
+
   function handleIncreaseQuantity() {
-    if (quantity === 99) return;
+    if (quantity >= stocksLeft) {
+      toast.error("Maximum number of stocks reached for this item");
+      return;
+    }
     updateQuantity({ currentQuantity: quantity, id, operation: "increase" });
   }
   function handleDecreaseQuantity() {
     if (quantity === 1) return;
     updateQuantity({ currentQuantity: quantity, id, operation: "decrease" });
+  }
+  function handleDeleteItem(cartItemId) {
+    deleteItem(cartItemId);
   }
   return (
     <li className="relative flex">

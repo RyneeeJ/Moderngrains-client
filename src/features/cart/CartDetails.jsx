@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 import { useConfirmAllItems } from "./useConfirmAllItems";
 
 function CartDetails() {
-  const { cartItems, error } = useCartItems();
+  const { cartItems, error: cartItemsError } = useCartItems();
+
   const isConfirmedStatus = cartItems.every(
     (item) => item.isConfirmed === true,
   );
+
   const [isConfirmedAll, setIsConfirmedAll] = useState(isConfirmedStatus);
 
   const { confirmAll, isConfirming } = useConfirmAllItems();
@@ -20,8 +22,9 @@ function CartDetails() {
     setIsConfirmedAll(isConfirmedStatus);
   }, [isConfirmedStatus]);
 
-  if (error) {
-    throw new Error(error.message);
+  if (cartItemsError) {
+    console.log(cartItemsError.message);
+    return <p>{cartItemsError.message}</p>;
   }
   const isCartEmpty = cartItems.length === 0;
 

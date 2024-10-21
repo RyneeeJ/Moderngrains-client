@@ -1,3 +1,4 @@
+import { getStocks } from "./apiProducts";
 import supabase from "./supabase";
 
 export async function getCart({ queryKey }) {
@@ -63,7 +64,9 @@ export async function getCartItems({ queryKey }) {
     };
   });
 
-  const cartItemsFinalSorted = cartItemsFinal.sort((a, b) => a.id - b.id);
+  const cartWithStocksLeft = await getStocks(cartItemsFinal);
+
+  const cartItemsFinalSorted = cartWithStocksLeft.sort((a, b) => a.id - b.id);
   // return the sorted final array of cart items with complete details needed to display in the cart page
   return cartItemsFinalSorted;
 }
@@ -217,15 +220,17 @@ export async function confirmAllItemsInCart(curStatus) {
 
 export async function updateQuantityFromCart({
   currentQuantity,
+  newQuantity = null,
   id,
   operation,
 }) {
   const quantity =
     operation === "increase" ? currentQuantity + 1 : currentQuantity - 1;
 
+  // console.log(newQuantity || quantity);
   const { error } = await supabase
     .from("cart_items")
-    .update({ quantity })
+    .update({ quantity: newQuantity || quantity })
     .eq("id", id);
 
   if (error) {
