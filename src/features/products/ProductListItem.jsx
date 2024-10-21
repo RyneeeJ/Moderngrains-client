@@ -41,10 +41,10 @@ function ProductListItem({ item }) {
         </span>
         <AddToCartButtonSmall item={item} isOutOfStock={!stocks} />
       </div>
-      <div>
-        Stocks: {stocks} {stocks === 1 && "unit"} {stocks > 1 && "units"}{" "}
-        {!stocks && null} left
-      </div>
+      {/* <div>
+          Stocks: {stocks} {stocks === 1 && "unit"} {stocks > 1 && "units"}{" "}
+          {!stocks && null} left
+        </div> */}
     </li>
   );
 }

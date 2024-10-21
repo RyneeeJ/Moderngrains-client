@@ -1,6 +1,6 @@
 import { formatCurrency } from "../../utils/helpers";
 import QuantityCounter from "../../ui/QuantityCounter";
-import { PiX } from "react-icons/pi";
+import { PiXBold } from "react-icons/pi";
 import { useDeleteCartItem } from "./useDeleteCartItem";
 import { useConfirmItem } from "./useConfirmItem";
 import { useUpdateQuantityFromCart } from "./useUpdateQuantityFromCart";
@@ -13,7 +13,6 @@ function CartListItem({ product }) {
   const { setIsConfirmed, isConfirming } = useConfirmItem();
   const { isUpdating, updateQuantity } = useUpdateQuantityFromCart();
 
-  console.log(stocksLeft);
   // This effect makes sure that the quantity of the product in the cart is always less than or equal to the stocks left
   // This can be improved using WEBSOCKETS in order to utilize real-time query invalidation among all users
   // This will suffice for now
@@ -43,7 +42,7 @@ function CartListItem({ product }) {
     deleteItem(cartItemId);
   }
   return (
-    <li className="relative flex">
+    <li className="relative flex text-lime-800">
       <div className="self-center px-2">
         <input
           type="checkbox"
@@ -54,23 +53,23 @@ function CartListItem({ product }) {
         />
       </div>
 
-      <div className="flex grow rounded-lg border border-yellow-700 bg-lime-50">
+      <div className="flex grow rounded-lg border border-lime-800 bg-lime-50">
         <div className="aspect-square max-w-28 basis-1/3 xs:max-w-56 md:max-w-32">
           <img
             src={image}
-            className="h-full w-full rounded-md border-r border-yellow-700 object-cover object-bottom"
+            className="h-full w-full rounded-md border-r border-lime-800 object-cover object-bottom"
           />
         </div>
-        <div className="flex grow flex-col gap-1 p-3 xs:gap-1.5 xs:p-5 sm:gap-3 sm:p-7 md:grid md:grid-cols-2 md:px-10">
+        <div className="flex grow flex-col gap-1 p-3 font-semibold xs:gap-1.5 xs:p-5 sm:gap-3 sm:p-7 md:grid md:grid-cols-2 md:px-10">
           <div className="text-sm xs:text-base sm:text-xl md:text-2xl">
             {name}
           </div>
-          <div className="text-zinc-800">
-            <span className="text-lg font-semibold xs:text-xl sm:text-2xl md:row-start-2 md:text-3xl">
+          <div>
+            <span className="text-lg font-bold xs:text-xl sm:text-2xl md:row-start-2 md:text-3xl">
               {formatCurrency(price)}
             </span>{" "}
-            <span className="text-xs italic opacity-75 xs:text-sm sm:text-base md:text-xl">
-              per pc
+            <span className="text-xs font-semibold italic xs:text-sm sm:text-base md:text-xl">
+              / pc
             </span>
           </div>
           <div className="mt-auto flex items-center gap-2 md:mt-0">
@@ -85,7 +84,7 @@ function CartListItem({ product }) {
       </div>
 
       <button disabled={isDeleting} onClick={() => handleDeleteItem(id)}>
-        <PiX className="absolute right-1 top-1 size-5 hover:cursor-pointer sm:right-2 sm:top-2 sm:size-6" />
+        <PiXBold className="absolute right-1 top-1 size-5 hover:cursor-pointer sm:right-2 sm:top-2 sm:size-6" />
       </button>
     </li>
   );

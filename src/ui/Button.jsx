@@ -5,7 +5,7 @@ function Button({ type, children, className, ...props }) {
     " rounded-full bg-lime-800 py-2 tracking-wide text-amber-50 transition-all duration-300 hover:bg-lime-700 ";
 
   const secondaryBtnClass =
-    "rounded-full px-4 py-2 text-xs font-medium tracking-wider text-amber-50 transition-all duration-300 hover:cursor-pointer hover:bg-lime-900 sm:text-sm md:px-6 md:py-3 md:text-base";
+    "rounded-full px-4 py-2 text-xs font-medium tracking-wider text-amber-50 transition-all duration-300 hover:cursor-pointer sm:text-sm md:px-6 md:py-3 md:text-base";
 
   if (type === "hero-cta")
     return (
@@ -35,7 +35,10 @@ function Button({ type, children, className, ...props }) {
 
   if (type === "cart-delete")
     return (
-      <button {...props} className={secondaryBtnClass + " bg-lime-950"}>
+      <button
+        {...props}
+        className={secondaryBtnClass + " bg-red-700 hover:bg-red-800"}
+      >
         {children}
       </button>
     );
@@ -44,7 +47,9 @@ function Button({ type, children, className, ...props }) {
     return (
       <Link
         to="/account/profile/purchase-history"
-        className={secondaryBtnClass + " block bg-lime-950 text-center"}
+        className={
+          secondaryBtnClass + " block bg-lime-950 text-center hover:bg-lime-900"
+        }
       >
         {children}
       </Link>
@@ -56,7 +61,7 @@ function Button({ type, children, className, ...props }) {
         {...props}
         className={
           secondaryBtnClass +
-          " flex w-full justify-center gap-2 bg-red-600 hover:bg-red-700"
+          " flex w-full justify-center gap-2 bg-red-700 hover:bg-red-800"
         }
       >
         {children}

@@ -11,10 +11,10 @@ function OrdersListItem({ item }) {
     updateOrder(id);
   }
   return (
-    <li className="flex rounded-md bg-neutral-200">
+    <li className="flex rounded-md border border-lime-800 bg-lime-50 text-lime-800">
       <div className="aspect-square max-w-28 basis-1/4 xs:max-w-32 xs:basis-1/3 sm:max-w-40 md:max-w-48">
         <img
-          className="h-full w-full rounded-md object-cover object-bottom"
+          className="h-full w-full rounded-md border-r border-lime-800 object-cover object-bottom"
           src={image}
         />
       </div>
