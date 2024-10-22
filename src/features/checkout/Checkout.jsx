@@ -50,15 +50,28 @@ function Checkout({ cartItems }) {
   }
 
   if (confirmedItems.length === 0) return null;
+
   return (
-    <div className="flex w-full items-center justify-between">
-      <TotalPrice totalPrice={totalPrice} />
-      <Button type="checkout" disabled={isCheckingOut} onClick={checkout}>
-        {isCheckingOut && <LoaderMini type="checkout" />}
-        {!isCheckingOut &&
-          `Checkout ${numItems} item${numItems > 1 ? "s" : ""}`}
-      </Button>
-    </div>
+    <>
+      <div className="mb-4 flex min-h-16 items-center sm:mb-6">
+        <div className="flex w-full items-center justify-between">
+          <TotalPrice totalPrice={totalPrice} />
+          <Button type="checkout" disabled={isCheckingOut} onClick={checkout}>
+            {isCheckingOut && <LoaderMini type="checkout" />}
+            {!isCheckingOut &&
+              `Checkout ${numItems} item${numItems > 1 ? "s" : ""}`}
+          </Button>
+        </div>
+      </div>
+      <p className="text-sm text-stone-500 sm:text-base">
+        <span className="font-bold uppercase">Note:</span> The checkout process
+        of this project still uses <strong className="uppercase">test</strong>{" "}
+        mode: the only credit card number that works is{" "}
+        <strong>4242 4242 4242 4242</strong>. Any{" "}
+        <em className="underline">future</em> expiration date and CVC will work.
+        Thank you!
+      </p>
+    </>
   );
 }
 
