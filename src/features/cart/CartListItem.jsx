@@ -29,7 +29,7 @@ function CartListItem({ product }) {
 
   function handleIncreaseQuantity() {
     if (quantity >= stocksLeft) {
-      toast.error("Maximum number of stocks reached for this item");
+      toast.error("Max number of stocks reached");
       return;
     }
     updateQuantity({ currentQuantity: quantity, id, operation: "increase" });

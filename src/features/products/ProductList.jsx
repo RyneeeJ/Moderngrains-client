@@ -1,4 +1,3 @@
-import { useCartItems } from "../cart/useCartItems";
 import ProductListItem from "./ProductListItem";
 
 function ProductList({ productsArr, type }) {

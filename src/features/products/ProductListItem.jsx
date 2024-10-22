@@ -1,27 +1,21 @@
 import { formatCurrency } from "../../utils/helpers";
-import { useState } from "react";
-import QuantityCounter from "../../ui/QuantityCounter";
-import AddToCartButton from "../../ui/AddToCartButton";
+import { useRef } from "react";
 import ProductTag from "../../ui/ProductTag";
 import AddToCartButtonSmall from "../../ui/AddToCartButtonSmall";
+import { useNavigate } from "react-router-dom";
 
 function ProductListItem({ item }) {
-  const [quantity, setQuantity] = useState(1);
+  const addToCartBtn = useRef(null);
+  const navigate = useNavigate();
+  const { name: productName, image, price, isBestSeller, stocks, id } = item;
 
-  const { name: productName, image, price, isBestSeller, stocks } = item;
-
-  function handleIncreaseQuantity() {
-    if (quantity === 99) return;
-    setQuantity((count) => count + 1);
-  }
-
-  function handleDecreaseQuantity() {
-    if (quantity === 1) return;
-    setQuantity((count) => count - 1);
+  function handleClickProduct(e) {
+    if (e.target.closest("button") === addToCartBtn.current) return;
+    navigate(`/products/${id}`);
   }
 
   return (
-    <li>
+    <li className="cursor-pointer" onClick={handleClickProduct}>
       <div className="relative aspect-square cursor-pointer overflow-hidden">
         <img
           className="h-full w-full rounded-md object-cover object-bottom transition-all duration-300 hover:scale-110 xs:mb-2"
@@ -39,12 +33,12 @@ function ProductListItem({ item }) {
         <span className="text-sm font-semibold xs:text-lg sm:text-xl">
           {formatCurrency(price)}
         </span>
-        <AddToCartButtonSmall item={item} isOutOfStock={!stocks} />
+        <AddToCartButtonSmall
+          ref={addToCartBtn}
+          item={item}
+          isOutOfStock={!stocks}
+        />
       </div>
-      {/* <div>
-          Stocks: {stocks} {stocks === 1 && "unit"} {stocks > 1 && "units"}{" "}
-          {!stocks && null} left
-        </div> */}
     </li>
   );
 }

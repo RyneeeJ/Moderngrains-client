@@ -26,7 +26,7 @@ export function useAllProducts() {
   const page = Number(searchParams.get("page")) || 1;
 
   // QUERY
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["products", filter, sortBy, page],
     queryFn: () => getAllProducts({ filter, sortBy, page }),
     suspense: true,
@@ -52,7 +52,6 @@ export function useAllProducts() {
   return {
     isLoading,
     products: data?.data,
-    error,
     dataError: data?.error,
     count: data?.count,
   };

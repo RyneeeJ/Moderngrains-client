@@ -1,3 +1,4 @@
+import { PiArrowFatLeftBold, PiArrowFatRightBold } from "react-icons/pi";
 import { useSearchParams } from "react-router-dom";
 
 function Pagination({ count, pageSize }) {
@@ -29,19 +30,29 @@ function Pagination({ count, pageSize }) {
 
   return (
     <div className="mt-8 flex justify-end space-x-4 xs:text-lg md:mt-12 md:text-xl">
-      <button
-        className={currentPageNum === 1 ? "cursor-not-allowed" : ""}
-        onClick={handlePreviousPage}
-      >
-        &larr; Previous{" "}
-      </button>
-      <span className="font-semibold">{currentPage}</span>
-      <button
-        className={currentPageNum === pageCount ? "cursor-not-allowed" : ""}
-        onClick={handleNextPage}
-      >
-        Next &rarr;
-      </button>
+      {currentPageNum !== 1 && (
+        <button
+          className={`${currentPageNum === 1 ? "cursor-not-allowed" : ""} flex items-center gap-2 px-1`}
+          onClick={handlePreviousPage}
+        >
+          <span>
+            <PiArrowFatLeftBold className="size-6" />
+          </span>
+          <span className="font-semibold">Previous</span>
+        </button>
+      )}
+      <span className="text-lg font-semibold">{currentPage}</span>
+      {currentPageNum !== pageCount && (
+        <button
+          className={`${currentPageNum === pageCount ? "cursor-not-allowed" : ""} flex items-center gap-2 px-1`}
+          onClick={handleNextPage}
+        >
+          <span className="font-semibold">Next</span>
+          <span>
+            <PiArrowFatRightBold className="size-6" />
+          </span>
+        </button>
+      )}
     </div>
   );
 }

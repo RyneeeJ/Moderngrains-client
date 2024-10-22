@@ -18,6 +18,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import Signup from "./pages/Signup";
 import ErrorFallback from "./ui/ErrorFallback";
 import PublicRoute from "./ui/PublicRoute";
+import Product from "./pages/Product";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
+      },
+      {
+        path: "/products/:id",
+        element: <Product />,
       },
       {
         path: "/account/cart",
@@ -114,11 +119,11 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster
           toastOptions={{
-            className: "bg-yellow-700 text-amber-50 max-w-full",
+            className: "bg-yellow-700 text-amber-50",
             style: {
               background: "#a16207",
               color: "#fffbeb",
-              maxWidth: "100%",
+              // maxWidth: "100%",
             },
           }}
         />

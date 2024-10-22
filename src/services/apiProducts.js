@@ -39,6 +39,26 @@ export async function getAllProducts({ filter, sortBy, page }) {
   }
 }
 
+export async function getProductDetails({ queryKey }) {
+  try {
+    const [_key, productId] = queryKey;
+
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("id", productId)
+      .single();
+
+    if (!data) {
+      throw new Error("There's no product that matches with this URL");
+    }
+
+    return { data };
+  } catch (err) {
+    return { data: null, error: err.message };
+  }
+}
+
 export async function getStocks(cartItemsArray) {
   const promisesArr = cartItemsArray.map(async (itemObj) => {
     const { data: stocks, error } = await supabase

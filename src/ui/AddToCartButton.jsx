@@ -1,23 +1,37 @@
-import { PiShoppingCartSimple } from "react-icons/pi";
-
-import { useAddToCart } from "../features/cart/useAddToCart";
-import { useCartItems } from "../features/cart/useCartItems";
 import { useState } from "react";
+import { PiSealWarningBold, PiShoppingCartSimpleBold } from "react-icons/pi";
+import { useCartItems } from "../features/cart/useCartItems";
+import { useAddToCart } from "../features/cart/useAddToCart";
 import toast from "react-hot-toast";
 
-function AddToCartButton({ item, setQuantity, quantity, isOutOfStock }) {
-  const [isProcessing, setIsProcessing] = useState(false);
+const iconClass = "size-6 md:size-7";
 
+function AddToCartButton({ isOutOfStock, item, quantity, setQuantity }) {
+  const [isProcessing, setIsProcessing] = useState(false);
   const { cartItems, cartId } = useCartItems();
   const { addItem } = useAddToCart();
 
-  const { name, id: productId, stripeId } = item;
+  const { name, id: productId, stripeId, stocks } = item;
+
+  const itemInCart = cartItems?.find(
+    (cartItem) => cartItem.productId === productId,
+  );
 
   function handleAddToCart() {
     if (isOutOfStock) {
-      toast.error(`${name} is currently out of stock`);
+      toast.error(`${item.name} is currently out of stock`);
+
       return;
     }
+
+    if (itemInCart?.quantity + quantity > stocks) {
+      toast.error(
+        `You already have ${itemInCart.quantity} of this in your cart. Maximum number of stocks reached`,
+      );
+      setQuantity(1);
+      return;
+    }
+
     if (!isProcessing) {
       setIsProcessing(true);
       addItem({
@@ -28,11 +42,12 @@ function AddToCartButton({ item, setQuantity, quantity, isOutOfStock }) {
         cartId,
         cartItemsFinal: cartItems,
       });
-      setQuantity(1);
 
       setTimeout(() => {
         setIsProcessing(false);
       }, 800);
+
+      setQuantity(1);
     }
   }
 
@@ -40,9 +55,24 @@ function AddToCartButton({ item, setQuantity, quantity, isOutOfStock }) {
     <button
       onClick={handleAddToCart}
       disabled={isProcessing}
-      className="absolute right-1 top-1 flex items-center justify-center rounded-full bg-zinc-800 p-1 transition-all duration-200 hover:cursor-pointer hover:bg-zinc-700 xs:p-1.5"
+      className={`mb-3 flex items-center justify-center rounded-md py-2 text-xl font-semibold text-amber-50 transition-all duration-200 md:py-3.5 md:text-2xl md:font-bold ${isOutOfStock ? "bg-red-600 hover:bg-red-700" : "bg-lime-800 hover:bg-lime-900"} gap-2`}
     >
-      <PiShoppingCartSimple className="text-amber-50 xs:size-5" />
+      {isOutOfStock && (
+        <>
+          <span>
+            <PiSealWarningBold className={iconClass} />
+          </span>
+          <span>Not available</span>
+        </>
+      )}
+      {!isOutOfStock && (
+        <>
+          <span>
+            <PiShoppingCartSimpleBold className={iconClass} />
+          </span>
+          <span>Add to cart</span>
+        </>
+      )}
     </button>
   );
 }
