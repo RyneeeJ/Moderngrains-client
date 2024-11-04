@@ -119,11 +119,12 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster
           toastOptions={{
-            className: "bg-yellow-700 text-amber-50",
+            className:
+              "bg-yellow-700 text-amber-50 max-w-screen text-sm sm:text-base md:text-lg",
             style: {
               background: "#a16207",
               color: "#fffbeb",
-              // maxWidth: "100%",
+              maxWidth: "100%",
             },
           }}
         />

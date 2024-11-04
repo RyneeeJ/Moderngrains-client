@@ -32,7 +32,7 @@ function ProductDetails() {
 
   return (
     <div className="mx-auto flex max-w-lg flex-col px-9 text-yellow-800 md:max-w-full md:flex-row md:gap-5 md:px-0">
-      <div className="flex-col md:flex md:max-w-96">
+      <div className="md:flex md:max-w-96 md:flex-col">
         {isBestSeller && <BestSellerLabel />}
 
         <ProductImageMain image={image} name={name} />

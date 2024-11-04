@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/helpers";
+import { formatCurrency, scrollToTop } from "../../utils/helpers";
 import { useRef } from "react";
 import ProductTag from "../../ui/ProductTag";
 import AddToCartButtonSmall from "../../ui/AddToCartButtonSmall";
@@ -12,6 +12,7 @@ function ProductListItem({ item }) {
   function handleClickProduct(e) {
     if (e.target.closest("button") === addToCartBtn.current) return;
     navigate(`/products/${id}`);
+    scrollToTop();
   }
 
   return (
