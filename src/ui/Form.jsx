@@ -6,7 +6,7 @@ function Form({ children, type, onSubmit }) {
           ModernGrains
         </h2>
         <span className="mb-5 text-sm sm:mb-8 sm:text-base">
-          {type === "login" ? "Log in your account" : "Create an account"}
+          {type === "login" ? "Log into your account" : "Create an account"}
         </span>
         <form onSubmit={onSubmit} className="w-full max-w-sm self-center">
           {children}

@@ -23,7 +23,7 @@ function LoginForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(submitLogin)}>
+    <Form type="login" onSubmit={handleSubmit(submitLogin)}>
       <FormInputContainer>
         <FormRow errorMessage={errors?.email?.message} label="Email" id="email">
           <FormInput
