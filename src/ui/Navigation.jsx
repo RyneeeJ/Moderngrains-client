@@ -14,7 +14,7 @@ import NavLinkLabel from "./NavLinkLabel";
 function Navigation() {
   const { user, isLoading, isAuthenticated } = useUser();
 
-  // I didnt use suspense loader here to avoid loading spinner in the header navigation
+  // Didnt use suspense loader here to avoid loading spinner in the header navigation
   if (isLoading) return null;
 
   const iconClass = "size-5 xs:size-6 md:size-7";

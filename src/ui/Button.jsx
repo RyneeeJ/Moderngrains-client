@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { scrollToTop } from "../utils/helpers";
 
 function Button({ type, children, className, ...props }) {
   const primaryBtnClass =
@@ -10,6 +11,7 @@ function Button({ type, children, className, ...props }) {
   if (type === "hero-cta")
     return (
       <Link
+        onClick={scrollToTop}
         to="/products"
         className={
           "absolute bottom-[3rem] right-[1.5rem] px-6 font-bold xs:px-8 xs:text-xl sm:bottom-[4rem] sm:right-[3rem] sm:px-9 sm:py-3 sm:text-2xl md:bottom-[5rem] md:right-[4rem]" +
